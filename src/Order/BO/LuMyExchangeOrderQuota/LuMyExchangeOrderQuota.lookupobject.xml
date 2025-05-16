@@ -1,8 +1,0 @@
-<LookupObject name="LuMyExchangeOrderQuota">
-  <DataSource name="DsLuMyExchangeOrderQuota" />
-  <SimpleProperties>
-    <SimpleProperty id="true" name="pKey" type="DomPKey" dataSourceProperty="pKey" />
-    <SimpleProperty name="myRemainingQuota" type="DomString" dataSourceProperty="text" />
-  </SimpleProperties>
-  <Methods></Methods>
-</LookupObject>

@@ -1,4 +1,0 @@
-<ListObject name="LoMySalesAgreements" generateLoadMethod="true" schemaVersion="1.1">
-  <DataSource name="DsLoMySalesAgreements" />
-  <Item objectClass="LiMySalesAgreements" />
-</ListObject>

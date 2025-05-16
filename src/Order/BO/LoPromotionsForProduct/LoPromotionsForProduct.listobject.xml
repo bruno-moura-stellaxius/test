@@ -1,7 +1,0 @@
-<ListObject name="LoPromotionsForProduct" generateLoadMethod="true" >
-  <DataSource name="DsLoPromotionsForProduct" />
-  <Item objectClass="LiPromotionsForProduct" />
-  <Methods>
-    <Method name="setVisible" />
-  </Methods>
-</ListObject>

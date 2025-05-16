@@ -1,8 +1,0 @@
-<ListItem name="LiMyOrderStatus">
-  <SimpleProperties>
-    <SimpleProperty name="orderType" type="Text" dataSourceProperty="orderType" />
-    <SimpleProperty name="orderCount" type="DomDecimal" dataSourceProperty="orderCount" />
-    <SimpleProperty name="orderAmount" type="DomDecimal" dataSourceProperty="orderAmount" />
-    <SimpleProperty name="sort" type="DomDecimal" dataSourceProperty="sort" />
-  </SimpleProperties>
-</ListItem>

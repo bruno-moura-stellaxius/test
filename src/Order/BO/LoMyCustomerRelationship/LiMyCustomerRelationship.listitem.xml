@@ -1,8 +1,0 @@
-<ListItem name="LiMyCustomerRelationship">
-  <SimpleProperties>
-    <SimpleProperty id="true" name="pKey" type="DomPKey" storable="false" dataSourceProperty="pKey" />
-    <SimpleProperty name="relatedAccountPKey" type="DomPKey" dataSourceProperty="relatedAccountPKey" />
-    <SimpleProperty name="relatedAccountName" type="DomText" storable="false" dataSourceProperty="name" />
-    <SimpleProperty name="ranking" type="DomPKey" dataSourceProperty="ranking" />
-  </SimpleProperties>
-</ListItem>

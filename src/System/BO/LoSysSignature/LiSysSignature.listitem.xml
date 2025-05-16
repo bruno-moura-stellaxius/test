@@ -1,5 +1,0 @@
-<ListItem name="LiSysSignature">
-  <SimpleProperties>
-    <SimpleProperty name="pKey" type="DomPKey" />
-  </SimpleProperties>
-</ListItem>

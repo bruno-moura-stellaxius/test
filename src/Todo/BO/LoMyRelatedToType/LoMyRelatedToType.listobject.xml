@@ -1,7 +1,0 @@
-<ListObject name="LoMyRelatedToType" generateLoadMethod="true" schemaVersion="1.1">
-  <DataSource name="DsLoMyRelatedToType" />
-  <Item objectClass="LiMyRelatedToType" />
-  <Methods>
-    <Method name="loadAsync" />
-  </Methods>
-</ListObject>

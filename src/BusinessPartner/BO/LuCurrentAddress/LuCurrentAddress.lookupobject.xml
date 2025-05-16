@@ -1,9 +1,0 @@
-<LookupObject name="LuCurrentAddress" generateLoadMethod="true" schemaVersion="1.1">
-  <DataSource name="DsLuCurrentAddress" />
-  <SimpleProperties></SimpleProperties>
-  <Methods>
-    <Method name="afterLoadAsync" />
-    <Method name="beforeLoadAsync" />
-    <Method name="loadAsync" />
-  </Methods>
-</LookupObject>

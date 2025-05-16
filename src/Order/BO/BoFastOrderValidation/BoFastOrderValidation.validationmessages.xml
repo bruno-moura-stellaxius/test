@@ -1,3 +1,0 @@
-<ValidationMessages name="BoFastOrderValidationMessages" businessObject="BoFastOrderValidation" schemaVersion="">
-  <ValidationMessage name="CasBoFastOrderChanges" defaultMessage="Are you sure? Your changes will be lost." comment="" />
-</ValidationMessages>

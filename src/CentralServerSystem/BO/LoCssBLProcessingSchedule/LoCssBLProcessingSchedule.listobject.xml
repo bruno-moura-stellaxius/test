@@ -1,7 +1,0 @@
-<ListObject name="LoCssBLProcessingSchedule" generateLoadMethod="true" >
-  <DataSource name="DsLoCssBLProcessingSchedule" />
-  <Item objectClass="LiCssBLProcessingSchedule" />
-  <Methods>
-    <Method name="saveAsync" />
-  </Methods>
-</ListObject>

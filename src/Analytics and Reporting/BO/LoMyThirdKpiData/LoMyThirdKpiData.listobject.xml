@@ -1,7 +1,0 @@
-<ListObject name="LoMyThirdKpiData" generateLoadMethod="true" schemaVersion="1.1">
-  <DataSource name="DsLoMyThirdKpiData"/>
-  <Item objectClass="LiMyThirdKpiData"/>
-  <Methods>
-    <Method name="myGetThirdKpiData"/>
-  </Methods>
-</ListObject>

@@ -1,7 +1,0 @@
-<ListObject name="LoMyExchangeType" generateLoadMethod="true" schemaVersion="1.1">
-  <DataSource name="DsLoMyExchangeType" />
-  <Item objectClass="LiMyExchangeType" />
-  <Methods>
-    <Method name="loadAsync" />
-  </Methods>
-</ListObject>
