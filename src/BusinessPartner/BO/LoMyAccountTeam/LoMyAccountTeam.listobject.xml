@@ -1,0 +1,5 @@
+<ListObject name="LoMyAccountTeam" generateLoadMethod="true" schemaVersion="1.1">
+  <DataSource name="DsLoMyAccountTeam" />
+  <Item objectClass="LiMyAccountTeam" />
+  <Methods/>
+</ListObject>

@@ -1,0 +1,11 @@
+<LookupObject name="LuMySplitForExchange">
+  <DataSource name="DsLuMySplitForExchange" />
+  <SimpleProperties>
+    <SimpleProperty id="true" name="pKey" type="DomPKey" dataSourceProperty="pKey" />
+    <SimpleProperty name="name" type="DomString" dataSourceProperty="name" />
+    <SimpleProperty name="myDeliveryDate" type="DomDate" dataSourceProperty="myDeliveryDate" />
+    <SimpleProperty name="myTotalValue" type="DomDecimal" dataSourceProperty="myTotalValue" />
+    <SimpleProperty name="myExchangeItemTemplate" type="DomPKey" dataSourceProperty="myExchangeItemTemplate" />
+  </SimpleProperties>
+  <Methods></Methods>
+</LookupObject>

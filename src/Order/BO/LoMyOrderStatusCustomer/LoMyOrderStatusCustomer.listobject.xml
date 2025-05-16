@@ -1,0 +1,8 @@
+<ListObject name="LoMyOrderStatusCustomer" generateLoadMethod="true" schemaVersion="1.1">
+  <DataSource name="DsLoMyOrderStatusCustomer" />
+  <Item objectClass="LiMyOrderStatusCustomer" />
+  <Methods>
+    <Method name="afterLoadAsync" />
+    <Method name="beforeLoadAsync" />
+  </Methods>
+</ListObject>

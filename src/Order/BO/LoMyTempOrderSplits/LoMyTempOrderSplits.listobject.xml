@@ -1,0 +1,6 @@
+<ListObject name="LoMyTempOrderSplits" generateLoadMethod="true" schemaVersion="1.1">
+  <!-- This object is created and managaed in the BoMyWizardOrderSplits -->
+  <DataSource name="" />
+  <Item objectClass="LiMyTempOrderSplits" />
+  <Methods/>
+</ListObject>

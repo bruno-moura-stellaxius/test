@@ -1,0 +1,755 @@
+<PrintLayout xmlns="https://www.salesforce.com/cgcloud/xsds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PerrigoMyOrderSummaryPDF">
+  <Declarations>
+    <DataDeclaration name="order" type="BoOrder" />
+    <DataDeclaration name="salesOrg" type="LuSalesOrg" />
+    <DataDeclaration name="myImageName" type="Image" mimeType="image/png" imageId="MyPerrigoLogo" />
+    <DataDeclaration name="mySplitSummaryPDF" type="BoMySplitSummaryPDF" />
+
+    <DataDeclaration name="signature1" type="Signature" />
+  </Declarations>
+  <ReportLayout pageMargins="[30,30,30,30]">
+    <div>
+    <visibility>
+      <visibilityBinding binding="{{Declarations::mySplitSummaryPDF.showSplit1}}" value="1" operator="EQ" />     
+    </visibility>
+    <img src="{{Declarations::myImageName}}" width="100" />
+
+    <table name="SalesOrgTable1" dontBreakRows="false" tableLayout="noBorders">
+      <tbody> 
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.phone1}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.street}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.fax1}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.houseNumber}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.myEmail}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.zipCode}} {{Declarations::salesOrg.city}}</td>
+          <td width="130" />
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.myCountry}}</td>
+          <td width="130" />
+        </tr>
+      </tbody>
+    </table>
+
+     <h2 alignment="center">{{Labels::OrderSummary; defaultLabel=Order Summary}}</h2>
+
+    <table name="MainCustomer1" dontBreakRows="false" tableLayout="lightHorizontalLines">
+      <tbody> 
+        <tr>
+          <td alignment="left" bold="true">{{Labels::CustomerName; defaultLabel=Customer Name: }} {{Declarations::order.luOrderer.name}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Labels::PONumber; defaultLabel=PO Number: }} {{Declarations::order.myPONumber1}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Labels::DeliveryDate; defaultLabel=Delivery Date: }} {{Declarations::mySplitSummaryPDF.myDD1}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table name="SoldToInfo1" dontBreakRows="false" tableLayout="lightHorizontalLines">
+      <thead>
+        <tr>
+          <th width="130" alignment="center">{{Labels::BillTo; defaultLabel=Bill-To}}</th>
+          <th width="130" alignment="center">{{Labels::ShipTo; defaultLabel=Ship-To}}</th>
+          <th width="130" alignment="center">{{Labels::SoldTo; defaultLabel=Sold-To}}</th>
+        </tr>
+      </thead>
+      <tbody> 
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.name}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.name}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo1.name}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myStreet}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myStreet}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo1.myStreet}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myPostalCode}} {{Declarations::order.luOrderer.myCity}} </td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myPostalCode}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo1.myPostalCode}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCity}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCity}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo1.myCity}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCountry}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCountry}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo1.myCountry}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 alignment="left">{{Labels::PerSplitOrderLine; defaultLabel=Per split order line}}-{{Declarations::order.currency}}</h2>
+    <table tableLayout="lightHorizontalLinesMainItemsOnly" name="OrderItemsTable1">
+      <thead>
+        <tr>
+          <th width="70">{{Labels::PrdNumberId; defaultLabel=Product Code}}</th>
+          <th width="80">{{Labels::TextId; defaultLabel=Product Name}}</th>
+          <th width="45" alignment="center">{{Labels::UnitId; defaultLabel=Unit Price}}</th>
+          <th width="45" alignment="center">{{Labels::QuantityId; defaultLabel=Discount}}</th>
+          <th width="45" alignment="center">{{Labels::UnitPriceId; defaultLabel=Sales Price}}</th>
+          <th width="45" alignment="center">{{Labels::FullAmountId; defaultLabel=Qty}}</th>
+          <th width="45" alignment="center">{{Labels::NettoAmountId; defaultLabel=Total Price}}</th>
+          <th width="45" alignment="center">{{Labels::VatPercentageLabelId; defaultLabel=Vat}}</th>
+          <th width="45" alignment="center">{{Labels::TotalPriceWithVATId; defaultLabel=Total with VAT}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <each name="itemsEach" value="{{Declarations::mySplitSummaryPDF.loMySplitItemsPDF}}">
+          <filters>
+            <filter fieldName="q1" value="0" operator="GT" compareMode="NUMBER" />
+          </filters>
+          <orderCriteria>
+            <orderCriterion fieldName="productCode" direction="ASC" compareMode="NUMBER" />
+          </orderCriteria>
+          <tr>
+            <td>{{.productCode}}</td>
+            <td>{{.productName}}</td>
+            <td alignment="center">{{.basePrice; numberFormat=8.2}}</td>
+            <td alignment="right">{{.discount}}</td>
+            <td alignment="right">{{.discountedPrice; numberFormat=8.2}}</td>
+            <td alignment="right">{{.q1;}}</td>
+            <td alignment="right">{{.totalValue1; numberFormat=8.2}}</td>
+            <td alignment="right">{{.vatPerc; numberFormat=8.2}}</td>
+            <td alignment="right">{{.totalValueWithVat1; numberFormat=8.2}}</td>
+          </tr>
+        </each>
+      </tbody>
+    </table>
+    <p> --------------------------------------------------------------------- </p>
+    <p> --------------------------- End of Split 1 -------------------------- </p>
+    <p> --------------------------------------------------------------------- </p>
+    </div>
+
+     
+    
+
+
+    <div>
+    <visibility>
+      <visibilityBinding binding="{{Declarations::mySplitSummaryPDF.showSplit2}}" value="1" operator="EQ" />       
+    </visibility>
+    <img src="{{Declarations::myImageName}}" width="100" />
+
+    <table name="SalesOrgTable2" dontBreakRows="false" tableLayout="noBorders">
+      <tbody> 
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.street}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.fax1}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.fax1}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.zipCode}} {{Declarations::salesOrg.city}}</td>
+          <td width="130" />
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.city}}</td>
+          <td width="130" />
+        </tr>
+      </tbody>
+    </table>
+
+     <h2 alignment="center">{{Labels::OrderSummary; defaultLabel=Order Summary}}</h2>
+
+    <table name="MainCustomer2" dontBreakRows="false" tableLayout="lightHorizontalLines">
+      <tbody> 
+        <tr>
+          <td alignment="left" bold="true">{{Labels::CustomerName; defaultLabel=Customer Name: }} {{Declarations::order.luOrderer.name}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Labels::PONumber; defaultLabel=PO Number: }} {{Declarations::order.myPONumber2}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Labels::DeliveryDate; defaultLabel=Delivery Date: }} {{Declarations::mySplitSummaryPDF.myDD2}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table name="SoldToInfo2" dontBreakRows="false" tableLayout="lightHorizontalLines">
+      <thead>
+        <tr>
+          <th width="130" alignment="center">{{Labels::BillTo; defaultLabel=Bill-To}}</th>
+          <th width="130" alignment="center">{{Labels::ShipTo; defaultLabel=Ship-To}}</th>
+          <th width="130" alignment="center">{{Labels::SoldTo; defaultLabel=Sold-To}}</th>
+        </tr>
+      </thead>
+      <tbody> 
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.name}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.name}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo2.name}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myStreet}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myStreet}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo2.myStreet}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myPostalCode}} {{Declarations::order.luOrderer.myCity}} </td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myPostalCode}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo2.myPostalCode}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCity}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCity}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo2.myCity}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table tableLayout="lightHorizontalLinesMainItemsOnly" name="OrderItemsTable2">
+      <thead>
+        <tr>
+          <th width="70">{{Labels::PrdNumberId; defaultLabel=Product Code}}</th>
+          <th width="80">{{Labels::TextId; defaultLabel=Product Name}}</th>
+          <th width="45" alignment="center">{{Labels::UnitId; defaultLabel=Unit Price}}</th>
+          <th width="45" alignment="center">{{Labels::QuantityId; defaultLabel=Discount}}</th>
+          <th width="45" alignment="center">{{Labels::UnitPriceId; defaultLabel=Sales Price}}</th>
+          <th width="45" alignment="center">{{Labels::FullAmountId; defaultLabel=Qty}}</th>
+          <th width="45" alignment="center">{{Labels::NettoAmountId; defaultLabel=Total Price}}</th>
+          <th width="45" alignment="center">{{Labels::VatPercentageLabelId; defaultLabel=Vat}}</th>
+          <th width="45" alignment="center">{{Labels::TotalPriceWithVATId; defaultLabel=Total with VAT}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <each name="itemsEach" value="{{Declarations::mySplitSummaryPDF.loMySplitItemsPDF}}">
+          <filters>
+            <filter fieldName="q2" value="0" operator="GT" compareMode="NUMBER" />
+          </filters>
+          <orderCriteria>
+            <orderCriterion fieldName="productCode" direction="ASC" compareMode="NUMBER" />
+          </orderCriteria>
+          <tr>
+            <td>{{.productCode}}</td>
+            <td>{{.productName}}</td>
+            <td alignment="center">{{.basePrice; numberFormat=8.2}}</td>
+            <td alignment="right">{{.discount}}</td>
+            <td alignment="right">{{.discountedPrice; numberFormat=8.2}}</td>
+            <td alignment="right">{{.q2;}}</td>
+            <td alignment="right">{{.totalValue2; numberFormat=8.2}}</td>
+            <td alignment="right">{{.vatPerc; numberFormat=8.2}}</td>
+            <td alignment="right">{{.totalValueWithVat2; numberFormat=8.2}}</td>
+          </tr>
+        </each>
+      </tbody>
+    </table>
+    <p> --------------------------------------------------------------------- </p>
+    <p> --------------------------- End of Split 2 -------------------------- </p>
+    <p> --------------------------------------------------------------------- </p>
+    </div>
+
+    <div>
+    <visibility>
+      <visibilityBinding binding="{{Declarations::mySplitSummaryPDF.showSplit3}}" value="1" operator="EQ" />       
+    </visibility>
+    <img src="{{Declarations::myImageName}}" width="100" />
+
+    <table name="SalesOrgTable3" dontBreakRows="false" tableLayout="noBorders">
+      <tbody> 
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.street}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.fax1}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.fax1}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.zipCode}} {{Declarations::salesOrg.city}}</td>
+          <td width="130" />
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.city}}</td>
+          <td width="130" />
+        </tr>
+      </tbody>
+    </table>
+
+     <h2 alignment="center">{{Labels::OrderSummary; defaultLabel=Order Summary}}</h2>
+
+    <table name="MainCustomer3" dontBreakRows="false" tableLayout="lightHorizontalLines">
+      <tbody> 
+        <tr>
+          <td alignment="left" bold="true">{{Labels::CustomerName; defaultLabel=Customer Name: }} {{Declarations::order.luOrderer.name}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Labels::PONumber; defaultLabel=PO Number: }} {{Declarations::order.myPONumber3}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Labels::DeliveryDate; defaultLabel=Delivery Date: }} {{Declarations::mySplitSummaryPDF.myDD3}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table name="SoldToInfo3" dontBreakRows="false" tableLayout="lightHorizontalLines">
+      <thead>
+        <tr>
+          <th width="130" alignment="center">{{Labels::BillTo; defaultLabel=Bill-To}}</th>
+          <th width="130" alignment="center">{{Labels::ShipTo; defaultLabel=Ship-To}}</th>
+          <th width="130" alignment="center">{{Labels::SoldTo; defaultLabel=Sold-To}}</th>
+        </tr>
+      </thead>
+      <tbody> 
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.name}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.name}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo3.name}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myStreet}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myStreet}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo3.myStreet}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myPostalCode}} {{Declarations::order.luOrderer.myCity}} </td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myPostalCode}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo3.myPostalCode}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCity}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCity}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo3.myCity}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table tableLayout="lightHorizontalLinesMainItemsOnly" name="OrderItemsTable3">
+      <thead>
+        <tr>
+          <th width="70">{{Labels::PrdNumberId; defaultLabel=Product Code}}</th>
+          <th width="80">{{Labels::TextId; defaultLabel=Product Name}}</th>
+          <th width="45" alignment="center">{{Labels::UnitId; defaultLabel=Unit Price}}</th>
+          <th width="45" alignment="center">{{Labels::QuantityId; defaultLabel=Discount}}</th>
+          <th width="45" alignment="center">{{Labels::UnitPriceId; defaultLabel=Sales Price}}</th>
+          <th width="45" alignment="center">{{Labels::FullAmountId; defaultLabel=Qty}}</th>
+          <th width="45" alignment="center">{{Labels::NettoAmountId; defaultLabel=Total Price}}</th>
+          <th width="45" alignment="center">{{Labels::VatPercentageLabelId; defaultLabel=Vat}}</th>
+          <th width="45" alignment="center">{{Labels::TotalPriceWithVATId; defaultLabel=Total with VAT}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <each name="itemsEach" value="{{Declarations::mySplitSummaryPDF.loMySplitItemsPDF}}">
+          <filters>
+            <filter fieldName="q3" value="0" operator="GT" compareMode="NUMBER" />
+          </filters>
+          <orderCriteria>
+            <orderCriterion fieldName="productCode" direction="ASC" compareMode="NUMBER" />
+          </orderCriteria>
+          <tr>
+            <td>{{.productCode}}</td>
+            <td>{{.productName}}</td>
+            <td alignment="center">{{.basePrice; numberFormat=8.2}}</td>
+            <td alignment="right">{{.discount}}</td>
+            <td alignment="right">{{.discountedPrice; numberFormat=8.2}}</td>
+            <td alignment="right">{{.q3;}}</td>
+            <td alignment="right">{{.totalValue3; numberFormat=8.2}}</td>
+            <td alignment="right">{{.vatPerc; numberFormat=8.2}}</td>
+            <td alignment="right">{{.totalValueWithVat3; numberFormat=8.2}}</td>
+          </tr>
+        </each>
+      </tbody>
+    </table>
+    <p> --------------------------------------------------------------------- </p>
+    <p> --------------------------- End of Split 3 -------------------------- </p>
+    <p> --------------------------------------------------------------------- </p>
+    </div>
+
+
+
+
+    <div>
+    <visibility>
+      <visibilityBinding binding="{{Declarations::mySplitSummaryPDF.showSplit4}}" value="1" operator="EQ" />       
+    </visibility>
+    <img src="{{Declarations::myImageName}}" width="100" />
+
+    <table name="SalesOrgTable4" dontBreakRows="false" tableLayout="noBorders">
+      <tbody> 
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.street}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.fax1}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.fax1}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.zipCode}} {{Declarations::salesOrg.city}}</td>
+          <td width="130" />
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.city}}</td>
+          <td width="130" />
+        </tr>
+      </tbody>
+    </table>
+
+     <h2 alignment="center">{{Labels::OrderSummary; defaultLabel=Order Summary}}</h2>
+
+    <table name="MainCustomer2" dontBreakRows="false" tableLayout="lightHorizontalLines">
+      <tbody> 
+        <tr>
+          <td alignment="left" bold="true">{{Labels::CustomerName; defaultLabel=Customer Name: }} {{Declarations::order.luOrderer.name}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Labels::PONumber; defaultLabel=PO Number: }} {{Declarations::order.myPONumber4}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Labels::DeliveryDate; defaultLabel=Delivery Date: }} {{Declarations::mySplitSummaryPDF.myDD4}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table name="SoldToInfo2" dontBreakRows="false" tableLayout="lightHorizontalLines">
+      <thead>
+        <tr>
+          <th width="130" alignment="center">{{Labels::BillTo; defaultLabel=Bill-To}}</th>
+          <th width="130" alignment="center">{{Labels::ShipTo; defaultLabel=Ship-To}}</th>
+          <th width="130" alignment="center">{{Labels::SoldTo; defaultLabel=Sold-To}}</th>
+        </tr>
+      </thead>
+      <tbody> 
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.name}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.name}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo4.name}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myStreet}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myStreet}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo4.myStreet}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myPostalCode}} {{Declarations::order.luOrderer.myCity}} </td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myPostalCode}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo4.myPostalCode}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCity}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCity}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo4.myCity}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table tableLayout="lightHorizontalLinesMainItemsOnly" name="OrderItemsTable4">
+      <thead>
+        <tr>
+          <th width="70">{{Labels::PrdNumberId; defaultLabel=Product Code}}</th>
+          <th width="80">{{Labels::TextId; defaultLabel=Product Name}}</th>
+          <th width="45" alignment="center">{{Labels::UnitId; defaultLabel=Unit Price}}</th>
+          <th width="45" alignment="center">{{Labels::QuantityId; defaultLabel=Discount}}</th>
+          <th width="45" alignment="center">{{Labels::UnitPriceId; defaultLabel=Sales Price}}</th>
+          <th width="45" alignment="center">{{Labels::FullAmountId; defaultLabel=Qty}}</th>
+          <th width="45" alignment="center">{{Labels::NettoAmountId; defaultLabel=Total Price}}</th>
+          <th width="45" alignment="center">{{Labels::VatPercentageLabelId; defaultLabel=Vat}}</th>
+          <th width="45" alignment="center">{{Labels::TotalPriceWithVATId; defaultLabel=Total with VAT}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <each name="itemsEach" value="{{Declarations::mySplitSummaryPDF.loMySplitItemsPDF}}">
+          <filters>
+            <filter fieldName="q4" value="0" operator="GT" compareMode="NUMBER" />
+          </filters>
+          <orderCriteria>
+            <orderCriterion fieldName="prdId" direction="ASC" compareMode="NUMBER" />
+          </orderCriteria>
+          <tr>
+            <td>{{.productCode}}</td>
+            <td>{{.productName}}</td>
+            <td alignment="center">{{.basePrice; numberFormat=8.2}}</td>
+            <td alignment="right">{{.discount}}</td>
+            <td alignment="right">{{.discountedPrice; numberFormat=8.2}}</td>
+            <td alignment="right">{{.q4;}}</td>
+            <td alignment="right">{{.totalValue4; numberFormat=8.2}}</td>
+            <td alignment="right">{{.vatPerc; numberFormat=8.2}}</td>
+            <td alignment="right">{{.totalValueWithVat4; numberFormat=8.2}}</td>
+          </tr>
+        </each>
+      </tbody>
+    </table>
+    <p> --------------------------------------------------------------------- </p>
+    <p> --------------------------- End of Split 4 -------------------------- </p>
+    <p> --------------------------------------------------------------------- </p>
+    </div>
+
+
+
+
+
+    <div>
+    <visibility>
+      <visibilityBinding binding="{{Declarations::mySplitSummaryPDF.showSplit5}}" value="1" operator="EQ" />       
+    </visibility>
+    <img src="{{Declarations::myImageName}}" width="100" />
+
+    <table name="SalesOrgTable5" dontBreakRows="false" tableLayout="noBorders">
+      <tbody> 
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.phone1}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.street}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.fax1}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.accountNumber}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.fax1}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.zipCode}} {{Declarations::salesOrg.city}}</td>
+          <td width="130" />
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.city}}</td>
+          <td width="130" />
+        </tr>
+      </tbody>
+    </table>
+
+     <h2 alignment="center">{{Labels::OrderSummary; defaultLabel=Order Summary}}</h2>
+
+    <table name="MainCustomer2" dontBreakRows="false" tableLayout="lightHorizontalLines">
+      <tbody> 
+        <tr>
+          <td alignment="left" bold="true">{{Labels::CustomerName; defaultLabel=Customer Name: }} {{Declarations::order.luOrderer.name}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Labels::PONumber; defaultLabel=PO Number: }} {{Declarations::order.myPONumber5}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Labels::DeliveryDate; defaultLabel=Delivery Date: }} {{Declarations::mySplitSummaryPDF.myDD5}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table name="SoldToInfo2" dontBreakRows="false" tableLayout="lightHorizontalLines">
+      <thead>
+        <tr>
+          <th width="130" alignment="center">{{Labels::BillTo; defaultLabel=Bill-To}}</th>
+          <th width="130" alignment="center">{{Labels::ShipTo; defaultLabel=Ship-To}}</th>
+          <th width="130" alignment="center">{{Labels::SoldTo; defaultLabel=Sold-To}}</th>
+        </tr>
+      </thead>
+      <tbody> 
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.name}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.name}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo5.name}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myStreet}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myStreet}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo5.myStreet}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myPostalCode}} {{Declarations::order.luOrderer.myCity}} </td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myPostalCode}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo5.myPostalCode}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCity}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCity}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo5.myCity}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table tableLayout="lightHorizontalLinesMainItemsOnly" name="OrderItemsTable5">
+      <thead>
+        <tr>
+          <th width="70">{{Labels::PrdNumberId; defaultLabel=Product Code}}</th>
+          <th width="80">{{Labels::TextId; defaultLabel=Product Name}}</th>
+          <th width="45" alignment="center">{{Labels::UnitId; defaultLabel=Unit Price}}</th>
+          <th width="45" alignment="center">{{Labels::QuantityId; defaultLabel=Discount}}</th>
+          <th width="45" alignment="center">{{Labels::UnitPriceId; defaultLabel=Sales Price}}</th>
+          <th width="45" alignment="center">{{Labels::FullAmountId; defaultLabel=Qty}}</th>
+          <th width="45" alignment="center">{{Labels::NettoAmountId; defaultLabel=Total Price}}</th>
+          <th width="45" alignment="center">{{Labels::VatPercentageLabelId; defaultLabel=Vat}}</th>
+          <th width="45" alignment="center">{{Labels::TotalPriceWithVATId; defaultLabel=Total with VAT}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <each name="itemsEach" value="{{Declarations::mySplitSummaryPDF.loMySplitItemsPDF}}">
+          <filters>
+            <filter fieldName="q5" value="0" operator="GT" compareMode="NUMBER" />
+          </filters>
+          <orderCriteria>
+            <orderCriterion fieldName="productCode" direction="ASC" compareMode="NUMBER" />
+          </orderCriteria>
+          <tr>
+            <td>{{.productCode}}</td>
+            <td>{{.productName}}</td>
+            <td alignment="center">{{.basePrice; numberFormat=8.2}}</td>
+            <td alignment="right">{{.discount}}</td>
+            <td alignment="right">{{.discountedPrice; numberFormat=8.2}}</td>
+            <td alignment="right">{{.q5;}}</td>
+            <td alignment="right">{{.totalValue5; numberFormat=8.2}}</td>
+            <td alignment="right">{{.vatPerc; numberFormat=8.2}}</td>
+            <td alignment="right">{{.totalValueWithVat5; numberFormat=8.2}}</td>
+          </tr>
+        </each>
+      </tbody>
+    </table>
+    <p> --------------------------------------------------------------------- </p>
+    <p> --------------------------- End of Split 5 -------------------------- </p>
+    <p> --------------------------------------------------------------------- </p>
+    </div>
+
+
+
+
+    <div>
+    <visibility>
+      <visibilityBinding binding="{{Declarations::mySplitSummaryPDF.showSplit6}}" value="1" operator="EQ" />       
+    </visibility>
+    <img src="{{Declarations::myImageName}}" width="100" />
+
+    <table name="SalesOrgTable6" dontBreakRows="false" tableLayout="noBorders">
+      <tbody> 
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.street}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.fax1}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.text}}</td>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.fax1}}</td>
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.zipCode}} {{Declarations::salesOrg.city}}</td>
+          <td width="130" />
+        </tr>
+        <tr>
+          <td width="130" alignment="left" bold="true">{{Declarations::salesOrg.city}}</td>
+          <td width="130" />
+        </tr>
+      </tbody>
+    </table>
+
+     <h2 alignment="center">{{Labels::OrderSummary; defaultLabel=Order Summary}}</h2>
+
+    <table name="MainCustomer2" dontBreakRows="false" tableLayout="lightHorizontalLines">
+      <tbody> 
+        <tr>
+          <td alignment="left" bold="true">{{Labels::CustomerName; defaultLabel=Customer Name: }} {{Declarations::order.luOrderer.name}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Labels::PONumber; defaultLabel=PO Number: }} {{Declarations::order.myPONumber6}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Labels::DeliveryDate; defaultLabel=Delivery Date: }} {{Declarations::mySplitSummaryPDF.myDD6}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table name="SoldToInfo2" dontBreakRows="false" tableLayout="lightHorizontalLines">
+      <thead>
+        <tr>
+          <th width="130" alignment="center">{{Labels::BillTo; defaultLabel=Bill-To}}</th>
+          <th width="130" alignment="center">{{Labels::ShipTo; defaultLabel=Ship-To}}</th>
+          <th width="130" alignment="center">{{Labels::SoldTo; defaultLabel=Sold-To}}</th>
+        </tr>
+      </thead>
+      <tbody> 
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.name}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.name}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo6.name}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myStreet}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myStreet}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo6.myStreet}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myPostalCode}} {{Declarations::order.luOrderer.myCity}} </td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myPostalCode}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo6.myPostalCode}}</td>
+        </tr>
+        <tr>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCity}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luOrderer.myCity}}</td>
+          <td alignment="left" bold="true">{{Declarations::order.luMySoldTo6.myCity}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table tableLayout="lightHorizontalLinesMainItemsOnly" name="OrderItemsTable6">
+      <thead>
+        <tr>
+          <th width="70">{{Labels::PrdNumberId; defaultLabel=Product Code}}</th>
+          <th width="80">{{Labels::TextId; defaultLabel=Product Name}}</th>
+          <th width="45" alignment="center">{{Labels::UnitId; defaultLabel=Unit Price}}</th>
+          <th width="45" alignment="center">{{Labels::QuantityId; defaultLabel=Discount}}</th>
+          <th width="45" alignment="center">{{Labels::UnitPriceId; defaultLabel=Sales Price}}</th>
+          <th width="45" alignment="center">{{Labels::FullAmountId; defaultLabel=Qty}}</th>
+          <th width="45" alignment="center">{{Labels::NettoAmountId; defaultLabel=Total Price}}</th>
+          <th width="45" alignment="center">{{Labels::VatPercentageLabelId; defaultLabel=Vat}}</th>
+          <th width="45" alignment="center">{{Labels::TotalPriceWithVATId; defaultLabel=Total with VAT}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <each name="itemsEach" value="{{Declarations::mySplitSummaryPDF.loMySplitItemsPDF}}">
+          <filters>
+            <filter fieldName="q6" value="0" operator="GT" compareMode="NUMBER" />
+          </filters>
+          <orderCriteria>
+            <orderCriterion fieldName="productCode" direction="ASC" compareMode="NUMBER" />
+          </orderCriteria>
+          <tr>
+            <td>{{.productCode}}</td>
+            <td>{{.productName}}</td>
+            <td alignment="center">{{.basePrice; numberFormat=8.2}}</td>
+            <td alignment="right">{{.discount}}</td>
+            <td alignment="right">{{.discountedPrice; numberFormat=8.2}}</td>
+            <td alignment="right">{{.q6;}}</td>
+            <td alignment="right">{{.totalValue6; numberFormat=8.2}}</td>
+            <td alignment="right">{{.vatPerc; numberFormat=8.2}}</td>
+            <td alignment="right">{{.totalValueWithVat6; numberFormat=8.2}}</td>
+          </tr>
+        </each>
+      </tbody>
+    </table>
+    <p> --------------------------------------------------------------------- </p>
+    <p> --------------------------- End of Split 6 -------------------------- </p>
+    <p> --------------------------------------------------------------------- </p>
+    </div>
+
+    <img src="{{Declarations::signature1}}" width="100" />
+
+    <h2 alignment="left">{{Labels::LegalInformation; defaultLabel=Legal Information}}-{{Declarations::salesOrg.legalInformation}}</h2>
+ 	</ReportLayout> 
+</PrintLayout>

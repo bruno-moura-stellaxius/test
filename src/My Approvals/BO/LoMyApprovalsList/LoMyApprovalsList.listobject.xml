@@ -1,0 +1,13 @@
+<ListObject name="LoMyApprovalsList" generateLoadMethod="true" filter="InDatabase" paging="true" xmlns="BoSchema.xsd" schemaVersion="1.1">
+  <DataSource name="DsLoMyApprovalsList" />
+  <Item objectClass="LiMyApprovalsList" />
+  <Methods>
+    <Method name="beforeSaveAsync" />
+    <Method name="afterSaveAsync" />
+    <Method name="afterLoadAsync" />
+    <Method name="beforeLoadAsync" />
+    <Method name="afterDoValidateAsync" />
+    <Method name="beforeDoValidateAsync" />
+    <!-- Manually created methods-->
+  </Methods>
+</ListObject>

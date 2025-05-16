@@ -1,0 +1,40 @@
+<Process name="Todo::MyRelatedToTypeLookupProcess" defaultAction="ShowView" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="MyRelatedToTypeList" type="LoMyRelatedToType" />
+      </Declarations>
+      <Parameters>
+        <Input name="MyRelatedToTypePKey" type="String" />
+        <Input name="MyRelatedToTypeName" type="String" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+      <Action actionType="LOAD" name="GetMyRelatedToTypeList" type="LoMyRelatedToType">
+        <Return name="ProcessContext::MyRelatedToTypeList" />
+      </Action>
+    </EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action actionType="View" name="ShowView">
+        <UIDescription>Todo::MyRelatedToTypeLookupUI</UIDescription>
+        <Events>
+          <Event name="itemSelected" action="EndWithReturnValues" />
+        </Events>
+      </Action>
+      <Action actionType="END" name="EndWithReturnValues">
+        <ReturnValues>
+          <Return name="MyRelatedToTypePKey" value="Event.pKey" />
+          <Return name="MyRelatedToTypeName" value="Event.name" />
+        </ReturnValues>
+      </Action>
+      <Action actionType="END" name="End">
+        <ReturnValues>
+          <Return name="MyRelatedToTypePKey" value="ProcessContext::MyRelatedToTypePKey" />
+          <Return name="MyRelatedToTypeName" value="ProcessContext::MyRelatedToTypeName" />
+        </ReturnValues>
+      </Action>
+    </Actions>
+  </Body>
+</Process>

@@ -1,0 +1,7 @@
+<ListItem name="LiMyApprovalsList" xmlns="BoSchema.xsd">
+  <SimpleProperties>
+    <SimpleProperty id="true" name="pKey" type="DomPKey" storable="false" dataSourceProperty="pKey" />
+    <SimpleProperty  name="actorId" type="DomPKey" storable="false" dataSourceProperty="actorId" />
+    
+  </SimpleProperties>
+</ListItem>

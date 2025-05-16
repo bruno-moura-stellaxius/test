@@ -1,0 +1,26 @@
+<ListObject name="LoMyVisitAlerts" generateLoadMethod="true" schemaVersion="1.1">
+  <DataSource name="DsLoMyVisitAlerts"/>
+  <Item objectClass="LiMyVisitAlerts"/>
+  <Methods>
+    <Method name="beforeSaveAsync"/>
+    <Method name="afterSaveAsync"/>
+    <Method name="afterLoadAsync"/>
+    <Method name="beforeLoadAsync"/>
+    <Method name="afterDoValidateAsync"/>
+    <Method name="beforeDoValidateAsync"/>
+    <Method name="getValidAlertTypesForAdvSearch"/>
+    <Method name="loadAsync"/>
+    <Method name="saveAsync"/>
+    <Method name="getInfoForCard"/>
+    <Method name="navigateToCustomer"/>
+    <Method name="myGetInfoForCard"/>
+  <Method name="myGetCallsForCard"/></Methods>
+  <AdvancedSearchObjects>
+    <AdvancedSearchObject name="AsoMyVisitAlerts">
+      <AdvancedSearchAttributes profileId="default">
+        <AdvancedSearchAttribute label="MyVisitAlerts_AlertType" property="alertType" type="Selection" call="@process.myVisitAlertsList.getValidAlertTypesForAdvSearch" editable="true"/>
+        <AdvancedSearchAttribute label="MyVisitAlerts_ABCClass" property="abcClass" type="Text"/>
+      </AdvancedSearchAttributes>
+    </AdvancedSearchObject>
+  </AdvancedSearchObjects>
+</ListObject>

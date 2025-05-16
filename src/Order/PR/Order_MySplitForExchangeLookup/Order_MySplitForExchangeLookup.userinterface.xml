@@ -1,0 +1,53 @@
+<UIDescription name="Order::MySplitForExchangeLookup" schemaVersion="0.0.0.5">
+  <Page pagePattern="SingleSectionDialogPage" onBackDiscard="true">
+    <PageHeader>
+      <Bindings>
+        <Resource target="title" type="Label" id="MySplitForExchangeLookupId" defaultLabel="Split For Exchange" />
+      </Bindings>
+    </PageHeader>
+    <Section sectionName="masterSection" sectionPattern="SingleAreaSection">
+      <Area areaName="mainArea" areaPattern="SingleElementArea">
+        <GroupedList name="MySplitForExchangeList" dataSource="ProcessContext::MySplitForExchangeList.Items[]">
+          <Items name="Items" itemPattern="SplitForExchangeLookupItemCreateNew">
+            <ItemListLayout>
+              <Default>
+                  <Header>
+                    <Col bindingId="OrderTemplateLabel" align="left" />
+                    <Col bindingId="OrderDateLabel" align="left"  />
+                    <Col bindingId="SplitTypeLabel" align="left"  />
+                    <Col bindingId="DeliveryDateLabel" align="left"  />
+                    <Col bindingId="TotalAmountLabel" align="left"/>
+                  </Header>
+                <Col layoutType="itemSecondary" bindingId="OrderTemplateName"/>
+                <Col layoutType="itemSecondary" bindingId="OrderDate" />
+                <Col layoutType="itemSecondary" bindingId="SplitType" />
+                <Col layoutType="itemSecondary" bindingId="DeliveryDate" />
+                <Col layoutType="itemSecondary" bindingId="TotalAmount" />
+              </Default>
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="OrderTemplateName" type="Text" binding=".orderTemplateName" bindingMode="ONE_TIME" />
+              <Binding target="OrderDate" type="Date" binding=".myOrderDate" bindingMode="ONE_TIME" />
+              <Binding target="SplitType" type="Text" binding=".mySplitType" bindingMode="ONE_TIME" />
+              <Binding target="DeliveryDate" type="Date" binding=".myDeliveryDate" bindingMode="ONE_TIME" />
+              <Binding target="TotalAmount" type="Text" binding=".myTotalAmount" bindingMode="ONE_TIME" />
+              <Resource target="OrderTemplateLabel" type="Label" defaultLabel="Template" id="OrderTemplateLabelId" />
+              <Resource target="OrderDateLabel" type="Label" defaultLabel="Order Date" id="OrderDateLabelId" />
+              <Resource target="SplitTypeLabel" type="Label" defaultLabel="Type" id="SplitTypeLabelId" />
+              <Resource target="DeliveryDateLabel" type="Label" defaultLabel="Delivery Date" id="DeliveryDateLabelId" />
+              <Resource target="TotalAmountLabel" type="Label" defaultLabel="Amount" id="TotalAmountLabelId" />
+
+            </Bindings>
+          </Items>
+          <Events>
+            <ItemSelectedEvent event="itemSelected">
+              <Params>
+                <Param name="pKey" value=".pKey" />
+              </Params>
+            </ItemSelectedEvent>
+          </Events>
+        </GroupedList>
+      </Area>
+    </Section>
+  </Page>
+</UIDescription>

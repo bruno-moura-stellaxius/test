@@ -1,0 +1,56 @@
+<DataSource name="DsLuOrderer" backendSystem="sf" businessObjectClass="LuOrderer" external="False" editableEntity="Account" readOnly="True" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="pKey" table="Account" column="Id" />
+    <Attribute name="name" table="Account" column="Name" />
+    <Attribute name="myOrderBlock" table="Account" column="OrderBlock__c" />
+    <Attribute name="myStatus" table="Account" column="State__c" />
+    <DerivedAttribute name="hitClosedListing" value="IFNULL((SELECT MIN(Obligatory__c) FROM Assortment INNER JOIN Product_Assortment_Store__c ON Assortment.Id = Product_Assortment_Store__c.Assortment__c WHERE Product_Assortment_Store__c.Store__c = '#pKey#'), '0')" />
+    <DerivedAttribute name="collectClosedListing" value="'0'" />
+    <Attribute name="considerModule" table="Account_Extension__c" column="Consider_Modules__c" />
+    <Attribute name="payerDocTaType" table="Account_Extension__c" column="Payer_Role_Document_Transaction_Type__c" />
+    <Attribute name="orderDocTaType" table="Account_Extension__c" column="Order_Document_Transaction_Type__c" />
+    <Attribute name="invoiceDocTaType" table="Account_Extension__c" column="Invoice_Document_Transaction_Type__c" />
+    <Attribute name="payerValidFrom" table="Account_Extension__c" column="Payer_Role_Valid_From__c" />
+    <Attribute name="payerValidThru" table="Account_Extension__c" column="Payer_Role_Valid_Thru__c" />
+    <Attribute name="paymentMode" table="Account_Extension__c" column="Payment_Mode__c" />
+    <Attribute name="myIsPharmaceutical" table="Account" column="Pharmaceutical__c" />
+    <Attribute name="myIsMedicalDev" table="Account" column="MedicaldDev__c" />
+    <Attribute name="myIsFood" table="Account" column="Food__c" />
+    <Attribute name="myIsCosmetics" table="Account" column="Cosmetics__c" />
+    <Attribute name="myIsBiocides" table="Account" column="Biocides__c" />
+    <Attribute name="myIsVeterinary" table="Account" column="Veterinary__c" />
+    <Attribute name="myPaymentTerms" table="Account" column="PaymentTermCode__c" />
+    <Attribute name="myIndustryCode" table="Account" column="TECH_IndustryMobile__c" />
+    <Attribute name="mySalesOrg" table="Account" column="Sales_Org__c" />
+    <Attribute name="myStreet" table="Account" column="ShippingStreet" />
+    <Attribute name="myPostalCode" table="Account" column="ShippingPostalCode" />
+    <Attribute name="myCity" table="Account" column="ShippingCity" />
+    <Attribute name="myCountry" table="Account" column="ShippingCountry" />
+    <Attribute name="myLanguage" table="Account" column="Language__c" />
+    <Attribute name="mySapGlobalCustomerID" table="Account" column="SAPGlobalCustomerID__c" />
+    <DerivedAttribute name="myStringCustomerName" type="String" value="Account.SAPGlobalCustomerID__c || ' - ' || Account.Name" />
+    <Attribute name="myState" table="Account_Extension__c" column="State__c " />
+    <Attribute name="myCustStat" table="Account" column="CustStat02__c  " />
+    <Attribute name="myTenderIdentificationCode" table="Account" column="TenderIdentificationCode__c" />
+    <Attribute name="myMonitoredCustomer" table="Account" column="Monitored_Customer__c" />
+    <Attribute name="myApplyDeliveryUnit" table="Account" column="Apply_Delivery_Unit__c" />
+    
+  </Attributes>
+  <Entities>
+    <Entity name="Account" alias="" idAttribute="Id" />
+    <Entity name="Account_Extension__c" alias="">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Account_Extension__c.Account__c" comparator="eq" rightSideType="Attribute" rightSideValue="Account.Id" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+  </Entities>
+  <QueryCondition><![CDATA[
+  Account.Id = #pKey#
+ ]]></QueryCondition>
+  <OrderCriteria></OrderCriteria>
+  <Parameters>
+    <Parameter name="pKey" type="TEXT" />
+  </Parameters>
+</DataSource>

@@ -1,0 +1,68 @@
+<DataSource name="DsLoMySalesAgreements" backendSystem="sf" businessObjectClass="LoMySalesAgreements" external="true" schemaVersion="2.0">
+  <Entities>
+    <Entity name="Agreement__c" alias="" idAttribute="Id" />
+  </Entities>
+  <Database platform="SQLite">
+    <Load><![CDATA[
+    
+  var customerPKey =  "" ;
+  if (Utils.isDefined(jsonQuery.customerPKey)) {
+  	customerPKey = Utils.convertForDBParam(jsonQuery.customerPKey, "DomPKey");
+  }
+  var currentDate = Utils.convertForDBParam(Utils.createAnsiDateToday());
+  var sqlParams = {customerPKey, currentDate};
+
+  var sqlStmt = "SELECT "; 
+  sqlStmt += "  CASE WHEN Agreements.Customer__c = '#customerPKey#' THEN Agreements.Id ELSE ";
+  sqlStmt += "  CASE WHEN level8Agreement IS NOT NULL THEN level8Agreement ELSE ";
+  sqlStmt += "  CASE WHEN level7Agreement IS NOT NULL THEN level7Agreement ELSE ";
+  sqlStmt += "  CASE WHEN level6Agreement IS NOT NULL THEN level6Agreement ELSE "; 
+  sqlStmt += "  CASE WHEN level5Agreement IS NOT NULL THEN level5Agreement ELSE "; 
+  sqlStmt += "  CASE WHEN level4Agreement IS NOT NULL THEN level4Agreement ELSE "; 
+  sqlStmt += "  CASE WHEN level3Agreement IS NOT NULL THEN level3Agreement ELSE "; 
+  sqlStmt += "  CASE WHEN level2Agreement IS NOT NULL THEN level2Agreement ELSE ";
+  sqlStmt += "  CASE WHEN level1Agreement IS NOT NULL THEN level1Agreement ";
+  sqlStmt += "  END END END END END END END END END ";
+  sqlStmt += "  AS agreementPKey, ";
+  sqlStmt += "  Agreements.Name as agreementName, ";
+  sqlStmt += "  Agreements.Status__c || ' - ' || strftime('%d-%m-%Y', Agreements.StartDate__c, 'unixepoch', 'localtime') || ' - ' || strftime( '%d-%m-%Y', date( Agreements.EndDate__c, 'unixepoch', 'localtime', ('+' || Agreements.SalesAgreementExtensionDays__c || ' days') ) ) as myAgreementTitle ,";
+  sqlStmt += "  Agreements.PricingTerm__c as pricingTermPKey, "; 
+  sqlStmt += "  Agreements.SalesAgreementExtensionDays__c as extensionDays, ";
+  sqlStmt += "  Agreements.Status__c as agreementStatus, ";
+  sqlStmt += "  RecordTypes.Name as recordTypeName, ";
+  sqlStmt += "  date(date(Agreements.StartDate__c,'unixepoch', 'localtime')) as StartDate, ";
+  sqlStmt += "  date(date(Agreements.EndDate__c,'unixepoch', 'localtime'),('+'||Agreements.SalesAgreementExtensionDays__c||' days')) as EndDate ";
+  sqlStmt += "  FROM ( ";
+  sqlStmt += "  SELECT ";
+  sqlStmt += "  (SELECT id FROM agreement__c WHERE Account_Level_01__c = agreement__c.Customer__c and ApplicableToHierarchy__c == '1' ) as level1Agreement, ";
+  sqlStmt += "  (SELECT id FROM agreement__c WHERE Account_Level_02__c = agreement__c.Customer__c and ApplicableToHierarchy__c == '1' ) as level2Agreement, ";
+  sqlStmt += "  (SELECT id FROM agreement__c WHERE Account_Level_03__c = agreement__c.Customer__c and ApplicableToHierarchy__c == '1' ) as level3Agreement, ";
+  sqlStmt += "  (SELECT id FROM agreement__c WHERE Account_Level_04__c = agreement__c.Customer__c and ApplicableToHierarchy__c == '1' ) as level4Agreement, ";
+  sqlStmt += "  (SELECT id FROM agreement__c WHERE Account_Level_05__c = agreement__c.Customer__c and ApplicableToHierarchy__c == '1' ) as level5Agreement, ";
+  sqlStmt += "  (SELECT id FROM agreement__c WHERE Account_Level_06__c = agreement__c.Customer__c and ApplicableToHierarchy__c == '1' ) as level6Agreement, ";
+  sqlStmt += "  (SELECT id FROM agreement__c WHERE Account_Level_07__c = agreement__c.Customer__c and ApplicableToHierarchy__c == '1' ) as level7Agreement, ";
+  sqlStmt += "  (SELECT id FROM agreement__c WHERE Account_Level_08__c = agreement__c.Customer__c and ApplicableToHierarchy__c == '1' ) as level8Agreement ";
+  sqlStmt += "  FROM Flatten_Account_Hierarchy__c WHERE Flatten_Account_Hierarchy__c.Account__c = '#customerPKey#') ";
+
+  sqlStmt += "  INNER JOIN Agreement__c as Agreements ON Agreements.Id = agreementPKey ";
+  sqlStmt += "  INNER JOIN RecordType as RecordTypes ON Agreements.RecordTypeId = RecordTypes.Id AND RecordTypes.Name = 'Sales Agreement' ";
+  sqlStmt += "  WHERE (Agreements.Status__c = 'Active' OR Agreements.Status__c = 'Draft' OR Agreements.Status__c = 'Signed') ";
+  sqlStmt += "  AND #currentDate# <= EndDate ";
+
+	return Utils.replaceMacrosParam(sqlStmt, sqlParams);
+
+   ]]></Load>
+    <Update><![CDATA[
+      // Intended to be empty - Overview list => read only!
+      return undefined;
+   ]]></Update>
+    <Insert><![CDATA[
+      // Intended to be empty - Overview list => read only!
+      return undefined;     
+   ]]></Insert>
+    <Delete><![CDATA[
+      // Intended to be empty - Overview list => read only!
+      return undefined;
+   ]]></Delete>
+  </Database>
+</DataSource>

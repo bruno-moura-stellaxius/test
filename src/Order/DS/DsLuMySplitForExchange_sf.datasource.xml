@@ -1,0 +1,26 @@
+<DataSource name="DsLuMySplitForExchange" backendSystem="sf" businessObjectClass="LuMySplitForExchange" external="false" readOnly="true" editableEntity="Order__c" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="pKey" table="Order__c" column="Id" />
+    <DerivedAttribute name="name" type="String" value="CASE WHEN Order__c.Name IS NULL OR Order__c.Name = ' ' THEN strftime('%d/%m/%Y', datetime(Order__c.Delivery_Date__c, 'unixepoch'))  || ' - ' || Order__c.Id ELSE Order__c.Name END" />
+    <Attribute name="myDeliveryDate" table="Order__c" column="Delivery_Date__c" />
+    <Attribute name="myTotalValue" table="Order__c" column="Total_Value__c" />
+    <Attribute name="myExchangeItemTemplate" table="Order_Item_Template__c" column="Id" />
+  </Attributes>
+  <Entities>
+    <Entity name="Order__c" alias="" idAttribute="Id" />
+    <Entity name="Order_Item_Template__c" alias="">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Order_Item_Template__c.Name" comparator="eq" rightSideType="Literal" rightSideValue="'Exchanged'" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+  </Entities>
+  <QueryCondition><![CDATA[
+        Order__c.Id = #pKey#
+    ]]></QueryCondition>
+  <OrderCriteria></OrderCriteria>
+  <Parameters>
+    <Parameter name="pKey" type="TEXT"/>
+  </Parameters>
+</DataSource>

@@ -1,0 +1,27 @@
+<DataSource name="DsLoMyAccountTeam" backendSystem="sf" businessObjectClass="LoMyAccountTeam" external="false" editableEntity="" schemaVersion="2.0">
+  <!-- For more information about the supported properties and nodes see corresponding DataSource.md file under ~Workspace/contractSnippets/YourModuel Section/DS/DS_DataSource -->
+  <Attributes>
+    <Attribute name="pKey" table="Account_Manager__c" column="id" />
+    <Attribute name="name" table="User" column="name" />
+    <Attribute name="role" table="Account_Manager__c" column="Management_Type__c" />
+    <Attribute name="email" table="User" column="email" />
+    <Attribute name="mobilePhone" table="User" column="tech_mobilePhoneCopy__c" />
+  </Attributes>
+  <Entities>
+    <Entity name="Account_Manager__c" alias="" idAttribute="id" />
+    <Entity name="User" alias="">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Account_Manager__c.User__c" comparator="eq" rightSideType="Attribute" rightSideValue="User.Id" />
+        </SimpleJoin>
+      </Join>
+    </Entity>    
+  </Entities>
+<QueryCondition><![CDATA[
+   Account_Manager__c.Account__c = #customerPKey# 
+   ]]></QueryCondition>
+  <OrderCriteria />
+  <Parameters >
+    <Parameter name="customerPKey" type="TEXT" />
+  </Parameters>
+</DataSource>

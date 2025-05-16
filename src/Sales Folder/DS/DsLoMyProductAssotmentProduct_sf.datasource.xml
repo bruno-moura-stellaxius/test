@@ -1,0 +1,16 @@
+<DataSource name="DsLoMyProductAssotmentProduct" backendSystem="sf" businessObjectClass="LoMyProductAssotmentProduct" external="false" editableEntity="AssortmentProduct" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="prdMainPKey" table="AssortmentProduct" column="ProductId" />
+  </Attributes>
+  <Entities>
+    <Entity name="AssortmentProduct" alias="" idAttribute="Id" />
+  </Entities>
+  <QueryCondition><![CDATA[
+    AssortmentProduct.Active__c = '1'
+    AND AssortmentProduct.AssortmentId = #assortmentId#
+]]></QueryCondition>
+  <OrderCriteria />
+  <Parameters>
+    <Parameter name="assortmentId" type="TEXT" />
+  </Parameters>
+</DataSource>

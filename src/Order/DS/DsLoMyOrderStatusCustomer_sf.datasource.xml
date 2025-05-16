@@ -1,0 +1,90 @@
+<DataSource name="DsLoMyOrderStatusCustomer" backendSystem="sf" objectClass="LoMyOrderStatusCustomer" businessObjectClass="LoMyOrderStatusCustomer" readOnly="true" external="true" editableEntity="Order__c" schemaVersion="2.0">
+  <Attributes>
+	<Attribute name="orderType" />
+    <Attribute name="orderCount" />
+    <Attribute name="orderAmount" />
+    <Attribute name="sort" />
+  </Attributes>
+  <Entities>
+    <Entity name="Order__c" alias="" idAttribute="Id" />
+  </Entities>
+  <Database platform="SQLite">
+    <Load><![CDATA[
+            var customerPKey = "";		
+            if (Utils.isDefined(jsonQuery.customerPKey)) {
+             customerPKey = Utils.convertForDBParam(jsonQuery.customerPKey, "DomPKey");
+            }
+			
+            var sqlParams = {customerPKey};
+
+            var draftLabel = Locale.translate("CardMyOrdersOverview_Draft");
+            var pendingApprovalLabel = Locale.translate("CardMyOrdersOverview_PendingApproval");
+            var activatedLabel = Locale.translate("CardMyOrdersOverview_Activated");
+            var cancelledLabel = Locale.translate("CardMyOrdersOverview_Cancelled");
+
+            var sqlStmt = "SELECT ";
+            sqlStmt += "COUNT(Order__c.Id) as orderCount,";
+            sqlStmt += "'" + draftLabel + "'" + " as orderType, ";
+            sqlStmt += "SUM(Order__c.Value__c) as orderAmount, ";
+            sqlStmt += "1 as sort ";
+            sqlStmt += " from order__c ";
+            sqlStmt += " JOIN RecordType ON Order__c.RecordTypeId = RecordType.Id "; 
+            sqlStmt += " JOIN Order_Template__c ON Order__c.Order_Template__c = Order_Template__c.Id "; 
+            sqlStmt += " where Order__c.Phase__c = 'Draft' ";
+            sqlStmt += "AND (Order_Template__c.Name = 'PreSales' OR Order_Template__c.Name = 'Cycle' )";
+            sqlStmt += "AND RecordType.Name = 'Split' ";
+            sqlStmt += "AND Order__c.Order_Account__c = '#customerPKey#' ";
+            sqlStmt += "UNION ";
+            sqlStmt += "SELECT COUNT(Order__c.Id) as orderCount,";
+            sqlStmt += "'" + pendingApprovalLabel + "'" + " as orderType, ";
+            sqlStmt += "SUM(Order__c.Value__c) as orderAmount, ";
+            sqlStmt += "2 as sort ";
+            sqlStmt += " from order__c ";
+            sqlStmt += " JOIN RecordType ON Order__c.RecordTypeId = RecordType.Id "; 
+            sqlStmt += " JOIN Order_Template__c ON Order__c.Order_Template__c = Order_Template__c.Id "; 
+            sqlStmt += " where Order__c.ApprovalCategory__c <> ' ' and Order__c.Phase__c = 'Under Processing' ";
+            sqlStmt += "AND (Order_Template__c.Name = 'PreSales' OR Order_Template__c.Name = 'Cycle' )";
+            sqlStmt += "AND RecordType.Name = 'Split' ";
+            sqlStmt += "AND Order__c.Order_Account__c = '#customerPKey#' ";
+            sqlStmt += "UNION ";
+            sqlStmt += "SELECT COUNT(Order__c.Id) as orderCount,";
+            sqlStmt += "'" + activatedLabel + "'" + " as orderType, ";
+            sqlStmt += "SUM(Order__c.Value__c) as orderAmount, ";
+            sqlStmt += "3 as sort ";
+            sqlStmt += " from order__c ";
+            sqlStmt += " JOIN RecordType ON Order__c.RecordTypeId = RecordType.Id "; 
+            sqlStmt += " JOIN Order_Template__c ON Order__c.Order_Template__c = Order_Template__c.Id "; 
+            sqlStmt += " where Order__c.Phase__c = 'Activated' ";
+            sqlStmt += "AND (Order_Template__c.Name = 'PreSales' OR Order_Template__c.Name = 'Cycle' )";
+            sqlStmt += "AND RecordType.Name = 'Split' ";
+            sqlStmt += "AND Order__c.Order_Account__c = '#customerPKey#' ";
+            sqlStmt += "UNION ";
+            sqlStmt += "SELECT COUNT(Order__c.Id) as orderCount,";
+            sqlStmt += "'" + cancelledLabel + "'" + " as orderType, ";
+            sqlStmt += "SUM(Order__c.Value__c) as orderAmount, ";
+            sqlStmt += "4 as sort ";
+            sqlStmt += " from order__c ";
+            sqlStmt += " JOIN RecordType ON Order__c.RecordTypeId = RecordType.Id "; 
+            sqlStmt += " JOIN Order_Template__c ON Order__c.Order_Template__c = Order_Template__c.Id "; 
+            sqlStmt += " where Order__c.Phase__c = 'Cancelled' ";
+            sqlStmt += "AND (Order_Template__c.Name = 'PreSales' OR Order_Template__c.Name = 'Cycle' )";
+            sqlStmt += "AND RecordType.Name = 'Split' ";
+            sqlStmt += "AND Order__c.Order_Account__c = '#customerPKey#' ";
+            sqlStmt += "ORDER BY sort ";
+            return Utils.replaceMacrosParam(sqlStmt, sqlParams);
+
+		]]></Load>
+    <Update><![CDATA[
+			// Intended to be empty
+			return undefined;
+		]]></Update>
+    <Insert><![CDATA[   
+			// Intended to be empty     
+			return undefined;           
+		]]></Insert>
+    <Delete><![CDATA[
+			// Intended to be empty
+			return undefined;  
+		]]></Delete>
+  </Database>
+</DataSource>

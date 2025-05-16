@@ -1,0 +1,66 @@
+<DataSource name="DsLoMyFreeItemProductsInfo" backendSystem="sf" businessObjectClass="LoMyFreeItemProductsInfo" external="false" editableEntity="Product2" schemaVersion="2.0">
+  <!-- For more information about the supported properties and nodes see corresponding DataSource.md file under ~Workspace/contractSnippets/YourModuel Section/DS/DS_DataSource -->
+  <Attributes>
+    <Attribute name="prdMainPKey" table="Product2" column="Id" />
+    <Attribute name="text1" table="Product2" column="Description_1_#Language#__c" />
+    <Attribute name="prdId" table="Product2" column="Consumer_Goods_Product_Code__c" />
+    <Attribute name="shortId" table="Product2" column="Product_Short_Code__c" />
+    <Attribute name="eAN" table="Product2" column="GTIN__c" />
+    <Attribute name="prdType" table="Product2" column="Product_Type__c" />
+    <Attribute name="taxClassification" table="Product2" column="Tax_Classification__c" />
+    <Attribute name="myDeliveryUnit" table="Product2" column="DeliveryUnit__c" />
+    <Attribute name="mySAPCode" table="Product2" column="SAPProductCode__c" />
+    <Attribute name="category" table="Product2" column="Category__c" />
+    <Attribute name="piecesPerSmallestUnitForBasePrice" table="PriceUnit" column="Pieces_per_Smallest_Unit__c" />
+    <Attribute name="quantityLogisticUnit" table="OrderUnit" column="Unit_Type__c" />
+    <Attribute name="orderPiecesPerSmallestUnit" table="OrderUnit" column="Pieces_per_Smallest_Unit__c" />
+    <Attribute name="consumerQuantityLogisticUnit" table="ConsumerUnit" column="Unit_Type__c" />
+    <Attribute name="consumerPiecesPerSmallestUnit" table="ConsumerUnit" column="Pieces_per_Smallest_Unit__c" />
+    <DerivedAttribute name="deliveryState" value="CASE WHEN #compareAsDate('Product2.Delivery_Valid_From__c', 'Date','le',#TodayAsDate#, 'Date')# AND  #compareAsDate('Product2.Delivery_Valid_Thru__c', 'Date','ge',#TodayAsDate#, 'Date')# THEN 'Available' ELSE 'NotAvailable' END" />
+    <DerivedAttribute name="fieldState" value="CASE WHEN #compareAsDate('Product2.Field_Valid_From__c', 'Date','le',#TodayAsDate#, 'Date')# AND  #compareAsDate('Product2.Field_Valid_Thru__c', 'Date','ge',#TodayAsDate#, 'Date')# THEN 'Available' ELSE 'NotAvailable' END" />
+    <DerivedAttribute name="newState" value="CASE WHEN #compareAsDate('Product2.New_Item_Valid_From__c', 'Date','le',#TodayAsDate#, 'Date')# AND  #compareAsDate('Product2.New_Item_Valid_Thru__c', 'Date','ge',#TodayAsDate#, 'Date')# THEN 'Available' ELSE 'NotAvailable' END" />
+    <Attribute name="groupText" table="ProductGroup" column="Description_1_#Language#__c" />
+    <Attribute name="groupId" table="ProductGroup" column="Consumer_Goods_Product_Code__c" />
+  </Attributes>
+  <Entities>
+    <Entity name="Product2" alias="" idAttribute="Id" />
+    <Entity name="Unit_Of_Measure__c" alias="PriceUnit">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Product2.Id" comparator="eq" rightSideType="Attribute" rightSideValue="PriceUnit.Product__c" />
+          <Condition leftSideValue="PriceUnit.Is_Price_Unit__c" comparator="eq" rightSideType="Literal" rightSideValue="'1'" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Unit_Of_Measure__c" alias="OrderUnit">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Product2.Id" comparator="eq" rightSideType="Attribute" rightSideValue="OrderUnit.Product__c" />
+          <Condition leftSideValue="OrderUnit.Is_Order_Unit__c" comparator="eq" rightSideType="Literal" rightSideValue="1" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Unit_Of_Measure__c" alias="ConsumerUnit">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Product2.Id" comparator="eq" rightSideType="Attribute" rightSideValue="ConsumerUnit.Product__c" />
+          <Condition leftSideValue="ConsumerUnit.Is_Consumer_Unit__c" comparator="eq" rightSideType="Literal" rightSideValue="1" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Product2" alias="ProductGroup">
+      <Join Type="left outer">
+        <ComplexJoin><![CDATA[
+            Product2.Criterion_3_Product__c <> ' ' AND Product2.Criterion_3_Product__c = ProductGroup.Id AND ProductGroup.Sales_Org__c = '#SalesOrg#'
+            ]]></ComplexJoin>
+      </Join>
+    </Entity>
+  </Entities>
+  <QueryCondition><![CDATA[
+  Product2.Id IN ('#freeItemProductIds#')
+  ]]></QueryCondition>
+  <OrderCriteria />
+   <Parameters>
+    <Parameter name="freeItemProductIds" type="LIST" />
+  </Parameters>
+</DataSource>

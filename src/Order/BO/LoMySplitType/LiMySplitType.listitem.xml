@@ -1,0 +1,6 @@
+<ListItem name="LiMySplitType">
+  <SimpleProperties>
+    <SimpleProperty name="pKey" type="DomPKey" />
+    <SimpleProperty id="name" name="name" type="DomString" storable="false" />
+  </SimpleProperties>
+</ListItem>

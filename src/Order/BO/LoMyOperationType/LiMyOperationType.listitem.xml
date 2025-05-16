@@ -1,0 +1,6 @@
+<ListItem name="LiMyOperationType">
+  <SimpleProperties>
+    <SimpleProperty name="pKey" type="DomPKey" />
+    <SimpleProperty name="name" type="DomText" />
+  </SimpleProperties>
+</ListItem>

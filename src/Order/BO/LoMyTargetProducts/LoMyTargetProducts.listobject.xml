@@ -1,0 +1,4 @@
+<ListObject name="LoMyTargetProducts" generateLoadMethod="true" schemaVersion="1.1">
+  <DataSource name="DsLoMyTargetProducts" />
+  <Item objectClass="LiMyTargetProducts" />
+</ListObject>
