@@ -1,7 +1,0 @@
-<ListObject name="LoMySplitItemsPDF" generateLoadMethod="true" schemaVersion="1.1">
-  <!-- This object is created and managaed in the BoOrder  -->
-  <DataSource name="" />
-  <Item objectClass="LiMySplitItemsPDF" />
-  <Methods>
-  </Methods> 
-</ListObject>

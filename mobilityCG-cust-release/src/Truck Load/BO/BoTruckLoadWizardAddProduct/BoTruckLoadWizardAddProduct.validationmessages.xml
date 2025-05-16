@@ -1,3 +1,0 @@
-<ValidationMessages name="BoTruckLoadWizardAddProductMessages" businessObject="BoTruckLoadWizardAddProduct" schemaVersion="">
-  <ValidationMessage name="CasSdoFillInAllValues" defaultMessage="Please fill in all values." comment="All fields need to be filled with values." />
-</ValidationMessages>

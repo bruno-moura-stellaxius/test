@@ -1,4 +1,0 @@
-<ListObject name="LoMyMainFunction" generateLoadMethod="true">
-  <DataSource name="DsLoMyMainFunction" />
-  <Item objectClass="LiMyMainFunction" />
-</ListObject>

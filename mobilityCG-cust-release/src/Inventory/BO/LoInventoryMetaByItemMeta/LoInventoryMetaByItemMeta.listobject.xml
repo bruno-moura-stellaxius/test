@@ -1,4 +1,0 @@
-<ListObject name="LoInventoryMetaByItemMeta" generateLoadMethod="true">
-  <DataSource name="DsLoInventoryMetaByItemMeta" />
-  <Item objectClass="LiInventoryMetaByItemMeta" />
-</ListObject>

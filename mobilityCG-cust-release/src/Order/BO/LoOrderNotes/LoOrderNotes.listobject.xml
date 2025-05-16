@@ -1,8 +1,0 @@
-<ListObject name="LoOrderNotes" generateLoadMethod="true" >
-  <DataSource name="DsLoOrderNotes" />
-  <Item objectClass="LiOrderNote" />
-  <Methods>
-    <Method name="saveAsync" />
-    <Method name="selectNote" />
-  </Methods>
-</ListObject>

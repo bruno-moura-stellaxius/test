@@ -1,5 +1,0 @@
-<ListObject name="LoMyProductBasePrice" generateLoadMethod="true" >
-  <DataSource name="DsLoMyProductBasePrice" />
-  <Item objectClass="LiMyProductBasePrice" />
-  <Methods></Methods>
-</ListObject>

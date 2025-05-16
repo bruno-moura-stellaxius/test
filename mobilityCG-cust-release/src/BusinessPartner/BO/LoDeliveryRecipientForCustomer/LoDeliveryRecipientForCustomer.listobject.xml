@@ -1,5 +1,0 @@
-<ListObject name="LoDeliveryRecipientForCustomer" generateLoadMethod="true" >
-  <DataSource name="DsLoDeliveryRecipientForCustomer" />
-  <Item objectClass="LiDeliveryRecipientForCustomer" />
-  <Methods></Methods>
-</ListObject>

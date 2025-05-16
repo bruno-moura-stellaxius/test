@@ -1,7 +1,0 @@
-<ListItem name="LiMyOpenCasesList">
-  <SimpleProperties>
-    <SimpleProperty id="true" name="accountId" type="DomPKey" storable="false" dataSourceProperty="accountId" />
-    <SimpleProperty name="accountName" type="DomText" storable="false" dataSourceProperty="accountName" />
-    <SimpleProperty name="caseCount" type="DomDecimal" storable="false" dataSourceProperty="caseCount" />
-  </SimpleProperties>
-</ListItem>

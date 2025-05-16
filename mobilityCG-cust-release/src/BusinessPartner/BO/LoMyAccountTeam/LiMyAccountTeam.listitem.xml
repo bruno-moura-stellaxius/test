@@ -1,9 +1,0 @@
-<ListItem name="LiMyAccountTeam">
-  <SimpleProperties>
-    <SimpleProperty id="true" name="pKey" type="DomPKey" storable="false" dataSourceProperty="pKey" />
-    <SimpleProperty name="name" type="DomText" storable="false" dataSourceProperty="name" />
-    <SimpleProperty name="role" type="DomText" storable="false" dataSourceProperty="role" />
-    <SimpleProperty name="email" type="DomText" storable="false" dataSourceProperty="email" />
-    <SimpleProperty name="mobilePhone" type="DomText" storable="false" dataSourceProperty="mobilePhone" />
-  </SimpleProperties>
-</ListItem>

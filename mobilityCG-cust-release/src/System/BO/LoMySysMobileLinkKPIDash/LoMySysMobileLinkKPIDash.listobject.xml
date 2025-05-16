@@ -1,9 +1,0 @@
-<ListObject name="LoMySysMobileLinkKPIDash" generateLoadMethod="true" schemaVersion="1.1">
-  <DataSource name="DsLoMySysMobileLinkKPIDash" />
-  <Item objectClass="LiMySysMobileLinkKPIDash" />
-  <Methods>
-    <Method name="afterLoadAsync" />
-    <Method name="beforeLoadAsync" />
-    <Method name="openCRMADashboard" />
-  </Methods>
-</ListObject>

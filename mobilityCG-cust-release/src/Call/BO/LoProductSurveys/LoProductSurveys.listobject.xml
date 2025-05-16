@@ -1,4 +1,0 @@
-<ListObject name="LoProductSurveys" generateLoadMethod="true">
-  <DataSource name="DsLoProductSurveys" />
-  <Item objectClass="LiProductSurvey" />
-</ListObject>

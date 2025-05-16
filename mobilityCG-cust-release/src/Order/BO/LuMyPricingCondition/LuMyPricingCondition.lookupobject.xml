@@ -1,7 +1,0 @@
-<LookupObject name="LuMyPricingCondition">
-  <DataSource name="DsLuMyPricingCondition" />
-  <SimpleProperties>
-    <SimpleProperty id="true" name="pTermId" type="DomPKey" dataSourceProperty="pTermId" />
-  </SimpleProperties>
-  <Methods></Methods>
-</LookupObject>
