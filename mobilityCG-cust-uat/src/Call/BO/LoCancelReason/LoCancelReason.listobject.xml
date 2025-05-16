@@ -1,4 +1,0 @@
-<ListObject name="LoCancelReason" generateLoadMethod="true">
-  <DataSource name="DsLoCancelReason" />
-  <Item objectClass="LiCancelReason" />
-</ListObject>

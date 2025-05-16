@@ -1,5 +1,0 @@
-<ListObject name="LoWfeState" generateLoadMethod="true" >
-  <DataSource name="DsLoWfeState" />
-  <Item objectClass="LiWfeState" />
-  <Methods></Methods>
-</ListObject>

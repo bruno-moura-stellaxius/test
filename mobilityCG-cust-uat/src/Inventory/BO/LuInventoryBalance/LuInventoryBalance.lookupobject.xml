@@ -1,9 +1,0 @@
-<!-- obsolete / unused -->
-<LookupObject name="LuInventoryBalance">
-  <DataSource name="DsLuInventoryBalance" />
-  <SimpleProperties>
-    <SimpleProperty id="true" name="ivcMainPKey" type="DomPKey" dataSourceProperty="ivcMainPKey" />
-    <SimpleProperty name="balance" type="DomDecimal" dataSourceProperty="balance" />
-  </SimpleProperties>
-  <Methods></Methods>
-</LookupObject>

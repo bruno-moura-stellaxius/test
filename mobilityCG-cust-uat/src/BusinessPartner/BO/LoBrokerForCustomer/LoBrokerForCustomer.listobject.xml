@@ -1,5 +1,0 @@
-<ListObject name="LoBrokerForCustomer" generateLoadMethod="true" >
-  <DataSource name="DsLoBrokerForCustomer" />
-  <Item objectClass="LiBrokerForCustomer" />
-  <Methods></Methods>
-</ListObject>

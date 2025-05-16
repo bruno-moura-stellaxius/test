@@ -1,7 +1,0 @@
-<ListItem name="LiQuantityForFreeItems">
-  <SimpleProperties>
-    <SimpleProperty name="pKey" type="DomPKey" />
-    <SimpleProperty name="quantitySumPerProduct" type="DomDecimal" storable="true" />
-    <SimpleProperty name="metaId" type="DomIvcMetaType" storable="true" />
-  </SimpleProperties>
-</ListItem>

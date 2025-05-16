@@ -1,6 +1,0 @@
-<ListObject name="LoMySplitItems" generateLoadMethod="true" schemaVersion="1.1">
-  <DataSource name="DsLoMySplitItems" />
-  <Item objectClass="LiMySplitItems" />
-  <Methods>
-  </Methods>
-</ListObject>

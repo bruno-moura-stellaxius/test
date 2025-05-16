@@ -1,4 +1,0 @@
-<ListObject name="LoCallMeta" generateLoadMethod="true">
-  <DataSource name="DsLoCallMeta" />
-  <Item objectClass="LiCallMeta" />
-</ListObject>

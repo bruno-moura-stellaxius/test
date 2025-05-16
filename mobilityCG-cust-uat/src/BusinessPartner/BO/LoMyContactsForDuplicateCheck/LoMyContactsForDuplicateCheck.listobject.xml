@@ -1,7 +1,0 @@
-<ListObject name="LoMyContactsForDuplicateCheck" generateLoadMethod="false" >
-  <DataSource name="DsLoMyContactsForDuplicateCheck" />
-  <Item objectClass="LiMyContactsForDuplicateCheck" />
-  <Methods>
-    <Method name="loadAsync" />
-  </Methods>
-</ListObject>

@@ -1,5 +1,0 @@
-<ValidationMessages name="BoWizardCreateNewWithCustomerMessages" businessObject="BoWizardCreateNewWithCustomer" schemaVersion="0.0.0.5">
-  <ValidationMessage name="CasSdoFillInAllValues" defaultMessage="Please fill in all values." comment="All fields need to be filled with values." />
-  <ValidationMessage name="CasSdoWithoutSoldTo" defaultMessage="You can't create an order without a sold to." comment="Sold to fields need to be filled with values." />
-  <ValidationMessage name="CasSdoWithoutPreSalesCP" defaultMessage="You can't create an Pre-Sales order without a Comercial Policy." comment="The commercial policy need to be filled." />
-</ValidationMessages>

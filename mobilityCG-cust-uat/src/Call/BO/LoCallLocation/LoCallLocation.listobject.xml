@@ -1,4 +1,0 @@
-<ListObject name="LoCallLocation" generateLoadMethod="true">
-  <DataSource name="DsLoCallLocation" />
-  <Item objectClass="LiCallLocation" />
-</ListObject>

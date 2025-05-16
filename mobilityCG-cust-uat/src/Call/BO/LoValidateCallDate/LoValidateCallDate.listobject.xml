@@ -1,4 +1,0 @@
-<ListObject name="LoValidateCallDate" generateLoadMethod="true">
-  <DataSource name="DsLoValidateCallDate" />
-  <Item objectClass="LiValidateCallDate" />
-</ListObject>

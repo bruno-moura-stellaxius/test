@@ -1,7 +1,0 @@
-<ListItem name="LiMyPromotionBase64">
-  <SimpleProperties>
-    <SimpleProperty name="pKey" type="DomPKey" dataSourceProperty="pKey" />
-    <SimpleProperty name="base64" type="DomText" dataSourceProperty="finalBlob" />
-    <SimpleProperty name="contentDocumentId" type="DomText" dataSourceProperty="contentDocumentId" />
-  </SimpleProperties>
-</ListItem>

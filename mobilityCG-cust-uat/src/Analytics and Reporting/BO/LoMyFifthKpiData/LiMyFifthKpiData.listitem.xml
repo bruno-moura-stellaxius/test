@@ -1,9 +1,0 @@
-<ListItem name="LiMyFifthKpiData">
-  <SimpleProperties>
-    <SimpleProperty name="itemValue" type="DomMoney" dataSourceProperty="itemValue" />
-    <SimpleProperty name="value" type="DomInteger" />
-    <SimpleProperty name="target" type="DomInteger" dataSourceProperty="target" />
-    <SimpleProperty name="brandName" type="DomText" dataSourceProperty="brandName" />
-    <SimpleProperty name="periodStartDate" type="DomDate" dataSourceProperty="periodStartDate" />
-  </SimpleProperties>
-</ListItem>

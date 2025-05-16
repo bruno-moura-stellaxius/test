@@ -1,5 +1,0 @@
-<ListItem name="LiMyOrders">
-  <SimpleProperties>
-      <!-- You can use <workspaceRoot>/contractSnippets/YourModule Section/BO/LO_ListObject/snippets/ListItemSimplePropertiesSimplePropertySnipp.xml as template for your case -->
-  </SimpleProperties>
-</ListItem>
