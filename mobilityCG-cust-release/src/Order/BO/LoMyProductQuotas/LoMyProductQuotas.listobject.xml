@@ -1,5 +1,0 @@
-<ListObject name="LoMyproductQuotas" generateLoadMethod="true" >
-  <DataSource name="DsLoMyProductQuotas" />
-  <Item objectClass="LiMyProductQuota" />
-  <Methods></Methods>
-</ListObject>

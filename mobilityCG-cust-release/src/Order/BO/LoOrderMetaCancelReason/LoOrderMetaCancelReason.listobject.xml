@@ -1,5 +1,0 @@
-<ListObject name="LoOrderMetaCancelReason" generateLoadMethod="true" >
-  <DataSource name="DsLoOrderMetaCancelReason" />
-  <Item objectClass="LiOrderMetaCancelReason" />
-  <Methods></Methods>
-</ListObject>

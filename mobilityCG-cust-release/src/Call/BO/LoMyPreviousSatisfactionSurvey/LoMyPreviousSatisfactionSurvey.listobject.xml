@@ -1,4 +1,0 @@
-<ListObject name="LoMyPreviousSatisfactionSurvey" generateLoadMethod="true" schemaVersion="1.1">
-  <DataSource name="DsLoMyPreviousSatisfactionSurvey"/>
-  <Item objectClass="LiMyPreviousSatisfactionSurvey"/>
-</ListObject>

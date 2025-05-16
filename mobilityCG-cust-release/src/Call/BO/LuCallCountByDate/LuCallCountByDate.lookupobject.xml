@@ -1,7 +1,0 @@
-<LookupObject name="LuCallCountByDate">
-  <DataSource name="DsLuCallCountByDate" />
-  <SimpleProperties>
-    <SimpleProperty name="callCount" type="DomInteger" storable="true" dataSourceProperty="callCount" />
-  </SimpleProperties>
-  <Methods></Methods>
-</LookupObject>

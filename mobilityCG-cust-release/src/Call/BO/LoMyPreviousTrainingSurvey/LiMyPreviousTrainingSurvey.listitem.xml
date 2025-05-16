@@ -1,8 +1,0 @@
-<ListItem name="LiMyPreviousTrainingSurvey">
-  <SimpleProperties>
-    <SimpleProperty id="true" name="pKey" type="DomPKey" dataSourceProperty="pKey" />
-    <SimpleProperty name="name" type="DomText" dataSourceProperty="name" />
-    <SimpleProperty name="completedDate" type="DomDate" dataSourceProperty="completedDate" />
-    <SimpleProperty name="visitId" type="DomPKey" dataSourceProperty="visitId" />
-  </SimpleProperties>
-</ListItem>

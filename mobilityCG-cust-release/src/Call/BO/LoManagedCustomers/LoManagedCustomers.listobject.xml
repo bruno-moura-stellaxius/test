@@ -1,7 +1,0 @@
-<ListObject name="LoManagedCustomers" generateLoadMethod="false">
-  <DataSource name="DsLoManagedCustomers" />
-  <Item objectClass="LiManagedCustomers" />
-  <Methods>
-    <Method name="loadAsync" />
-  </Methods>
-</ListObject>

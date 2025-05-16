@@ -1,7 +1,0 @@
-<ListObject name="LoMyOperationType" generateLoadMethod="true" schemaVersion="1.1">
-  <DataSource name="DsLoMyOperationType" />
-  <Item objectClass="LiMyOperationType" />
-  <Methods>
-    <Method name="loadAsync" />
-  </Methods>
-</ListObject>

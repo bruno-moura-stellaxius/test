@@ -1,7 +1,0 @@
-<ListObject name="LoMyOrders" generateLoadMethod="true" schemaVersion="1.1">
-  <DataSource name="DsLoMyOrders" />
-  <Item objectClass="LiOrderOverview" />
-  <Methods>
-    <Method name="mySetDeliveriesFilter" />
-  </Methods>
-</ListObject>

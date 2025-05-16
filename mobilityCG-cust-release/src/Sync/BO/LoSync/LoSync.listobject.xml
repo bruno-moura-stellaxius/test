@@ -1,7 +1,0 @@
-<ListObject name="LoSync" generateLoadMethod="true">
-  <DataSource name="DsLoSync" />
-  <Item objectClass="LiSync" />
-  <Methods>
-    <Method name="syncData" />
-  </Methods>
-</ListObject>

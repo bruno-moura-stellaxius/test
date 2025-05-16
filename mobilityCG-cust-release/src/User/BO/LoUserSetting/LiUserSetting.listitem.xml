@@ -1,7 +1,0 @@
-<ListItem name="LiUserSetting" >
-  <SimpleProperties>
-    <SimpleProperty name="pKey" type="DomPKey" />
-    <SimpleProperty name="name" type="DomString" />
-    <SimpleProperty name="value" type="DomVariant" />
-  </SimpleProperties>
-</ListItem>

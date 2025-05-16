@@ -1,7 +1,0 @@
-<ListObject name="LoActivitiesOfCall" generateLoadMethod="true">
-  <DataSource name="DsLoActivitiesOfCall" />
-  <Item objectClass="LiActivitiesOfCall" />
-  <Methods>
-    <Method name="setEARights" />
-  </Methods>
-</ListObject>

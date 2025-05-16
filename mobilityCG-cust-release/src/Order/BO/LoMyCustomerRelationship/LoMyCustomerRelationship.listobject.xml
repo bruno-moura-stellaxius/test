@@ -1,7 +1,0 @@
-<ListObject name="LoMyCustomerRelationship" generateLoadMethod="true" schemaVersion="1.1">
-  <DataSource name="DsLoMyCustomerRelationship" />
-  <Item objectClass="LiMyCustomerRelationship" />
-  <Methods>
-    <Method name="getDefaultEntry" />
-  </Methods>
-</ListObject>

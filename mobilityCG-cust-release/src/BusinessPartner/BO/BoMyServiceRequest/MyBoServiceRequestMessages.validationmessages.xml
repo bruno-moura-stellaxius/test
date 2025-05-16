@@ -1,3 +1,0 @@
-<ValidationMessages name="MyBoServiceRequestMessages" businessObject="BoMyServiceRequest" schemaVersion="0.0.0.5">
-  <ValidationMessage name="CasBpaMyServiceRequestFieldValidationMsg" defaultMessage="Please ensure all fields are filled out before submitting." comment="Validates if all fields are filled." />
-</ValidationMessages>

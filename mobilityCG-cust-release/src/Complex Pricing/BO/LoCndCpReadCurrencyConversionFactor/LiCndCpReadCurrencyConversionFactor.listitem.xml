@@ -1,5 +1,0 @@
-<ListItem name="LiCndCpReadCurrencyConversionFactor">
-  <SimpleProperties>
-    <SimpleProperty name="Ratio" type="DomDecimal" storable="false" dataSourceProperty="Ratio" />
-  </SimpleProperties>
-</ListItem>

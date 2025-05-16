@@ -1,6 +1,0 @@
-<ListItem name="LiCustomerTradeOrgAdvSearch">
-  <SimpleProperties>
-    <SimpleProperty name="pKey" type="DomPKey" dataSourceProperty="pKey" />
-    <SimpleProperty name="name" type="DomString" dataSourceProperty="name" />
-  </SimpleProperties>
-</ListItem>
