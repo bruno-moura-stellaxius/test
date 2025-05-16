@@ -1,0 +1,19 @@
+<Process name="Call::MyPlanogramDialogProcess" defaultAction="ShowDialog" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations/>
+      <Parameters>
+        <Input name="LuMySalesOrgAttachment" type="LuMySalesOrgAttachment" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions/>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action actionType="View" name="ShowDialog">
+        <UIDescription>Call::MyPlanogramDialogUI</UIDescription>
+      </Action>
+      <Action actionType="END" name="End"/>
+    </Actions>
+  </Body>
+</Process>

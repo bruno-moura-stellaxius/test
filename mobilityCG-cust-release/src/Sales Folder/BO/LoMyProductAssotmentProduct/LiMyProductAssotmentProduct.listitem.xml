@@ -1,0 +1,5 @@
+<ListItem name="LiMyProductAssotmentProduct">
+  <SimpleProperties>
+    <SimpleProperty name="prdMainPKey" type="DomPKey" dataSourceProperty="prdMainPKey" />
+  </SimpleProperties>
+</ListItem>

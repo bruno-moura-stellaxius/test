@@ -1,0 +1,6 @@
+<ListItem name="LiMyAssortmentProducts">
+  <SimpleProperties>
+    <SimpleProperty name="pKey" type="DomPKey" id="true" dataSourceProperty="pKey" />
+    <SimpleProperty name="name" type="DomText" dataSourceProperty="name" />
+  </SimpleProperties>
+</ListItem>

@@ -1,0 +1,8 @@
+<ListItem name="LiMyMainFunction">
+  <SimpleProperties>
+    <SimpleProperty name="pKey" type="DomPKey" />
+    <SimpleProperty name="mainFunction" type="DomText" storable="true" dataSourceProperty="mainFunction" />
+    <SimpleProperty name="sort" type="DomInteger" storable="true" dataSourceProperty="sort" />
+    <SimpleProperty name="code" type="DomText" storable="true" dataSourceProperty="code" />
+  </SimpleProperties>
+</ListItem>

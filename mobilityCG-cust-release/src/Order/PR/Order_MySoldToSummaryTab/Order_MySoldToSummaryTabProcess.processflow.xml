@@ -1,0 +1,53 @@
+<Process name="Order::MySoldToSummaryTabProcess" defaultAction="MyCalculateSoldToSummary" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="MyWholesalerList" type="LoMyWholesaler" />
+        <Declaration name="MySoldToList" type="LoMySoldTo" />
+        <Declaration name="MyShipToList" type="LoMyShipTo" />
+        <Declaration name="MySoldTo1SummaryVisibility" type="DomBool" />
+        <Declaration name="MySoldTo2SummaryVisibility" type="DomBool" />
+        <Declaration name="MySoldTo3SummaryVisibility" type="DomBool" />
+        <Declaration name="MySoldTo4SummaryVisibility" type="DomBool" />
+        <Declaration name="MySoldTo5SummaryVisibility" type="DomBool" />
+        <Declaration name="MySoldTo6SummaryVisibility" type="DomBool" />
+      </Declarations>
+      <Parameters>
+        <Input name="MainBO" type="BoOrder" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+      <Action name="GetMyWholesalersList" actionType="LOAD" type="LoMyWholesaler">
+        <Parameters>
+          <Input name="customerPKey" value="ProcessContext::MainBO.luOrderer.pKey" />
+        </Parameters>
+        <Return name="ProcessContext::MyWholesalerList" />
+      </Action>
+      <Action name="GetMySoldToList" actionType="LOAD" type="LoMySoldTo">
+        <Parameters>
+          <Input name="customerPKey" value="ProcessContext::MainBO.luOrderer.pKey" />
+        </Parameters>
+        <Return name="ProcessContext::MySoldToList" />
+      </Action>
+      <Action name="GetMyShipToList" actionType="LOAD" type="LoMyShipTo">
+        <Parameters>
+          <Input name="customerPKey" value="ProcessContext::MainBO.luOrderer.pKey" />
+        </Parameters>
+        <Return name="ProcessContext::MyShipToList" />
+      </Action>
+      <Action actionType="LOGIC" name="myCalculateOrderTotals" call="ProcessContext::MainBO.myCalculateOrderTotals" />
+    </EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action name="ShowSplitSummary" actionType="VIEW">
+        <UIDescription>Order::MySoldToSummaryTab</UIDescription>
+        <Events>
+        </Events>
+    </Action>
+      <Action name="MyCalculateSoldToSummary" actionType="LOGIC" call="ProcessContext::MainBO.myCalculateSoldToSummary">
+        <TransitionTo action="ShowSplitSummary" />
+      </Action>
+    </Actions>
+  </Body>
+</Process>

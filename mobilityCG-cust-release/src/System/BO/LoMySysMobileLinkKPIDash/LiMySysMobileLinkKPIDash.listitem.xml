@@ -1,0 +1,10 @@
+<ListItem name="LiMySysMobileLinkKPIDash">
+  <SimpleProperties>
+    <SimpleProperty name="pKey" type="DomPKey" storable="false" dataSourceProperty="pKey" />
+    <SimpleProperty name="active" type="DomBool" storable="false" dataSourceProperty="active" />
+    <SimpleProperty name="sort" type="DomSort" storable="false" dataSourceProperty="sort" />
+    <SimpleProperty name="description" type="DomText" storable="false" dataSourceProperty="description" />
+    <SimpleProperty name="schemeName" type="DomText" storable="false" dataSourceProperty="schemeName" />
+    <SimpleProperty name="url" type="DomLongText" dataSourceProperty="url" />
+  </SimpleProperties>
+</ListItem>

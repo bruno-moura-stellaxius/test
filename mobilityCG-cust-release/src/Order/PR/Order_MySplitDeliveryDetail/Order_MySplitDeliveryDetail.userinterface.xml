@@ -1,0 +1,157 @@
+<UIDescription name="Order::MySplitDeliveryDetail" schemaVersion="0.0.0.5">
+  <Page pagePattern="SingleSectionPage" >
+    <PageHeader>
+      <Bindings>
+        <Binding target="Title" binding="ProcessContext::OrderBo.luOrderer.name" />
+      </Bindings>
+      <MenuItems>
+        <!-- MenuItems -->
+      </MenuItems>
+    </PageHeader>
+    <HeaderLine>
+    </HeaderLine>
+    <!-- [.. MASTER SECTION ..] -->
+    <Section sectionName="masterSection" sectionPattern="SingleAreaSection">
+      <!-- [. AREA .] Main -->
+      <Area areaName="mainArea" areaPattern="SingleElementArea">
+        <GroupElement name="OrderDeliveryDetail">
+          <!-- The following fields are set via BoOrder.MySetActivatedOrderHeader -->
+          <InputArea name="MyOrderIdentifier" editable="false">
+            <Bindings>
+              <Binding target="Value" binding="ProcessContext::OrderBo.myActivatedOrderHeader.myOrderIdentifier" bindingMode="ONE_WAY" />
+            </Bindings>
+          </InputArea>
+          <InputArea name="SoldTo" editable="false">
+            <Bindings>
+              <Resource target="Label" type="Label" id="soldtoName" defaultLabel="Customer : " />
+              <Binding target="Value" binding="ProcessContext::OrderBo.luOrderer.myStringCustomerName" bindingMode="ONE_WAY" />
+            </Bindings>
+          </InputArea>
+          <InputArea name="MySplitInfo" editable="false">
+            <Bindings>
+              <Resource target="Label" type="Label" id="splitTypeId" defaultLabel="Split Type : " />
+              <Binding target="Value" binding="ProcessContext::OrderBo.mySplitType" bindingMode="ONE_WAY" />
+            </Bindings>
+          </InputArea>
+          <InputArea name="MyPoNumber" editable="false" disabled="true">
+            <Bindings>
+              <Resource target="Label" type="Label" id="poNumberId" defaultLabel="PO Number : " />
+              <Binding target="Value" binding="ProcessContext::OrderBo.myPONumber" bindingMode="ONE_WAY" />
+            </Bindings>
+          </InputArea>
+        </GroupElement>
+        <EmbeddedList name="OrderItemList" dataSource="ProcessContext::MyOrderItemList.Items[]">
+          <Items name="Items" itemPattern="OrderItem">
+            <ItemListLayout>
+                <Default>
+                  <Header>
+                    <Col bindingId="MyProductNumberLabel" align="left" />
+                    <Col bindingId="MyBrandLabel" align="left"  />
+                    <Col bindingId="MyExpiryDateLabel" align="left"  />
+                    <Col bindingId="MyBatchNumberLabel" align="left"  />
+                    <Col bindingId="MyRequestedDeliveryDateLabel" align="left"/>
+                    <Col bindingId="MyConfirmedDeliveryDateLabel" align="left" />
+                    <Col bindingId="MyRequestedQuantityLabel" align="left" />
+                    <Col bindingId="MyConfirmedquantityLabel" align="left" />
+                    <Col bindingId="MyInvoicedQuanityLabel" align="left" />
+                    <Col bindingId="MyListPriceLabel" align="left" />
+                    <Col bindingId="MyItemCategoryLabel" align="left" />
+                    <Col bindingId="MyDiscountLabel" align="left" />
+                    <Col bindingId="MyInvoicedDiscountLabel" align="left" />
+                    <Col bindingId="MyInvoicedProductPriceLabel" align="left" />
+                  </Header>
+                  <Col>
+                    <Row>
+                      <Col layoutType="itemSecondary CalendarEventSecondLineContainer" bindingId="ProductName" />
+                    </Row>
+                    <Row>
+                      <Col layoutType="itemSecondary CalendarEventSecondLineContainer" bindingId="MyProductLocalArticleCode" />
+                    </Row>
+                    <Row>
+                      <Col layoutType="itemSecondary CalendarEventSecondLineContainer" bindingId="SAPPrdCode" />
+                    </Row>
+                  </Col>
+                  <Col>
+                    <Row layoutType="itemSecondary" bindingId="brand" />
+                  </Col>
+                  <Col>
+                    <Row layoutType="itemSecondary" bindingId="expiryDate" />
+                  </Col>
+                  <Col>
+                    <Row layoutType="itemSecondary" bindingId="batchNumber" />
+                  </Col>
+                  <Col>
+                    <Row layoutType="itemSecondary" bindingId="requestedDeliveryDate" />
+                  </Col>
+                  <Col>
+                    <Row layoutType="itemSecondary" bindingId="confirmedDeliveryDate" />
+                  </Col>
+                  <Col>
+                    <Row layoutType="itemSecondary" bindingId="requestedQuantity" />
+                  </Col>
+                  <Col>
+                    <Row layoutType="itemSecondary" bindingId="confirmedQuantity" />
+                  </Col>
+                  <Col>
+                    <Row layoutType="itemSecondary" bindingId="invoicedQuantity" />
+                  </Col>
+                  <Col>
+                    <Row layoutType="itemSecondary" bindingId="listPrice" />
+                  </Col>
+                  <Col>
+                    <Row layoutType="itemSecondary" bindingId="itemCategory" />
+                  </Col>
+                  <Col>
+                    <Row layoutType="itemSecondary" bindingId="discount" />
+                  </Col>
+                  
+                  <Col>
+                    <Row layoutType="itemSecondary" bindingId="invoicedDiscount" />
+                  </Col>
+                  <Col>
+                    <Row layoutType="itemSecondary" bindingId="invoicedProductPrice" />
+                  </Col>
+                </Default>
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="name" type="Text" binding=".name" bindingMode="ONE_WAY" />
+              <Binding target="prdName" type="Text" binding=".prdName" bindingMode="ONE_WAY" />
+              <Binding target="brand" type="Text" binding=".brand" bindingMode="ONE_WAY" />
+              <Binding target="expiryDate" type="Text" binding=".expiryDate" bindingMode="ONE_WAY" />
+              <Binding target="batchNumber" type="Text" binding=".batchNumber" bindingMode="ONE_WAY" />
+              <Binding target="requestedDeliveryDate" type="Text" binding=".requestedDeliveryDate" bindingMode="ONE_WAY" />
+              <Binding target="confirmedDeliveryDate" type="Text" binding=".confirmedDeliveryDate" bindingMode="ONE_WAY" />
+              <Binding target="requestedQuantity" type="Text" binding=".requestedQuantity" bindingMode="ONE_WAY" />
+              <Binding target="confirmedQuantity" type="Text" binding=".confirmedQuantity" bindingMode="ONE_WAY" />
+              <Binding target="itemCategory" type="Text" binding=".itemCategory" bindingMode="ONE_WAY" />
+              <Binding target="listPrice" type="DomDecimal" binding=".listPrice" bindingMode="ONE_WAY" />
+              <Binding target="discount" type="DomDecimal" binding=".discount" bindingMode="ONE_WAY" />
+              <Binding target="invoicedQuantity" type="Text" binding=".invoicedQuantity" bindingMode="ONE_WAY" />
+              <Binding target="invoicedDiscount" type="Text" binding=".invoicedDiscount" bindingMode="ONE_WAY" />
+              <Binding target="invoicedProductPrice" type="Text" binding=".invoicedProductPrice" bindingMode="ONE_WAY" />
+              <Resource target="MyProductNumberLabel" type="Label" defaultLabel="MyProductNumberLabel" id="MyProductNumberLabelId" />
+              <Resource target="MyBrandLabel" type="Label" defaultLabel="MyBrandLabel" id="MyBrandLabelId" />
+              <Resource target="MyExpiryDateLabel" type="Label" defaultLabel="MyExpiryDateLabel" id="MyExpiryDateLabelId" />
+              <Resource target="MyBatchNumberLabel" type="Label" defaultLabel="MyBatchNumberLabel" id="MyBatchNumberLabelId" />
+              <Resource target="MyRequestedDeliveryDateLabel" type="Label" defaultLabel="MyRequestedDeliveryDateLabel" id="MyRequestedDeliveryDateLabelId" />
+              <Resource target="MyConfirmedDeliveryDateLabel" type="Label" defaultLabel="MyConfirmedDeliveryDateLabel" id="MyConfirmedDeliveryDateLabelId" />
+              <Resource target="MyRequestedQuantityLabel" type="Label" defaultLabel="MyRequestedQuantityLabel" id="MyRequestedQuantityLabelId" />
+              <Resource target="MyConfirmedquantityLabel" type="Label" defaultLabel="MyConfirmedquantityLabel" id="MyConfirmedquantityLabelId" />
+              <Resource target="MyItemCategoryLabel" type="Label" defaultLabel="MyItemCategoryLabel" id="MyItemCategoryLabelId" />
+              <Resource target="MyListPriceLabel" type="Label" defaultLabel="MyListPriceLabel" id="MyListPriceLabelId" />
+              <Resource target="MyDiscountLabel" type="Label" defaultLabel="MyDiscountLabel" id="MyDiscountLabelId" />
+              <Resource target="MyInvoicedQuanityLabel" type="Label" defaultLabel="MyInvoicedQuanityLabel" id="MyInvoicedQuanityLabelId" />
+              <Resource target="MyInvoicedDiscountLabel" type="Label" defaultLabel="MyInvoicedDiscountLabel" id="MyInvoicedDiscountLabelId" />
+              <Resource target="MyInvoicedProductPriceLabel" type="Label" defaultLabel="MyInvoicedProductPriceLabel" id="MyInvoicedProductPriceLabelId" />
+              <Resource target="MyProductLocalArticleCode" type="Text" binding=".myProductLocalArticleCode" bindingMode="ONE_WAY" />
+              <Resource target="ProductName" type="Text" binding=".productName" bindingMode="ONE_WAY" />
+              <Resource target="SAPPrdCode" type="Text" binding=".sapPrdCode" bindingMode="ONE_WAY" />
+            </Bindings>
+          </Items>
+          <Events>
+          </Events>
+        </EmbeddedList>
+      </Area>
+    </Section>
+  </Page>
+</UIDescription>

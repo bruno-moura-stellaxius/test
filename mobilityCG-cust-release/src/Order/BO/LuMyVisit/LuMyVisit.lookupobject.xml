@@ -1,0 +1,15 @@
+<LookupObject name="LuMyVisit" generateLoadMethod="true" schemaVersion="1.1">
+  <DataSource name="DsLuMyVisit" />
+  <SimpleProperties>
+    <SimpleProperty name="pKey" type="DomPKey" dataSourceProperty="pKey" />
+    <SimpleProperty name="name" type="DomString" dataSourceProperty="name" />
+    <SimpleProperty name="subject" type="DomString" dataSourceProperty="subject" />
+    <SimpleProperty name="dateFrom" type="DomDate" dataSourceProperty="dateFrom" />
+    <SimpleProperty name="timeFrom" type="DomTime" dataSourceProperty="timeFrom" />    
+    <SimpleProperty name="myFullName" type="DomString"/>
+  </SimpleProperties>
+  <Methods>
+    <Method name="beforeLoadAsync"/>
+    <Method name="afterLoadAsync"/>
+  </Methods>
+</LookupObject>

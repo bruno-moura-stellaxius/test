@@ -1,0 +1,45 @@
+<DataSource name="DsLoMyExchangeItems" backendSystem="sf" businessObjectClass="LoMyExchangeItems" external="false" editableEntity="Order_Item__c" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="pKey" table="Order_Item__c" column="Id" />
+    <Attribute name="sdoMainPKey" table="Order_Item__c" column="Order__c" />
+    <Attribute name="sdoItemMetaPKey" table="Order_Item__c" column="Order_Item_Template__c" />
+    <Attribute name="quantity" table="Order_Item__c" column="Quantity__c" />
+    <Attribute name="prdMainPKey" table="Order_Item__c" column="Product__c" />
+    <Attribute name="price" table="Order_Item__c" column="Price__c" />
+    <Attribute name="priceReceipt" table="Order_Item__c" column="Price_Receipt__c" />
+    <Attribute name="value" table="Order_Item__c" column="Value__c" />
+    <Attribute name="valueReceipt" table="Order_Item__c" column="Value_Receipt__c" />
+    <Attribute name="simplePricingBasePrice" table="Order_Item__c" column="Base_Price__c" />
+    <Attribute name="basePrice" table="Order_Item__c" column="Base_Price__c" />
+    <Attribute name="basePriceReceipt" table="Order_Item__c" column="Base_Price_Receipt__c" />
+    <Attribute name="grossValueReceipt" table="Order_Item__c" column="Gross_Value_Receipt__c" />
+    <Attribute name="uom" table="Order_Item__c" column="UoM__c" />
+    <Attribute name="discount" table="Order_Item__c" column="Discount__c" />
+  </Attributes>
+  <Entities>
+    <Entity name="Order__c" alias="">
+    </Entity> 
+    <Entity name="Order_Item__c" alias="" idAttribute="Id">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Order__c.Id" comparator="eq" rightSideType="Attribute" rightSideValue="Order_Item__c.Order__c" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Order_Item_Template__c" alias="" idAttribute="Id">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Order_Item__c.Order_Item_Template__c" comparator="eq" rightSideType="Attribute" rightSideValue="Order_Item_Template__c.Id" />
+          <Condition leftSideValue="Order_Item_Template__c.Name" comparator="eq" rightSideType="Literal" rightSideValue="'Exchanged'" />
+        </SimpleJoin>
+      </Join>
+    </Entity>   
+  </Entities>
+  <QueryCondition><![CDATA[
+      Order_Item__c.Order__c = #orderPKey#
+  ]]></QueryCondition>
+  <OrderCriteria />
+  <Parameters>
+    <Parameter name="orderPKey" type="TEXT" />
+  </Parameters>
+</DataSource>

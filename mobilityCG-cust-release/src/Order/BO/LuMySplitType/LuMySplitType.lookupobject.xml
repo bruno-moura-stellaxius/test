@@ -1,0 +1,9 @@
+<LookupObject name="LuMySplitType" generateLoadMethod="true" schemaVersion="1.1">
+  <!--In case lookup does not require datasource, let name of datasource property empty-->
+  <DataSource name="" />
+  <SimpleProperties>
+    <SimpleProperty name="pKey" type="DomPKey" storable="false" />
+    <SimpleProperty name="name" type="DomString" storable="false" />
+  </SimpleProperties>
+  <Methods/>
+</LookupObject>

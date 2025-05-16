@@ -1,0 +1,21 @@
+<UIDescription name="Call::MyPlanogramDialogUI" schemaVersion="0.0.0.5">
+  <Page pagePattern="SingleSectionDialogPage" onBackDiscard="false">
+    <PageHeader>
+      <Bindings>
+        <Resource target="title" type="Label" id="MyPlanogramImageLabelId" defaultLabel="Planogram" bindingMode="ONE_TIME" />
+      </Bindings>
+    </PageHeader>
+    <Section sectionName="masterSection" sectionPattern="SingleAreaSection">
+      <Area areaName="mainArea" areaPattern="GroupedElementsArea">
+        <GroupElement name="ImageGroup">
+          <MediaControl name="MyEvaluationCriteria">
+            <Bindings>
+              <Binding target="MediaPath" type="Text" binding="ProcessContext::LuMySalesOrgAttachment.mediaPath" bindingMode="ONE_WAY" />
+              <Binding target="Type" type="Text" binding="ProcessContext::LuMySalesOrgAttachment.fileType" bindingMode="ONE_WAY" />
+            </Bindings>
+          </MediaControl>
+        </GroupElement>
+      </Area>
+    </Section>
+  </Page>
+</UIDescription>

@@ -1,0 +1,18 @@
+<Process name="Order::MySignatureControlProcess" defaultAction="ShowMySignatureControlUI" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations/>
+      <Parameters>
+        <Input name="MainBO" type="BoOrder" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions/>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action actionType="View" name="ShowMySignatureControlUI">
+        <UIDescription>Order::MySignatureControlUI</UIDescription>
+      </Action>
+    </Actions>
+  </Body>
+</Process>

@@ -1,0 +1,5 @@
+<ListObject name="LoMySoldTo" generateLoadMethod="true" schemaVersion="1.1">
+  <DataSource name="DsLoMySoldTo" />
+  <Item objectClass="LiMySoldTo" />
+  <Methods/>
+</ListObject>

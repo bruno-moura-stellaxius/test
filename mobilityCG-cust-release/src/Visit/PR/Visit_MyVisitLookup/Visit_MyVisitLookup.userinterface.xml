@@ -1,0 +1,37 @@
+<UIDescription name="Visit::MyVisitLookup" schemaVersion="0.0.0.5">
+  <Page pagePattern="SingleSectionDialogPage">
+    <PageHeader>
+      <Bindings>
+        <Resource target="title" type="Label" id="VisitsLookupTitleId" defaultLabel="Select Visits" />
+      </Bindings>
+    </PageHeader>
+    <Section sectionName="masterSection" sectionPattern="SingleAreaSection">
+      <Area areaName="mainArea" areaPattern="SingleElementArea">
+        <GroupedList name="VisitsList" groupBy="grouping1" indexBar="true" direction="ASC" searchable="true" dataSource="ProcessContext::visitList.Items[]">
+          <Items name="Items" itemPattern="VisitLookupItems">
+            <Bindings>
+              <Binding target="Name" type="Text" binding=".reviewedUserName" bindingMode="ONE_WAY" />
+              <Binding target="VisitDate" type="Date" binding=".visitPlannedDate" bindingMode="ONE_WAY" />
+              <Binding target="AccountName" type="Text" binding=".accountName" bindingMode="ONE_WAY" />
+            </Bindings>
+            <ItemListLayout>
+              <Col width="12em">
+                <Row layoutType="itemIdentifier" bindingId="Name" />
+                <Row layoutType="itemIdentifier" bindingId="VisitDate" />
+                <Row layoutType="itemIdentifier" bindingId="AccountName" />
+              </Col>
+            </ItemListLayout>
+          </Items>
+          <Events>
+            <ItemSelectedEvent event="itemSelected">
+              <Params>
+                <Param name="pKey" value=".pKey" />
+                <Param name="accountName" value=".accountName" />
+              </Params>
+            </ItemSelectedEvent>
+          </Events>
+        </GroupedList>
+      </Area>
+    </Section>
+  </Page>
+</UIDescription>

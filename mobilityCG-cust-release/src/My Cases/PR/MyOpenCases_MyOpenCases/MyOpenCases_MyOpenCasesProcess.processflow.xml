@@ -1,0 +1,37 @@
+<Process name="MyOpenCases::MyOpenCasesProcess" defaultAction="ShowOpenCasesList" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="CasesList" type="LoMyOpenCasesList" />
+       
+      </Declarations>
+      <Parameters>
+        <!--<Input name="CurrentCustomerPKey" type="String" />
+        <Input name="CurrentCustomerName" type="String" />
+        <Input name="CallDate" type="String" />
+        <Input name="LeadTime" type="String" />
+        <Input name="NavigationMode" type="String" />
+        <Input name="CallDateThru" type="String" />-->
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+      <Action name="GetCasesList" actionType="LOAD" type="LoMyOpenCasesList">
+        <Return name="ProcessContext::CasesList" />
+      </Action>
+    </EntryActions>
+  </Entry>
+  
+  <Body>
+    <Actions>
+      <Action name="ShowOpenCasesList" actionType="VIEW">
+        <UIDescription>MyOpenCases::MyOpenCasesUI</UIDescription>
+        <Events>
+         <!-- <Event name="itemSelected" action="LoadCaseDetails" />-->
+          <!-- Menu item events -->
+          
+        </Events>
+      </Action>
+   
+    </Actions>
+  </Body>
+</Process>

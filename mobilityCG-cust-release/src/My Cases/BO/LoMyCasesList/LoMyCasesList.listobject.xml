@@ -1,0 +1,21 @@
+<ListObject name="LoMyCasesList" generateLoadMethod="true" filter="InDatabase" paging="true" xmlns="BoSchema.xsd" schemaVersion="1.1">
+  <DataSource name="DsLoMyCasesList" />
+  <Item objectClass="LiMyCasesList" />
+  <Methods>
+    <Method name="beforeSaveAsync" />
+    <Method name="afterSaveAsync" />
+    <Method name="afterLoadAsync" />
+    <Method name="beforeLoadAsync" />
+    <Method name="afterDoValidateAsync" />
+    <Method name="beforeDoValidateAsync" />
+    <!-- Manually created methods-->
+  </Methods>
+  <AdvancedSearchObjects>
+    <AdvancedSearchObject name="AsoMyCasesList">
+      <AdvancedSearchAttributes profileId="default">
+        <AdvancedSearchAttribute label="AsoMyCasesList_OpenDate" property="openDate" type="Date" />
+        <AdvancedSearchAttribute label="AsoMyCasesList_ClosedDate" property="closedDate" type="Date" />
+      </AdvancedSearchAttributes>
+    </AdvancedSearchObject>
+  </AdvancedSearchObjects>
+</ListObject>

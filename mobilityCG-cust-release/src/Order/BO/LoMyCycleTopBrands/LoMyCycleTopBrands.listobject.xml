@@ -1,0 +1,6 @@
+<ListObject name="LoMyCycleTopBrands" generateLoadMethod="true" schemaVersion="1.1">
+  <DataSource name="DsLoMyCycleTopBrands" />
+  <Item objectClass="LiMyCycleTopBrands" />
+  <Methods>
+  </Methods>
+</ListObject>

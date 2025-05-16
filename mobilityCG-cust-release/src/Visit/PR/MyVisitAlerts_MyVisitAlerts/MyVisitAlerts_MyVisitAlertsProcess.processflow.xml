@@ -1,0 +1,64 @@
+<Process name="MyVisitAlerts::MyVisitAlertsProcess" defaultAction="ShowVisitAlertsList" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="MyVisitAlertsList" type="LoMyVisitAlerts" />
+        <Declaration name="VisitAlerts_ContextMenuList" type="LoMyVisitAlertsContextMenu" />
+      </Declarations>
+      <Parameters>
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+      <Action name="GetVisitAlertsList" actionType="LOAD" type="LoMyVisitAlerts">
+        <Parameters>
+          <Input   name = "asoName" value="AsoMyVisitAlerts" type="Literal" />
+        </Parameters>
+        <Return name="ProcessContext::MyVisitAlertsList" />
+      </Action>
+    </EntryActions>
+  </Entry>
+  
+  <Body>
+    <Actions>
+      <Action name="ShowVisitAlertsList" actionType="VIEW">
+        <UIDescription>MyVisitAlerts::MyVisitAlertsUI</UIDescription>
+        <Events>
+          <Event name="VisitAlerts_contextMenuOpening" action="VisitAlerts_GetContextMenu" /> 
+          <Event name="VisitAlerts_contextMenuItemSelected" action="VisitAlerts_ContextMenu_Result_Decision" />
+        </Events>
+      </Action>
+      <Action name="VisitAlerts_GetContextMenu" actionType="LOAD" type="LoMyVisitAlertsContextMenu">
+        <Return name="ProcessContext::VisitAlerts_ContextMenuList" />
+      </Action>
+      <Action name="VisitAlerts_ContextMenu_Result_Decision" actionType="DECISION" parameter="Event.selected">
+        <Case value="Cancel" action="VisitAlerts_CancelVisit" />
+        <Case value="Re-Schedule" action="VisitAlerts_RescheduleVisit" />
+      </Action>
+      <Action name="VisitAlerts_CancelVisit" actionType="PROCESS" process="Call::ChangeStatusWizardProcess">
+        <Parameters>
+          <Input name="MainPKey" value="Event.pKey" />
+          <Input name="targetClbStatus" value="Abandoned" type="Literal" />
+          <Input name="ResponsiblePKey" value="ApplicationContext::User.pKey" />
+        </Parameters>
+        <TransitionTo action="VisitAlerts_refresh" />
+      </Action>
+      <Action name="VisitAlerts_RescheduleVisit" actionType="PROCESS" process="Call::RescheduleCallProcess">
+        <Parameters>
+          <Input name="MainPKey" value="Event.pKey" />
+          <Input name="dateFrom" value="Event.dateFrom" />
+          <Input name="timeFrom" value="Event.timeFrom" />
+          <Input name="dateThru" value="Event.dateThru" />
+          <Input name="timeThru" value="Event.timeThru" />
+          <Input name="ResponsiblePKey" value="ApplicationContext::User.pKey" />
+        </Parameters>
+        <TransitionTo action="VisitAlerts_refresh" />
+      </Action>
+      <Action name="VisitAlerts_refresh" actionType="LOAD" type="LoMyVisitAlerts">
+        <Parameters>
+          <Input   name = "asoName" value="AsoMyVisitAlerts" type="Literal" />
+        </Parameters>
+        <Return name="ProcessContext::MyVisitAlertsList" />
+      </Action>
+    </Actions>
+  </Body>
+</Process>

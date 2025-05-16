@@ -1,0 +1,24 @@
+<DataSource name="DsLuMyWholesaler" backendSystem="sf" businessObjectClass="LuMyWholesaler" editableEntity="Account" external="false"  schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="id" table="Account" column="id" />
+    <Attribute name="pKey" table="WholesalerAccount" column="id" />
+    <Attribute name="name" table="WholesalerAccount" column="Name" />
+  </Attributes>
+  <Entities>
+    <Entity name="Account" alias="" idAttribute="id" />
+    <Entity name="Account" alias="WholesalerAccount" idAttribute="id" >
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Account.PreferredWholesaler__c" comparator="eq" rightSideType="Attribute" rightSideValue="WholesalerAccount.Id" />
+        </SimpleJoin>
+      </Join>
+    </Entity>  
+  </Entities>
+  <QueryCondition><![CDATA[
+    Account.Id = #pKey#
+    ]]></QueryCondition>
+  <OrderCriteria />
+  <Parameters>
+    <Parameter name="pKey" type="TEXT" />
+  </Parameters>
+</DataSource>

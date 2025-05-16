@@ -1,0 +1,7 @@
+<ListObject name="LoMyPricingCondition" generateLoadMethod="true" >
+  <DataSource name="DsLoMyPricingCondition" />
+  <Item objectClass="LiMyPricingCondition" />
+  <Methods>
+    <Method name="beforeLoadAsync" />
+  </Methods>
+</ListObject>
