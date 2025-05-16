@@ -1,0 +1,13 @@
+<ListObject name="LoMyVisibilityExecution" generateLoadMethod="true" schemaVersion="1.1">
+  <DataSource name="DsLoMyVisibilityExecution" />
+  <Item objectClass="LiMyVisibilityExecution" />
+  <Methods>
+    <Method name="beforeSaveAsync" />
+    <Method name="afterSaveAsync" />
+    <Method name="afterLoadAsync" />
+    <Method name="beforeLoadAsync" />
+    <Method name="afterDoValidateAsync" />
+    <Method name="beforeDoValidateAsync" />
+    <Method name="myGetCardView" />
+  </Methods>
+</ListObject>

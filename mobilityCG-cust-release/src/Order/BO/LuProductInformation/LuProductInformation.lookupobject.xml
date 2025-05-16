@@ -1,0 +1,35 @@
+<LookupObject name="LuProductInformation">
+  <DataSource name="DsLuProductInformation" />
+  <SimpleProperties>
+    <SimpleProperty id="true" name="pKey" type="DomPKey" dataSourceProperty="pKey" />
+    <SimpleProperty name="taxClassification" type="DomTaxClassification" storable="false" dataSourceProperty="taxClassification" />
+    <SimpleProperty name="myDeliveryUnit" type="DomDecimal" storable="false" dataSourceProperty="myDeliveryUnit" />
+    <SimpleProperty name="basePrice" type="DomMoney" storable="false" dataSourceProperty="basePrice" />
+    <SimpleProperty name="eAN" type="DomPrdNumber" storable="false" dataSourceProperty="eAN" />
+    <SimpleProperty name="mySAPCode" type="DomString" storable="false" dataSourceProperty="mySAPCode" />
+    <SimpleProperty name="piecesPerSmallestUnitForBasePrice" type="DomDecimal" storable="false" dataSourceProperty="piecesPerSmallestUnitForBasePrice" />
+    <SimpleProperty name="orderQuantityLogisticUnit" type="DomPrdLogisticUnit" storable="false" dataSourceProperty="orderQuantityLogisticUnit" />
+    <SimpleProperty name="orderPiecesPerSmallestUnit" type="DomDecimal" storable="false" dataSourceProperty="orderPiecesPerSmallestUnit" />
+    <SimpleProperty name="consumerQuantityLogisticUnit" type="DomPrdLogisticUnit" storable="false" dataSourceProperty="consumerQuantityLogisticUnit" />
+    <SimpleProperty name="consumerPiecesPerSmallestUnit" type="DomDecimal" storable="false" dataSourceProperty="consumerPiecesPerSmallestUnit" />
+    <SimpleProperty name="priceQuantityLogisticUnit" type="DomPrdLogisticUnit" storable="false" dataSourceProperty="priceQuantityLogisticUnit" />
+    <SimpleProperty name="pricePiecesPerSmallestUnit" type="DomDecimal" storable="false" dataSourceProperty="pricePiecesPerSmallestUnit" />
+    <SimpleProperty name="groupText" type="DomString" storable="false" dataSourceProperty="groupText" />
+    <SimpleProperty name="groupId" type="DomId" storable="false" dataSourceProperty="groupId" />
+    <SimpleProperty name="myDeliveryValidFrom" type="DomDate" storable="false" dataSourceProperty="myDeliveryValidFrom" />
+    <SimpleProperty name="myDeliveryValidThru" type="DomDate" storable="false" dataSourceProperty="myDeliveryValidThru" />
+    <SimpleProperty name="salesRepQuota" type="DomDecimal" storable="false" dataSourceProperty="salesRepQuota" />
+    <SimpleProperty name="channelQuota" type="DomDecimal" storable="false" dataSourceProperty="channelQuota" />
+    <SimpleProperty name="customerQuota" type="DomDecimal" storable="false" dataSourceProperty="customerQuota" />
+    <SimpleProperty name="salesRepQuotaCategory" type="DomString" storable="false" dataSourceProperty="salesRepQuotaCategory" />
+    <SimpleProperty name="channelQuotaCategory" type="DomString" storable="false" dataSourceProperty="channelQuotaCategory" />
+    <SimpleProperty name="customerQuotaCategory" type="DomString" storable="false" dataSourceProperty="customerQuotaCategory" />
+    <SimpleProperty name="salesRepQuotaValidFrom" type="DomDate" storable="false" dataSourceProperty="salesRepQuotaValidFrom" />
+    <SimpleProperty name="channelQuotaValidFrom" type="DomDate" storable="false" dataSourceProperty="channelQuotaValidFrom" />
+    <SimpleProperty name="customerQuotaValidFrom" type="DomDate" storable="false" dataSourceProperty="customerQuotaValidFrom" />
+    <SimpleProperty name="salesRepQuotaValidTo" type="DomDate" storable="false" dataSourceProperty="salesRepQuotaValidTo" />
+    <SimpleProperty name="channelQuotaValidTo" type="DomDate" storable="false" dataSourceProperty="channelQuotaValidTo" />
+    <SimpleProperty name="customerQuotaValidTo" type="DomDate" storable="false" dataSourceProperty="customerQuotaValidTo" />
+  </SimpleProperties>
+  <Methods></Methods>
+</LookupObject>

@@ -1,0 +1,25 @@
+<ListItem name="LiMyOrderItems">
+  <SimpleProperties>
+    <SimpleProperty name="pKey" type="DomPKey" id="true" dataSourceProperty="pKey" />
+    <SimpleProperty name="name" type="DomText" dataSourceProperty="name" />
+    <SimpleProperty name="prdName" type="DomText" dataSourceProperty="prdName" />
+    <SimpleProperty name="brand" type="DomText" dataSourceProperty="brand" />
+    <SimpleProperty name="expiryDate" type="DomDate" dataSourceProperty="expiryDate" />
+    <SimpleProperty name="batchNumber" type="DomText" dataSourceProperty="batchNumber" />
+    <SimpleProperty name="requestedDeliveryDate" type="DomDate" dataSourceProperty="requestedDeliveryDate" />
+    <SimpleProperty name="confirmedDeliveryDate" type="DomDate" dataSourceProperty="confirmedDeliveryDate" />
+    <SimpleProperty name="requestedQuantity" type="DomInteger" dataSourceProperty="requestedQuantity" />
+    <SimpleProperty name="confirmedQuantity" type="DomInteger" dataSourceProperty="confirmedQuantity" />
+    <SimpleProperty name="itemCategory" type="DonText" dataSourceProperty="itemCategory" />
+    <SimpleProperty name="listPrice" type="DomDecimal" dataSourceProperty="listPrice" />
+    <SimpleProperty name="discount" type="DomDecimal" dataSourceProperty="discount" />
+    <SimpleProperty name="invoicedQuantity" type="DonInteger" dataSourceProperty="invoicedQuantity" />
+    <SimpleProperty name="invoicedDiscount" type="DomDecimal" dataSourceProperty="invoicedDiscount" />
+    <SimpleProperty name="invoicedProductPrice" type="DomDecimal" dataSourceProperty="invoicedProductPrice" />
+    <SimpleProperty name="myProductLocalArticleCode" type="DomText" dataSourceProperty="myProductLocalArticleCode" />
+    <SimpleProperty name="myProductDescription" type="DomText" dataSourceProperty="myProductDescription" />
+    <SimpleProperty name="myCurrencySymbol" type="DomString" dataSourceProperty="myCurrencySymbol" />
+    <SimpleProperty name="productName" type="DomString" dataSourceProperty="productName" />
+    <SimpleProperty name="sapPrdCode" type="DomString" dataSourceProperty="sapPrdCode" />
+  </SimpleProperties>
+</ListItem>

@@ -1,0 +1,10 @@
+<LookupObject name="LuMyTargetCount" generateLoadMethod="true" schemaVersion="1.1">
+  <DataSource name="DsLuMyTargetCount" />
+  <SimpleProperties>
+    <SimpleProperty name="myTargetCount" type="DomInteger" dataSourceProperty="myTargetCount" />
+  </SimpleProperties>
+  <Methods>
+    <Method name="afterLoadAsync" />
+    <Method name="beforeLoadAsync" />
+  </Methods>
+</LookupObject>

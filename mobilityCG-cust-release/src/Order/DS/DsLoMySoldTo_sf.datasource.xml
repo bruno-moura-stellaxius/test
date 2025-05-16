@@ -1,0 +1,26 @@
+<DataSource name="DsLoMySoldTo" backendSystem="sf" businessObjectClass="LoMySoldTo" external="false" editableEntity="" schemaVersion="2.0">
+    <Attributes>
+      <Attribute name="pKey" table="Account_Relationship__c" column="id" />
+      <Attribute name="relatedAccountPKey" table="Account_Relationship__c" column="Related_Account__c" />
+      <Attribute name="name" table="Account" column="Name" />
+    </Attributes>
+    <Entities>
+      <Entity name="Account_Relationship__c" alias="" idAttribute="id" />
+      <Entity name="Account" alias="">
+        <Join Type="inner">
+          <SimpleJoin>
+            <Condition leftSideValue="Account_Relationship__c.Related_Account__c" 
+              comparator="eq" rightSideType="Attribute" rightSideValue="Account.Id" />
+          </SimpleJoin>
+        </Join>
+      </Entity>
+    </Entities>
+    <QueryCondition><![CDATA[
+      Account_Relationship__c.Account__c = '#customerPKey#'
+      AND Account_Relationship__c.Relationship_Type__c = 'AG'
+      ]]></QueryCondition>
+    <OrderCriteria />
+    <Parameters>
+      <Parameter name="customerPKey" type="TEXT" />
+    </Parameters>
+  </DataSource>

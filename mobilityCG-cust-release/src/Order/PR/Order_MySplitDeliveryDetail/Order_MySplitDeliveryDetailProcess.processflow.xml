@@ -1,0 +1,42 @@
+<Process name="Order::MySplitDeliveryDetailProcess" defaultAction="ShowOrderDeliveryDetail" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="MyOrderItemList" type="LoMyOrderItems" />
+        <Declaration name="OrderBo" type="BoOrder" />
+      </Declarations>
+      <Parameters>
+        <Input name="CustomerPKey" type="String" />
+        <Input name="MainPKey" type="DomPKey" />
+        <Input name="pKey" type="DomPKey" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+      <Action name="LoadBoOrder" actionType="LOAD" type="BoOrder">
+        <Parameters>
+          <!-- Read the split info -->
+          <Input name="pKey" value="ProcessContext::pKey" />
+        </Parameters>
+        <Return name="ProcessContext::OrderBo" />
+      </Action>
+      <Action name="MySetActivatedOrderHeader" actionType="LOGIC" call="ProcessContext::OrderBo.mySetActivatedOrderHeader" /> 
+      <Action name="GetMyOrderItemsList" actionType="LOAD" type="LoMyOrderItems">
+        <Parameters>
+          <Input name="customerPKey" value="ProcessContext::CustomerPKey" />
+          <Input name="mainPKey" value="ProcessContext::MainPKey" />
+          <Input name="pKey" value="ProcessContext::pKey" />
+        </Parameters>
+        <Return name="ProcessContext::MyOrderItemList" />
+      </Action>
+    </EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action name="ShowOrderDeliveryDetail" actionType="VIEW">
+        <UIDescription>Order::MySplitDeliveryDetail</UIDescription>
+        <Events>
+        </Events>
+      </Action>
+    </Actions>
+  </Body>
+</Process>

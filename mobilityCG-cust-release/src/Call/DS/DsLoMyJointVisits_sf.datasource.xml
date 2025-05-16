@@ -1,0 +1,77 @@
+<Datasource name="DsLoMyJointVisits" objectClass="LoMyJointVisits" editableEntity="Visit" backendSystem="sf" external="false" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="pKey" table="Visit" column="Id" />
+    <Attribute name="responsibleName" table="User" column="Name" /> 
+    <Attribute name="visitPlannedDate" table="Visit" column="PlannedVisitStartTime" /> 
+    <Attribute name="reviewedUserName" table="Visitor" column="Name" /> 
+    <Attribute name="reviewedUserId" table="Visit" column="ReviewedUser__c" />
+    <Attribute name="accountName" table="Account" column="Name" />
+    <Attribute name="jointVisit" table="Visit" column="JointVisit__c" />
+    <Attribute name="clbStatus" table="Visit" column="Status" />
+    <DerivedAttribute name="selectedForReview" value="CASE WHEN Visit.JointVisit__c IS ' ' THEN '0' ELSE '1' END" />
+    <DerivedAttribute name="customerOnDevice" value="'1'" />
+    <DerivedAttribute name="dataType" value="'Toggle'" />
+    <DerivedAttribute name="toggleId" value="'Bool'" />
+  </Attributes>
+  <Entities>
+    <Entity name="Visit" alias="" idAttribute="Id" />
+    <Entity name="Visit_Template__c">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Visit.Visit_Template__c" comparator="eq" rightSideType="Attribute" rightSideValue="Visit_Template__c.Id" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="User">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Visit.Responsible__c" comparator="eq" rightSideType="Attribute" rightSideValue="User.Id" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="User" alias="Visitor">
+      <Join Type="left">
+        <SimpleJoin>
+          <Condition leftSideValue="Visit.ReviewedUser__c" comparator="eq" rightSideType="Attribute" rightSideValue="Visitor.Id" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Account">
+      <Join Type="left">
+        <SimpleJoin>
+          <Condition leftSideValue="Visit.AccountId" comparator="eq" rightSideType="Attribute" rightSideValue="Account.Id" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+  </Entities>
+  <QueryCondition><![CDATA[
+    Visit.Responsible__c = #responsiblePKey#
+    #addCond#
+   ]]></QueryCondition>
+    <OrderCriteria>
+      <OrderCriterion entity="Visit" attribute="PlannedVisitStartTime" direction="DESC" />
+    </OrderCriteria>
+    <Parameters>
+      <Parameter name="responsiblePKey" type="TEXT" />
+      <Parameter name="addCond" treatAs="sqlSnippet" />
+    </Parameters>
+    <ConditionalParameters>
+    <ConditionalParameter name="isJoint">
+      <SimpleConditions>
+        <Condition leftSideValue="Visit_Template__c.Name" comparator="=" rightSideType="Literal" rightSideValue="'Joint'" />
+        <Condition leftSideValue="Visit.ReviewedUser__c" comparator="!=" rightSideType="Literal" rightSideValue="' '" />
+      </SimpleConditions>
+    </ConditionalParameter>
+    <ConditionalParameter name="isVisit">
+      <SimpleConditions>
+        <Condition leftSideValue="Visit_Template__c.Id" comparator="!=" rightSideType="Literal" rightSideValue="'Joint'" />
+        <Condition leftSideValue="Visit.Status" comparator="!=" rightSideType="Literal" rightSideValue="'Completed'" />
+      </SimpleConditions>
+    </ConditionalParameter>
+    <ConditionalParameter name="excludeCompleted">
+      <SimpleConditions>
+        <Condition leftSideValue="Visit.Status" comparator="!=" rightSideType="Literal" rightSideValue="'Completed'" />
+      </SimpleConditions>
+    </ConditionalParameter>
+    </ConditionalParameters>
+  </Datasource>

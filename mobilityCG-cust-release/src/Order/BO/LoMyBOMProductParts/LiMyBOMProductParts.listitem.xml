@@ -1,0 +1,13 @@
+<ListItem name="LiMyBOMProductParts" >
+  <SimpleProperties>
+    <SimpleProperty id="true" name="pKey" type="DomPKey" storable="false" dataSourceProperty="pKey" />
+    <SimpleProperty id="true" name="prdKey" type="DomPKey" storable="false" dataSourceProperty="prdKey" />
+    <SimpleProperty name="prdName" type="DomString" storable="false" dataSourceProperty="prdName" />
+    <SimpleProperty name="prdQuantity" type="DomDecimal" storable="true" dataSourceProperty="prdQuantity" /> 
+    <SimpleProperty name="prdDefaultQuantity" type="DomDecimal" storable="true" dataSourceProperty="prdDefaultQuantity" /> 
+    <SimpleProperty id="true" name="parentPrdKey" type="DomPKey" storable="false" dataSourceProperty="parentPrdKey" />
+    <SimpleProperty id="true" name="childPrdKey" type="DomPKey" storable="false" dataSourceProperty="childPrdKey" />
+    <SimpleProperty name="myParentBOMType" type="DomString" storable="false" dataSourceProperty="myParentBOMType" />
+    <SimpleProperty name="prdDiscount" type="DomDecimal" /> 
+  </SimpleProperties>
+</ListItem>

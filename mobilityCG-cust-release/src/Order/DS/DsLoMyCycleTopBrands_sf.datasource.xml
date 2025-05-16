@@ -1,0 +1,24 @@
+<DataSource name="DsLoMyCycleTopBrands" backendSystem="sf" businessObjectClass="LoMyCycleTopBrands" external="true" schemaVersion="2.0">
+  <Database platform="SQLite"> 
+    <Load><![CDATA[
+			var orderDate = "";
+			if (Utils.isDefined(jsonQuery.orderDate)) {
+        orderDate = Utils.convertForDBParam(jsonQuery.orderDate, "DomDate");
+      }
+			var sqlParams = {orderDate};
+
+			var sqlStmt = "SELECT ";
+    	sqlStmt += " TB.Brand__c as brand";
+      sqlStmt += " ,Order__c as topBrandOrder ";
+      sqlStmt += " FROM ";
+		  sqlStmt += " Sales_Organization__c SO ";
+			sqlStmt += " INNER JOIN Cycle__c CC on CC.SalesOrganization__c = SO.ID ";
+      sqlStmt += " INNER JOIN TopBrand__c TB on TB.CycleName__c = CC.ID ";
+			sqlStmt += " WHERE SO.Name = '#salesOrg#' ";
+      sqlStmt += " AND #compareAsDate('CC.StartDate__c', 'Date','<=' ,#orderDate#, 'Date')# ";
+      sqlStmt += " AND #compareAsDate('CC.EndDate__c', 'Date','>=' ,#orderDate#, 'Date')# ";
+
+			return Utils.replaceMacrosParam(sqlStmt, sqlParams);
+		]]></Load>
+  </Database>
+</DataSource>

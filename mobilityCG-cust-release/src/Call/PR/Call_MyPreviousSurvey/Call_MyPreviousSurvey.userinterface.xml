@@ -1,0 +1,35 @@
+<UIDescription name="Call::MyPreviousSurvey" schemaVersion="1.1">
+  <Page pagePattern="SingleSectionPage">
+    <PageHeader>
+      <Bindings>
+        <Resource target="title" type="Label" id="PreviousSurvey" defaultLabel="Previous Survey" bindingMode="ONE_TIME" />
+      </Bindings>
+      <MenuItems>
+      </MenuItems>
+    </PageHeader>
+    <Section sectionName="masterSection" sectionPattern="SingleAreaSection">
+      <Area areaName="mainArea" areaPattern="SingleElementArea">
+        <GroupedList name="MyPreviousSurveyList" searchable="false" groupBy="brandName" sortBy="brandName" dataSource="ProcessContext::MyPreviousSurveyAnswers.Items[]">
+          <Items name="Items" itemPattern="MyPreviousSurveyList">
+            <ItemListLayout>
+              <Default>
+              <Col layoutType="itemSecondary" bindingId="surveyName" />
+              <Col layoutType="itemSecondary" bindingId="surveyvalue" />
+              </Default>
+            </ItemListLayout>
+            <Bindings>
+             <!-- Values--> 
+            <Binding target="surveyName" type="Text" binding=".surveyName" bindingMode="ONE_WAY" />
+            <Binding target="brandName" type="Text" binding=".brandName" bindingMode="ONE_WAY" />
+            <Binding target="surveyvalue" type="Dynamic" allowInitialValueEmpty="true" binding=".surveyAnswer" typeField="dataType" minBinding="minValue" maxBinding="maxValue" stepSizeBinding="stepSize" stepperEnabledBinding="useStepper" toggleId="toggleId" bindingMode="ONE_WAY" />
+             <!-- Labels-->    
+            <Resource target="SurveyQuestion" type="Label" id="SurveyQuestionLabelId" defaultLabel="Survey" />
+            <Resource target="BrandName" type="Label" id="BrandNameLabelId" defaultLabel="Brand Name" />
+            <Resource target="SurveyAnswerLbl" type="Label" id="SurveyAnswerLabelId" defaultLabel="Answer" />
+            </Bindings>
+          </Items>
+        </GroupedList>
+      </Area>
+    </Section>
+  </Page>
+</UIDescription>

@@ -1,0 +1,42 @@
+<BusinessObject name="BoMyCaseDetail" xmlns="BoSchema.xsd" generateLoadMethod="true" generateCreateMethod="true" schemaVersion="1.1" >
+  <DataSource name="DsBoMyCaseDetail" />
+  <SimpleProperties>
+    <SimpleProperty id="true" name="pKey" type="DomPKey" storable="true" dataSourceProperty="pKey" />
+    <SimpleProperty name="description" type="DomText" storable="false" dataSourceProperty="Description" />
+    <SimpleProperty name="type" type="DomText" storable="false" dataSourceProperty="Type" />
+    <SimpleProperty name="createdDate" type="DomDateTime" storable="false" dataSourceProperty="CreatedDate" />
+    <SimpleProperty name="myCreatedDate" type="DomDate" storable="false" dataSourceProperty="myCreatedDate" />
+    <SimpleProperty name="myCreatedTime" type="DomTime" storable="false" dataSourceProperty="myCreatedTime" />
+    <SimpleProperty name="status" type="DomText" storable="false" dataSourceProperty="Status" />
+    <SimpleProperty name="ownerId" type="DomText" storable="false" dataSourceProperty="OwnerId" />
+    <SimpleProperty name="myClosedDate" type="DomDate" storable="false" dataSourceProperty="myClosedDate" />
+    <SimpleProperty name="myClosedTime" type="DomTime" storable="false" dataSourceProperty="myClosedTime" />
+    <SimpleProperty name="myCaseNumber" type="DomText" storable="false" dataSourceProperty="myCaseNumber" />
+    <SimpleProperty name="myCaseOrigin" type="DomText" storable="false" dataSourceProperty="myCaseOrigin" />
+    <SimpleProperty name="mySubject" type="DomText" storable="false" dataSourceProperty="mySubject" />
+    <SimpleProperty name="myOnHoldReason" type="DomText" storable="false" dataSourceProperty="myOnHoldReason" />
+    <SimpleProperty name="myCloseReason" type="DomText" storable="false" dataSourceProperty="myCloseReason" />
+    <SimpleProperty name="myLinkedOrderName" type="DomText" storable="false" dataSourceProperty="myLinkedOrderName" />
+    <SimpleProperty name="myLastModifiedDate" type="DomDateTime" storable="false" dataSourceProperty="myLastModifiedDate" />
+  </SimpleProperties>
+  <NestedObjects></NestedObjects>
+  <ObjectLookups>
+    <ObjectLookup name="luMyCustomer" objectClass="LuCustomer" dataSourceProperty="customerPKey" lookupProperty="pKey" loadMode="Immediate" />
+    <ObjectLookup name="luMyContact" objectClass="LuContact" dataSourceProperty="myContactPKey" lookupProperty="pKey" loadMode="Immediate" />
+
+  </ObjectLookups>
+  <ListObjects></ListObjects>
+  <Methods>
+    <Method name="beforeSaveAsync" />
+    <Method name="afterSaveAsync" />
+    <Method name="afterLoadAsync" />
+    <Method name="afterInitialize" />
+    <Method name="beforeInitialize" />
+    <Method name="beforeLoadAsync" />
+    <Method name="afterDoValidateAsync" />
+    <Method name="beforeDoValidateAsync" />
+    <Method name="afterCreateAsync" />
+    <Method name="beforeCreateAsync" />
+    <!-- Manually created methods -->
+  </Methods>
+</BusinessObject>

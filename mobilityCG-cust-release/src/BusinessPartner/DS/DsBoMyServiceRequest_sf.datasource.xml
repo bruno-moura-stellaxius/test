@@ -1,0 +1,30 @@
+<DataSource name="DsBoMyServiceRequest" backendSystem="sf" businessObjectClass="BoMyServiceRequest" external="false" editableEntity="ServiceRequest__c" schemaVersion="2.0">
+  <!-- For more information about the supported properties and nodes see corresponding DataSource.md file under ~Workspace/contractSnippets/YourModuel Section/DS/DS_DataSource -->
+  <Attributes>
+    <Attribute name="pKey" table="ServiceRequest__c" column="Id" />
+    <Attribute name="customerPKey" table="ServiceRequest__c" column="Customer__c" />
+    <Attribute name="requestDate" table="ServiceRequest__c" column="ServiceRequestDate__c" />
+    <Attribute name="requestName" table="ServiceRequest__c" column="Name" />
+    <Attribute name="productId" table="ServiceRequest__c" column="Brand__c" />
+    <Attribute name="productName" table="Product2" column="Name" />
+    <Attribute name="requestDescription" table="ServiceRequest__c" column="ServiceRequestDescription__c" />
+    <Attribute name="requestStatus" table="ServiceRequest__c" column="Status__c" />
+  </Attributes>
+  <Entities>
+    <Entity name="ServiceRequest__c" alias="" idAttribute="Id" />
+    <Entity name="Product2" alias="">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="ServiceRequest__c.Brand__c" comparator="eq" rightSideType="Attribute" rightSideValue="Product2.Id" />
+        </SimpleJoin>
+    </Join>
+    </Entity>
+  </Entities>
+  <QueryCondition><![CDATA[
+      ServiceRequest__c.Id = #pKey#
+        ]]></QueryCondition>
+  <OrderCriteria></OrderCriteria>
+  <Parameters>
+    <Parameter name="pKey" type="TEXT" />
+  </Parameters>
+</DataSource>

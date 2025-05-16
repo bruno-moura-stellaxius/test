@@ -1,0 +1,7 @@
+<ListItem name="LiMySoldTo">
+  <SimpleProperties>
+    <SimpleProperty id="true" name="pKey" type="DomPKey" storable="false" dataSourceProperty="pKey" />
+    <SimpleProperty name="relatedAccountPKey" type="DomPKey" dataSourceProperty="relatedAccountPKey" />
+    <SimpleProperty name="name" type="DomText" storable="false" dataSourceProperty="name" />
+  </SimpleProperties>
+</ListItem>

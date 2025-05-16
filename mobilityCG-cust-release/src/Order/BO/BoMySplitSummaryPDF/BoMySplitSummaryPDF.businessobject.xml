@@ -1,0 +1,25 @@
+<BusinessObject name="BoMySplitSummaryPDF"  generateLoadMethod="false" schemaVersion="2.0">
+  <DataSource name="DsBoMySplitSummaryPDF" />
+  <SimpleProperties>
+    <SimpleProperty id="true" name="pKey" type="DomPKey" />
+    <SimpleProperty name="showSplit1" type="DomString" />
+    <SimpleProperty name="showSplit2" type="DomString" />
+    <SimpleProperty name="showSplit3" type="DomString" />
+    <SimpleProperty name="showSplit4" type="DomString" />
+    <SimpleProperty name="showSplit5" type="DomString" />
+    <SimpleProperty name="showSplit6" type="DomString" />
+    <SimpleProperty name="myDD1" type="DomDate" />
+    <SimpleProperty name="myDD2" type="DomDate" />
+    <SimpleProperty name="myDD3" type="DomDate" />
+    <SimpleProperty name="myDD4" type="DomDate" />
+    <SimpleProperty name="myDD5" type="DomDate" />
+    <SimpleProperty name="myDD6" type="DomDate" />
+    <SimpleProperty name="mySignature" type="DomBlob" />
+  </SimpleProperties>
+  <ListObjects>
+    <ListObject name="loMySplitItemsPDF" objectClass="LoMySplitItemsPDF" dataSourceProperty="pKey" listProperty="splitKey" loadMode="LoadImmediate" />
+  </ListObjects>
+  <Methods>
+    <Method name="myCalculateSummaries" />
+  </Methods>
+</BusinessObject>

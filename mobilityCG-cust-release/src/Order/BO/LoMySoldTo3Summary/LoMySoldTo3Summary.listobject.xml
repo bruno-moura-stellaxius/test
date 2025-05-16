@@ -1,0 +1,8 @@
+<ListObject name="LoMySoldTo3Summary" generateLoadMethod="true" schemaVersion="1.1">
+  <!-- This object is created and managaed in the BoOrder  -->
+  <DataSource name="" />
+  <Item objectClass="LiMySoldTo3Summary" />
+  <Methods>
+    <Method name="setVisible" />
+  </Methods>
+</ListObject>

@@ -1,0 +1,7 @@
+<ListObject name="LoMyVisitAlertsContextMenu" generateLoadMethod="false">
+  <DataSource name="DsLoMyVisitAlertsContextMenu" />
+  <Item objectClass="LiMyVisitAlertsContextMenu" />
+  <Methods>
+    <Method name="loadAsync" />
+  </Methods>
+</ListObject>

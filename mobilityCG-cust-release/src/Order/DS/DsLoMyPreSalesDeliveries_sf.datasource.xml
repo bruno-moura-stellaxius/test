@@ -1,0 +1,27 @@
+<DataSource name="DsLoMyPreSalesDeliveries" backendSystem="sf" businessObjectClass="LoMyPreSalesDeliveries" external="false" 
+editableEntity="PreSalesDeliveries__c" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="pKey" table="PreSalesDeliveries__c" column="id" />
+    <Attribute name="name" table="PreSalesDeliveries__c" column="Name" />
+    <Attribute name="dateFrom" table="PreSalesDeliveries__c" column="DateFrom__c" />
+    <Attribute name="dateThru" table="PreSalesDeliveries__c" column="DateThru__c" />
+    <Attribute name="deliveryDate" table="PreSalesDeliveries__c" column="DeliveryDate__c" />
+    <Attribute name="myMinValue" table="PreSalesDeliveries__c" column="MinValue__c" />
+    <Attribute name="myMinQuantity" table="PreSalesDeliveries__c" column="MinQuantity__c" />
+    <Attribute name="myIsDateModifiable" table="PreSalesDeliveries__c" column="DateIsModifiable__c" />
+    <Attribute name="wholesaler" table="PreSalesDeliveries__c" column="Wholesaler__c" />
+    <Attribute name="paymentTerms" table="PreSalesDeliveries__c" column="PaymentTerms__c" />
+  </Attributes>
+  <Entities>
+    <Entity name="PreSalesDeliveries__c" alias="" idAttribute="id" />
+  </Entities>
+  <QueryCondition><![CDATA[
+    PreSalesDeliveries__c.PricingTerm__c= #pricingTermPKey#
+  ]]></QueryCondition>  
+  <OrderCriteria>
+    <OrderCriterion entity="PreSalesDeliveries__c" attribute="DeliveryDate__c" direction="ASC" /> 
+  </OrderCriteria>
+  <Parameters>
+    <Parameter name="pricingTermPKey" type="TEXT"/>
+  </Parameters>
+</DataSource>

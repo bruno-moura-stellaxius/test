@@ -1,0 +1,7 @@
+<ListItem name="LiMyThirdKpiData">
+  <SimpleProperties>
+    <SimpleProperty name="value" type="DomMoney" dataSourceProperty="value" />
+    <SimpleProperty name="target" type="DomInteger" dataSourceProperty="target" />
+    <SimpleProperty name="brandName" type="DomText" dataSourceProperty="brandName" />
+  </SimpleProperties>
+</ListItem>

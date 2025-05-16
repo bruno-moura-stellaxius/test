@@ -1,0 +1,8 @@
+<ListItem name="LiMyProductBasePrice" >
+  <SimpleProperties>
+    <SimpleProperty name="pKey" id="true" type="DomPKey" dataSourceProperty = "conditionPKey" />
+    <SimpleProperty name="prdMainPKey" type="DomPKey" storable="false" dataSourceProperty="productId" />
+    <SimpleProperty name="productName" type="DomString" storable="false" dataSourceProperty="productName" />
+    <SimpleProperty name="basePrice" type="DomMoney" storable="false" dataSourceProperty="basePrice" />
+  </SimpleProperties>
+</ListItem>

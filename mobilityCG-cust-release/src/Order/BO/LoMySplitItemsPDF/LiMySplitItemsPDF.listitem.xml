@@ -1,0 +1,28 @@
+<ListItem name="LiMySplitItemsPDF">
+  <SimpleProperties>
+    <SimpleProperty name="productCode" type="DomString" />
+    <SimpleProperty name="productName" type="DomString" />
+    <SimpleProperty name="basePrice" type="DomDecimal" />
+    <SimpleProperty name="discount" type="DomInteger" />
+    <SimpleProperty name="discountedPrice" type="DomDecimal" />
+    <SimpleProperty name="q1" type="DomDecimal" />
+    <SimpleProperty name="totalValue1" type="DomDecimal" />
+    <SimpleProperty name="q2" type="DomDecimal" />
+    <SimpleProperty name="totalValue2" type="DomDecimal" /> 
+    <SimpleProperty name="q3" type="DomDecimal" />
+    <SimpleProperty name="totalValue3" type="DomDecimal" />
+    <SimpleProperty name="q4" type="DomDecimal" />
+    <SimpleProperty name="totalValue4" type="DomDecimal" />
+    <SimpleProperty name="q5" type="DomDecimal" />
+    <SimpleProperty name="totalValue5" type="DomDecimal" />
+    <SimpleProperty name="q6" type="DomDecimal" />
+    <SimpleProperty name="totalValue6" type="DomDecimal" />
+    <SimpleProperty name="vatPerc" type="DomDecimal" />
+    <SimpleProperty name="totalValueWithVat1" type="DomDecimal" />
+    <SimpleProperty name="totalValueWithVat2" type="DomDecimal" />
+    <SimpleProperty name="totalValueWithVat3" type="DomDecimal" />
+    <SimpleProperty name="totalValueWithVat4" type="DomDecimal" />
+    <SimpleProperty name="totalValueWithVat5" type="DomDecimal" />
+    <SimpleProperty name="totalValueWithVat6" type="DomDecimal" />
+  </SimpleProperties>
+</ListItem>

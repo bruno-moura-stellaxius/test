@@ -1,0 +1,7 @@
+<ListItem name="LiMyFourthKpiData">
+  <SimpleProperties>
+    <SimpleProperty name="value" type="DomMoney" dataSourceProperty="value" />
+    <SimpleProperty name="target" type="DomInteger" dataSourceProperty="target" />
+    <SimpleProperty name="periodStartDate" type="DomDate" dataSourceProperty="periodStartDate" />
+  </SimpleProperties>
+</ListItem>

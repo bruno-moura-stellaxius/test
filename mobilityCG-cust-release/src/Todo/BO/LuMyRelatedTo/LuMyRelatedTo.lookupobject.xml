@@ -1,0 +1,8 @@
+<LookupObject name="LuMyRelatedTo" generateLoadMethod="true" schemaVersion="1.1">
+  <DataSource name="DsLuMyRelatedTo" />
+  <SimpleProperties>
+    <SimpleProperty name="pKey" type="DomPKey" />
+    <SimpleProperty name="name" type="DomString" />
+  </SimpleProperties>
+  <Methods />
+</LookupObject>

@@ -1,0 +1,7 @@
+<ListObject name="LoMySecondKpiData" generateLoadMethod="true" schemaVersion="1.1">
+  <DataSource name="DsLoMySecondKpiData"/>
+  <Item objectClass="LiMySecondKpiData"/>
+  <Methods>
+    <Method name="myGetSecondKpiData"/>
+  </Methods>
+</ListObject>
