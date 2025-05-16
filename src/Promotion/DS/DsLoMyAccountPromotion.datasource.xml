@@ -1,0 +1,62 @@
+<DataSource name="DsLoMyAccountPromotion" businessObjectClass="LoMyAccountPromotion" external="false" distinct="false" readonly="false" editableEntity="AccountPromotion__c" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="pKey" table="AccountPromotion__c" column="Id" /> 
+    <Attribute name="startDate" table="AccountPromotion__c" column="StartDate__c" />
+    <Attribute name="endDate" table="AccountPromotion__c" column="EndDate__c" />
+    <Attribute name="volume" table="AccountPromotion__c" column="Volume__c" />
+    <Attribute name="amountperunit" table="AccountPromotion__c" column="AmountPerUnit__c" />
+    <Attribute name="amounttopay" table="AccountPromotion__c" column="AmountToPay__c" />
+    <!--<Attribute name="status" table="AccountPromotion__c" column="StatusPayment__c" />-->
+    <Attribute name="paymentdate" table="AccountPromotion__c" column="PaymentDate__c" />
+    <Attribute name="promotionname" table="REXPromotion__c" column="Name" />
+    <Attribute name="promotionId" table="REXPromotion__c" column="Id" />
+    <!--<Attribute name="brand" table="REXPromotion__c" column="Brand__c" />-->
+    <Attribute name="brand" table="Product2" column="Name" />
+    <Attribute name="productId" table="Product2" column="Id" />
+    <!--<Attribute name="voucher" table="REXPromotion__c" column="Vouchers__c" />-->
+    <Attribute name="recordTypeName" table="RecordType" column="Name" />
+    <Attribute name="currencyIsoCode" table="AccountPromotion__c" column="CurrencyIsoCode" />
+    <Attribute name="lastSalesRepAudit" table="AccountPromotion__c" column="LastSalesRepAudit__c" />
+  </Attributes>
+  <Entities>
+    <Entity name="AccountPromotion__c" alias="" idAttribute="Id" />
+    <Entity name="REXPromotion__c">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="REXPromotion__c.Id" comparator="eq" rightSideType="Attribute" rightSideValue="AccountPromotion__c.REXPromotion__c" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Job_Definition_List__c">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="REXPromotion__c.Id" comparator="eq" rightSideType="Attribute" rightSideValue="Job_Definition_List__c.ShopperPromotion__c" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Product2">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Product2.Id" comparator="eq" rightSideType="Attribute" rightSideValue="REXPromotion__c.BrandProduct__c" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="RecordType" alias="">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="AccountPromotion__c.RecordTypeId" comparator="eq" rightSideType="Attribute" rightSideValue="RecordType.Id" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+  </Entities>
+  <QueryCondition><![CDATA[
+    AccountPromotion__c.Account__c = #bpaMainPKey# 
+    AND RecordType.Name = 'Compensation'   
+    AND Job_Definition_List__c.Active__c = '1'
+  ]]></QueryCondition>
+  <OrderCriteria />
+  <Parameters>
+    <Parameter name="bpaMainPKey" type="TEXT" />
+  </Parameters>
+  <ConditionalParameters></ConditionalParameters>
+</DataSource>

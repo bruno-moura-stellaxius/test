@@ -1,0 +1,130 @@
+<DataSource name="DsLoMyAssortmentProducts" backendSystem="sf" businessObjectClass="LoMyAssortmentProducts" 
+  external="true" schemaVersion="2.0">
+   <Database platform="SQLite">
+    <Load><![CDATA[
+    var customerPKey = "";
+    var soldtoPKey = "";
+    var customerSalesOrg = "";
+    var customerIndustry = "";
+    if(Utils.isDefined(jsonQuery)){
+      var newParams = jsonQuery;
+      if (Utils.isOldParamsFormat(newParams)){
+        newParams = Utils.convertDsParamsOldToNew(newParams);
+      }
+    }
+    /**  customerPKey  */
+    if (Utils.isDefined(newParams.customerPKey)){
+      customerPKey = Utils.convertForDBParam(newParams.customerPKey, "DomString");
+    }
+      /**  soldtoPKey  */
+    if (Utils.isDefined(newParams.soldtoPKey)){
+      soldtoPKey = Utils.convertForDBParam(newParams.soldtoPKey, "DomString");
+    }
+    /**  customerIndustry  */
+    if (Utils.isDefined(newParams.customerIndustry)){
+      customerIndustry = Utils.convertForDBParam(newParams.customerIndustry, "DomString");
+    }
+    /**  customerSalesOrg  */
+    if (Utils.isDefined(newParams.customerSalesOrg)){
+      customerSalesOrg = Utils.convertForDBParam(newParams.customerSalesOrg, "DomText");
+    }
+    var sqlParams = { customerPKey,soldtoPKey, customerSalesOrg,customerIndustry};
+ 
+    var sqlStmt = "";
+    if (Utils.isDefined(newParams.customerSalesOrg) && Utils.isDefined(newParams.customerIndustry) && newParams.customerIndustry === "FAKE_INDUSTRY"){
+      sqlStmt += "  SELECT ";
+      sqlStmt += "    p.Id AS pKey, ";
+      sqlStmt += "    p.Name AS name,";
+      sqlStmt += "    p.MaterialGroup1__c, ";
+      sqlStmt += "    p.MaterialGroup4__c,";
+      sqlStmt += "    a.Id AS assortmentId,";
+      sqlStmt += "    sa.AccountId AS AccountId,";
+      sqlStmt += "    CASE ";
+      sqlStmt += "      WHEN a.OrderType__c = 'ZOR' THEN 'Direct'";
+      sqlStmt += "      WHEN a.OrderType__c = 'ZTO' THEN 'Transfer'";
+      sqlStmt += "      ELSE '-'";
+      sqlStmt += "    END AS type,";
+      sqlStmt += "    a.Code__c AS assortmentCode";
+      sqlStmt += "  FROM Product2 p ";
+      sqlStmt += "  INNER JOIN AssortmentProduct ap ON ap.ProductId = p.Id ";
+      sqlStmt += "  INNER JOIN Assortment a ON a.Id = ap.AssortmentId ";
+      sqlStmt += "  LEFT JOIN StoreAssortment sa ON sa.AssortmentId = ap.AssortmentId ";
+      sqlStmt += "  WHERE ";
+      sqlStmt += "    (a.Code__c = 'KOTG947' OR a.Code__c = 'KOTG948') ";
+      sqlStmt += "    AND ap.ProductId = p.Id ";
+      
+    }else if(Utils.isDefined(newParams.customerIndustry)){
+
+      sqlStmt = "SELECT Product2.Id AS pKey, ";
+      sqlStmt += "Product2.Name AS Name, ";
+      sqlStmt += "Product2.MaterialGroup1__c, ";
+      sqlStmt += "Product2.MaterialGroup4__c ";
+      sqlStmt += "FROM Product2 ";
+      sqlStmt += "  WHERE ";
+      if (!Utils.isDefined(newParams.customerSalesOrg)){ /** query for ShipTo and SoldTo */
+        sqlStmt += "  EXISTS ( ";
+        sqlStmt += "    SELECT 1 ";
+        sqlStmt += "    FROM AssortmentProduct ";
+        sqlStmt += "    INNER JOIN Assortment Assortment ON Assortment.Id = AssortmentProduct.AssortmentId ";
+        sqlStmt += "    WHERE Assortment.Industry__c = '#customerIndustry#' ";
+        sqlStmt += "    AND Assortment.Code__c = 'KOTG942' ";
+        sqlStmt += "    AND Assortment.Type__c = 'Exclusion' ";
+        sqlStmt += "    AND AssortmentProduct.ProductId = Product2.Id ";
+        sqlStmt += "    ) ";
+        sqlStmt += "  OR EXISTS ( ";
+        sqlStmt += "    SELECT 1 ";
+        sqlStmt += "    FROM Assortment ";
+        sqlStmt += "    WHERE Assortment.Industry__c = '#customerIndustry#' ";
+        sqlStmt += "    AND Assortment.Code__c = 'KOTG946' ";
+        sqlStmt += "    AND Assortment.Type__c = 'Exclusion' ";
+        sqlStmt += "    AND ((Product2.MaterialGroup1__c !=' ' AND Product2.MaterialGroup1__c = Assortment.MaterialGroup1__c )";
+        sqlStmt += "    AND (Product2.MaterialGroup4__c !=' ' AND Product2.MaterialGroup4__c = Assortment.MaterialGroup4__c) )";
+        sqlStmt += "    ) ";
+      }
+      if (Utils.isDefined(newParams.customerSalesOrg)){
+        sqlStmt += "  EXISTS ( ";
+        sqlStmt += "    SELECT 1 ";
+        sqlStmt += "    FROM AssortmentProduct ";
+        sqlStmt += "    INNER JOIN Assortment Assortment ON Assortment.Id = AssortmentProduct.AssortmentId ";
+        sqlStmt += "    WHERE Assortment.Code__c = 'KOTG940' ";
+        sqlStmt += "    AND Assortment.Type__c = 'Exclusion' ";
+        sqlStmt += "    AND AssortmentProduct.ProductId = Product2.Id ";
+        sqlStmt += "    ) ";
+      }
+      sqlStmt += "  OR EXISTS ( ";
+      sqlStmt += "    SELECT 1 ";
+      sqlStmt += "    FROM AssortmentProduct ";
+      sqlStmt += "    INNER JOIN Assortment Assortment ON Assortment.Id = AssortmentProduct.AssortmentId ";
+      sqlStmt += "    WHERE Assortment.Industry__c = '#customerIndustry#' ";
+      sqlStmt += "    AND Assortment.Code__c = 'KOTG942' ";
+      sqlStmt += "    AND Assortment.Type__c = 'Exclusion' ";
+      sqlStmt += "    AND AssortmentProduct.ProductId = Product2.Id ";
+      sqlStmt += "    ) ";
+      sqlStmt += "  OR EXISTS ( ";
+      sqlStmt += "    SELECT 1 ";
+      sqlStmt += "    FROM Assortment ";
+      sqlStmt += "    WHERE Assortment.Industry__c = '#customerIndustry#' ";
+      sqlStmt += "    AND Assortment.Code__c = 'KOTG946' ";
+      sqlStmt += "    AND Assortment.Type__c = 'Exclusion' ";
+      sqlStmt += "    AND ((Product2.MaterialGroup1__c !=' ' AND Product2.MaterialGroup1__c = Assortment.MaterialGroup1__c )";
+      sqlStmt += "    AND (Product2.MaterialGroup4__c !=' ' AND Product2.MaterialGroup4__c = Assortment.MaterialGroup4__c) )";
+      sqlStmt += "    ) ";
+    }
+
+     return Utils.replaceMacrosParam(sqlStmt, sqlParams);
+ 
+    ]]></Load>
+     <Update><![CDATA[
+       // Intended to be empty - Overview list => read only!
+       return undefined;
+    ]]></Update>
+     <Insert><![CDATA[
+       // Intended to be empty - Overview list => read only!
+       return undefined;     
+    ]]></Insert>
+     <Delete><![CDATA[
+       // Intended to be empty - Overview list => read only!
+       return undefined;
+    ]]></Delete>
+   </Database>
+ </DataSource>

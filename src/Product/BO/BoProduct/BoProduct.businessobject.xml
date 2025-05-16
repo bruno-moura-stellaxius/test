@@ -1,0 +1,80 @@
+<BusinessObject name="BoProduct" generateLoadMethod="false" schemaVersion="1.1">
+  <DataSource name="DsBoProduct" />
+  <SimpleProperties>
+    <SimpleProperty id="true" name="pKey" type="DomPKey" dataSourceProperty="pKey" />
+    <SimpleProperty name="text1" type="DomText" dataSourceProperty="text1" />
+    <SimpleProperty name="id" type="DomPrdNumber" dataSourceProperty="id" />
+    <SimpleProperty name="shortId" type="DomPrdNumber" dataSourceProperty="shortId" />
+    <SimpleProperty name="ean" type="DomPrdNumber" dataSourceProperty="ean" />
+    <SimpleProperty name="foreignProduct" type="DomBool" dataSourceProperty="foreignProduct" />
+    <SimpleProperty name="prdType" type="DomPrdType" dataSourceProperty="prdType" />
+    <SimpleProperty name="taxClassification" type="DomTaxClassification" dataSourceProperty="taxClassification" />
+    <SimpleProperty name="category" type="DomPrdCategory" dataSourceProperty="category" />
+    <SimpleProperty name="brand" type="DomString" dataSourceProperty="brand" />
+    <SimpleProperty name="state" type="DomState" dataSourceProperty="state" />
+    <SimpleProperty name="sapId" type="DomString" dataSourceProperty="sapId" />
+    <SimpleProperty name="eanCode" type="DomString" dataSourceProperty="eanCode" />
+    <SimpleProperty name="myBomType" type="DomString" dataSourceProperty="myBomType" />
+    <SimpleProperty name="myBrandDescription" type="DomString" dataSourceProperty="myBrandDescription" />
+    <SimpleProperty name="mySubBrandDescription" type="DomString" dataSourceProperty="mySubBrandDescription" />
+    <SimpleProperty name="myPharmaceutical" type="DomBool" dataSourceProperty="myPharmaceutical" />
+    <SimpleProperty name="myMedicalDev" type="DomBool" dataSourceProperty="myMedicalDev" />
+    <SimpleProperty name="myFood" type="DomBool" dataSourceProperty="myFood" />
+    <SimpleProperty name="myCosmetics" type="DomBool" dataSourceProperty="myCosmetics" />
+    <SimpleProperty name="myBiocides" type="DomBool" dataSourceProperty="myBiocides" />
+    <SimpleProperty name="myVeterinary" type="DomBool" dataSourceProperty="myVeterinary" />
+
+    <SimpleProperty name="myStandardPrice" type="DomNumber" dataSourceProperty="myStandardPrice" />
+    <SimpleProperty name="myPriceUnit" type="DomNumber" dataSourceProperty="myPriceUnit" />
+    <SimpleProperty name="myVATCode" type="DomNumber" dataSourceProperty="myVATCode" />
+    <SimpleProperty name="myVATPercentage" type="DomNumber" dataSourceProperty="myVATPercentage" />
+    <SimpleProperty name="myNotDiscountable" type="DomBool" dataSourceProperty="myNotDiscountable" />
+    <SimpleProperty name="myDeliveryUnit" type="DomDecimal" dataSourceProperty="myDeliveryUnit" />
+    <SimpleProperty name="mySAPCode" type="DomString" dataSourceProperty="mySAPCode" />
+
+    <SimpleProperty name="myDeliveryValidFrom" type="DomDate" dataSourceProperty="myDeliveryValidFrom" />
+    <SimpleProperty name="myDeliveryValidThru" type="DomDate" dataSourceProperty="myDeliveryValidThru" />
+    <SimpleProperty name="myFieldValidFrom" type="DomDate" dataSourceProperty="myFieldValidFrom" />
+    <SimpleProperty name="myFieldValidThru" type="DomDate" dataSourceProperty="myFieldValidThru" />
+
+    <SimpleProperty name="myEligibleForExchange" type="DomBool" dataSourceProperty="myEligibleForExchange" />
+    <SimpleProperty name="myDepreciation" type="DomNumber" dataSourceProperty="myDepreciation" />
+    <SimpleProperty name="myAvailableAsExchangeProduct" type="DomBool" dataSourceProperty="myAvailableAsExchangeProduct" />
+    <SimpleProperty name="myAvailablesAsLoyaltyCard" type="DomBool" dataSourceProperty="myAvailablesAsLoyaltyCard" />
+    <SimpleProperty name="myAvailableAsPersonalUsage" type="DomBool" dataSourceProperty="myAvailableAsPersonalUsage" />
+    <SimpleProperty name="myAvailableAsSample" type="DomBool" dataSourceProperty="myAvailableAsSample" />
+
+    <SimpleProperty name="myLastModifiedDate" type="DomDate" dataSourceProperty="myLastModifiedDate" />
+
+  </SimpleProperties>
+  <NestedObjects></NestedObjects>
+  <ObjectLookups>
+    <ObjectLookup name="luProductBasePrice" objectClass="LuProductBasePrice" dataSourceProperty="pKey" lookupProperty="pKey" loadMode="LoadImmediate" />
+    <ObjectLookup name="luPrdUsageIcon" objectClass="LuPrdUsageIcon" dataSourceProperty="pKey" lookupProperty="pKey" loadMode="LoadImmediate" />
+  </ObjectLookups>
+  <ListObjects>
+    <ListObject name="loProductHierarchy" objectClass="LoProductHierarchy" dataSourceProperty="pKey" listProperty="ProductPKey" loadMode="LoadImmediate" />
+    <ListObject name="loPrdStateForMasterData" objectClass="LoPrdStateForMasterData" dataSourceProperty="pKey" listProperty="ProductPKey" loadMode="LoadImmediate" />
+    <ListObject name="loLogistics" objectClass="LoLogistics" dataSourceProperty="pKey" listProperty="ProductPKey" loadMode="LoadImmediate" />
+    <ListObject name="loPrdAttachments" objectClass="LoPrdAttachments" dataSourceProperty="pKey" listProperty="ProductPKey" loadMode="LoadImmediate" />
+    <ListObject name="loPrdUsageIcon" objectClass="LoPrdAttachments" dataSourceProperty="pKey" listProperty="ProductPKey" loadMode="OnDemand" />
+    <ListObject name="loProductBoM" objectClass="LoProductBoM" dataSourceProperty="pKey" listProperty="ProductPKey" loadMode="LoadImmediate" />
+  </ListObjects>
+  <Methods>
+    <Method name="beforeSaveAsync" />
+    <Method name="afterSaveAsync" />
+    <Method name="beforeLoadAsync" />
+    <Method name="afterLoadAsync" />
+    <Method name="beforeInitialize" />
+    <Method name="afterInitialize" />
+    <Method name="beforeDoValidateAsync" />
+    <Method name="afterDoValidateAsync" />
+    <Method name="beforeCreateAsync" />
+    <Method name="afterCreateAsync" />
+    <Method name="loadOnDemand" />
+    <Method name="setEARights" />
+    <Method name="checkLogisticsTabVisible" />
+    <Method name="checkPrdUsageIconVisibility" />
+    <Method name="checkBoMTabVisible" />
+  </Methods>
+</BusinessObject>

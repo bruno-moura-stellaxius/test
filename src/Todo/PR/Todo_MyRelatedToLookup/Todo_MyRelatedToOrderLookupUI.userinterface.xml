@@ -1,0 +1,65 @@
+<UIDescription name="Todo::MyRelatedToOrderLookupUI" schemaVersion="0.0.0.5"  layoutType="blank">
+  <Page pagePattern="SingleSectionDialogPage" onBackDiscard="true">
+    <PageHeader>
+      <Bindings>
+        <Resource target="title" type="Label" id="MyRelatedToOrderLookupId" defaultLabel="Search for an order" />
+      </Bindings>
+    </PageHeader>
+    <Section sectionName="masterSection" sectionPattern="SingleAreaSection">
+      <Area areaName="mainArea" areaPattern="SingleElementArea">
+        <GroupedList name="myRelatedToOrderList" dataSource="ProcessContext::MyRelatedToOrderList.Items[]" searchable="true" >
+          <SearchAttributes>
+            <SearchAttribute name="customerName" />
+            <SearchAttribute name="id" />
+            <SearchAttribute name="deliveryDate" />
+          </SearchAttributes>
+          <Items name="Items" itemPattern="MyRelatedToType">
+            <ItemListLayout>
+              <Default>
+                <Header>
+                  <Col />
+                  <Col bindingId="OrderNoLabel"  />
+                  <Col bindingId="OrderTypeLabel"  />
+                  <Col bindingId="DeliveryDateLabel" />
+                  <Col bindingId="ResponsibleLabel" />
+                  <Col bindingId="CustomerLabel" />
+                </Header>
+                <Col width="1.7em" height="1.4em" layoutType="Image" bindingId="Phase" />
+                <Col layoutType="itemTitle" bindingId="OrderNumber" />
+                <Col layoutType="itemSecondary" bindingId="Text" />
+                <Col layoutType="itemSecondary" bindingId="DeliveryDate" />
+                <Col layoutType="itemSecondary" bindingId="Responsible" />
+                <Col layoutType="itemSecondary" bindingId="CustomerName" />
+              </Default>
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="Phase" type="Image" binding=".phase.imageId" bindingMode="ONE_WAY" />
+              <Binding target="Id" type="Text" binding=".id" bindingMode="ONE_TIME" />
+              <Binding target="Text" type="Text" binding=".orderType" bindingMode="ONE_TIME" />
+              <Binding target="DeliveryDate" type="Date" binding=".deliveryDate" bindingMode="ONE_WAY" />
+              <Binding target="Responsible" type="Text" binding=".responsibleName" bindingMode="ONE_WAY" />
+              <Binding target="CustomerName" type="Text" binding=".customerName" bindingMode="ONE_WAY" />
+              <Binding target="OrderNumber" type="Text" binding=".myOrderName" bindingMode="ONE_WAY" />
+              
+              <!-- Labels -->
+              <Resource target="OrderIdLabel" type="Label" id="OrderIdLabel" defaultLabel="Order ID" />
+              <Resource target="OrderTypeLabel" type="Label" id="OrderTypeLabel" defaultLabel="Type" />
+              <Resource target="DeliveryDateLabel" type="Label" id="DeliveryDateLabel" defaultLabel="Delivery Date" />
+              <Resource target="ResponsibleLabel" type="Label" id="ResponsibleLabel" defaultLabel="Responsible" />
+              <Resource target="CustomerLabel" type="Label" id="CustomerLabel" defaultLabel="Customer" />
+              <Resource target="OrderNoLabel" type="Label" id="OrderNoLabel" defaultLabel="Order No" />
+            </Bindings>
+          </Items>
+          <Events>
+            <ItemSelectedEvent event="orderItemSelected">
+              <Params>
+                <Param name="pKey" value=".pKey" />
+                <Param name="name" value=".myOrderTitle" />
+              </Params>
+            </ItemSelectedEvent>
+          </Events>
+        </GroupedList>
+      </Area>
+    </Section>
+  </Page>
+</UIDescription>

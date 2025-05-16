@@ -1,0 +1,27 @@
+<UIDescription name="MyJointVisits::MyJointVisitsUI" schemaVersion="0.0.0.5" xmlns="UISchema.xsd">
+  <Page pagePattern="SingleSectionPage">
+    <PageHeader>
+      <Bindings>
+        <Resource target="title" type="Label" id="VisitsId" defaultLabel="Select Visits For Feedback" bindingMode="ONE_TIME" />
+      </Bindings>
+    </PageHeader>
+    <Section sectionName="masterSection" sectionPattern="SingleAreaSection">
+      <Area areaName="mainArea" areaPattern="SingleElementArea">
+        <GroupedList name="SelectVisitsForReview" searchable="false" dataSource="ProcessContext::loMyVisitsForReview.Items[]">
+          <Items name="Items" itemPattern="SelectVisitsForReview">
+            <ItemListLayout>
+                <Col layoutType="itemIdentifier" bindingId="SelectedAccountName1" />
+                <Col layoutType="itemSecondary" bindingId="VisitPlannedDate" />                
+                <Col layoutType="itemIdentifier" bindingId="SelectedForReview" />
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="SelectedAccountName1" type="Text" binding=".accountName" bindingMode="ONE_WAY" />
+              <Binding target="VisitPlannedDate" type="Text" binding=".visitPlannedDate" bindingMode="ONE_WAY" />
+              <Binding target="SelectedForReview" type="Dynamic"  binding=".selectedForReview" typeField="dataType" toggleId="toggleId" bindingMode="TWO_WAY" />
+            </Bindings>
+          </Items>
+        </GroupedList>
+      </Area>
+    </Section>
+  </Page>
+</UIDescription>

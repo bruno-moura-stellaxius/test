@@ -1,0 +1,103 @@
+<Datasource name="DsLoSysMobileLink" backendSystem="sf" businessObjectClass="LoSysMobileLink" external="true" readOnly="true" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="pKey" table="Mobile_Link__c" column="Id" />
+    <Attribute name="name" table="Mobile_Link__c" column="Name" />
+    <Attribute name="active" table="Mobile_Link__c" column="Active__c" />
+    <Attribute name="sort" table="Mobile_Link__c" column="Sort__c" />
+    <Attribute name="dashboardState" table="Mobile_Link__c" column="Dashboard_State__c" />
+    <Attribute name="description" table="Mobile_Link__c" column="Description_#Language#__c" />
+    <Attribute name="schemeName" table="Mobile_Link__c" column="Scheme_Name__c" />
+    <Attribute name="orgId" table="Mobile_Link__c" column="Org_Id__c" />
+    <Attribute name="loginHost" table="Mobile_Link__c" column="Login_Host__c" />
+    <Attribute name="assetId" table="Mobile_Link__c" column="Asset_Id__c" />
+    <Attribute name="assetType" table="Mobile_Link__c" column="Asset_Type__c" />
+    <Attribute name="displayIn" table="Mobile_Link__c" column="Display_In__c" />
+    <Attribute name="url" table="Mobile_Link__c" column="URL__c" />
+    <DerivedAttribute name="mediaPath" value="' '" />
+    <DerivedAttribute name="fileType" value="' '" />
+  </Attributes>
+  <Database platform="SQLite">
+    <Load><![CDATA[
+
+      var addCondSearch = ""; 
+      var recordTypeName = "";
+      var displayIn = "";
+      var displayTile = "";
+
+      /**  Record Type Name  */
+      if (Utils.isDefined(jsonQuery.recordTypeName)) {
+        recordTypeName = Utils.convertForDBParam(jsonQuery.recordTypeName, "DomText");
+        addCondSearch += " AND RecordType.DeveloperName = #recordTypeName# ";
+      }
+
+      /**  Display In */
+      if (Utils.isDefined(jsonQuery.displayIn)) {
+        displayIn = Utils.convertForDBParam(jsonQuery.displayIn, "DomText");
+        addCondSearch += " AND Mobile_Link__c.Display_In__c = #displayIn# ";
+      }
+
+      /**  Display Tile */
+      if (Utils.isDefined(jsonQuery.displayTile)) {
+        displayTile = Utils.convertForDBParam(jsonQuery.displayTile, "DomText");
+        addCondSearch += " AND Mobile_Link__c.DisplayTile__c = #displayTile# ";
+      }
+
+      var sqlParams = {
+        displayTile,
+        displayIn,
+        recordTypeName,
+      };
+
+      //Get all the user roles for the current user
+      var sqlStmt = "WITH cte_userroles AS ( ";
+      sqlStmt += " SELECT DISTINCT cpurm.User_Role_Name__c AS user_role ";
+      sqlStmt += " FROM PermissionSetAssignment AS psa ";
+      sqlStmt += " INNER JOIN SetupEntityAccess AS sea ON sea.ParentId = psa.PermissionSetId ";
+      sqlStmt += " INNER JOIN Custom_Permission_User_Role_Mapping__c AS cpurm ";
+      sqlStmt += " ON sea.SetupEntityId = cpurm.Custom_Permission__c ";
+      sqlStmt += " WHERE psa.AssigneeId = '#UserPKey#' ) ";
+
+      //Get Mobile_Link__c
+      sqlStmt += " SELECT Mobile_Link__c.Active__c as active, ";
+      sqlStmt += " Mobile_Link__c.Sort__c as sort, ";
+      sqlStmt += " Mobile_Link__c.Org_Id__c as orgId, ";
+      sqlStmt += " Mobile_Link__c.Login_Host__c as loginHost, ";
+      sqlStmt += " Mobile_Link__c.Asset_Id__c as assetId, ";
+      sqlStmt += " Mobile_Link__c.Asset_Type__c as assetType, ";
+      sqlStmt += " Mobile_Link__c.Dashboard_State__c as dashboardState, ";
+      sqlStmt += " Mobile_Link__c.Scheme_Name__c as schemeName, ";
+      sqlStmt += " Mobile_Link__c.Description_#Language#__c as description, ";
+      sqlStmt += " Mobile_Link__c.Display_In__c as displayIn, ";
+      sqlStmt += " Mobile_Link__c.URL__c as url, ";
+      sqlStmt += " SF_File.Usage__c as usage, ";
+      sqlStmt += " SF_FileLink.ParentId as parentid, ";
+      sqlStmt += " SF_File.PathOnClient as fileName, ";
+      sqlStmt += " replace(SF_File.PathOnClient, rtrim(SF_File.PathOnClient,replace(SF_File.PathOnClient, '.', '')),'') as fileType, ";
+      sqlStmt += " CASE SF_File.Usage__c WHEN 'Icon' THEN SF_File.VersionData ELSE ' ' END as mediaPath ";
+      sqlStmt += " FROM Mobile_Link__c ";
+      sqlStmt += " LEFT OUTER JOIN SF_FileLink ON SF_FileLink.ParentId = Mobile_Link__c.Id ";
+      sqlStmt += " AND SF_FileLink.IsDeleted <> '1' ";
+      sqlStmt += " LEFT OUTER JOIN SF_File ON SF_FileLink.FileId = SF_File.Id ";
+      sqlStmt += " AND SF_File.Usage__c = 'Icon' ";
+      sqlStmt += " AND SF_File.IsDeleted <> '1' ";
+      sqlStmt += " INNER JOIN RecordType ON RecordType.Id = Mobile_Link__c.RecordTypeId ";
+      sqlStmt += " WHERE Mobile_Link__c.Sales_Org__c = '#SALESORG#' AND Mobile_Link__c.Active__c='1' ";
+      sqlStmt += " AND ( EXISTS ( ";
+      sqlStmt += " SELECT 1 ";
+      sqlStmt += " FROM cte_userroles AS ur ";
+      sqlStmt += " WHERE ';' || Mobile_Link__c.UserRoles__c || ';' LIKE '%;' || ur.user_role || ';%' ) ";
+      if(displayIn == "Your Day" && displayTile == "My day KPI"){
+        sqlStmt += " ) ";
+      }
+      else{
+        sqlStmt += " OR  Mobile_Link__c.UserRoles__c = ' ' ) ";
+      }
+      sqlStmt += addCondSearch;
+      sqlStmt += " ORDER BY ";
+      sqlStmt += " Mobile_Link__c.Sort__c ASC ";
+
+      return Utils.replaceMacrosParam(sqlStmt, sqlParams);
+
+  ]]></Load>
+  </Database>
+</Datasource>

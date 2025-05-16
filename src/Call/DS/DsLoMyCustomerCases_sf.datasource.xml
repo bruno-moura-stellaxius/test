@@ -1,0 +1,42 @@
+<DataSource name="DsLoMyCustomerCases" backendSystem="sf" businessObjectClass="LoMyCustomerCases" external="false" editableEntity="[Case]" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="pKey" table="[Case]" column="Id" />
+    <Attribute name="description" table="[Case]" column="Description" /> 
+    <Attribute name="type" table="[Case]" column="Type" /> 
+    <Attribute name="createdDate" table="[Case]" column="CreatedDate" />
+    <DateTimeAttribute dateName="myCreatedDate" timeName="myCreatedTime" table="[Case]" column="CreatedDate" />
+    <DateTimeAttribute dateName="myClosedDate" timeName="myClosedTime" table="[Case]" column="ClosedDate" />
+    <Attribute name="status" table="[Case]" column="Status" /> 
+    <Attribute name="ownerId" table="[Case]" column="OwnerId" /> 
+    <Attribute name="ownerName" table="User" column="Name" />
+    <Attribute name="caseNumber" table="[Case]" column="CaseNumber" />
+    <Attribute name="mySubject" table="[Case]" column="Subject" />
+    <Attribute name="myCustomerName" table="Account" column="Name" />
+  </Attributes>
+  <Entities>
+    <Entity name="[Case]" alias="" idAttribute="Id" />
+    <Entity name="User">
+      <Join Type="left outer">
+        <SimpleJoin>
+          <Condition leftSideValue="User.Id" comparator="eq" rightSideType="Attribute" rightSideValue="[Case].OwnerId" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Account">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="[Case].AccountId" comparator="eq" rightSideType="Attribute" rightSideValue="Account.Id" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+  </Entities>
+  <QueryCondition><![CDATA[
+    [Case].AccountId = #customerPKey#
+   ]]></QueryCondition>
+    <OrderCriteria>
+      <OrderCriterion entity="[Case]" attribute="createdDate" direction="DESC" />
+    </OrderCriteria>
+    <Parameters>
+      <Parameter name="customerPKey" type="TEXT" />
+    </Parameters>
+</DataSource>

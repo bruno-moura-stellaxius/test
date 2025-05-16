@@ -1,0 +1,179 @@
+<Process name="SalesFolder::PromotionDetailProcess"
+  defaultAction="ShowSalesFolderPromotionDetailView_Decision_From_Type" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="SalesFolderPromotionDetail" type="BoPromotionDetail" />
+        <Declaration name="CurrentTabName" type="String" />
+        <Declaration name="PageTitle" type="String" />
+        <Declaration name="HasNext" type="DomBool" />
+        <Declaration name="HasPrevious" type="DomBool" />
+        <Declaration name="HedearKeys" type="DomText" />
+        <Declaration name="PromotionActionItems" type="LoMyPromotionActionItem" />
+      </Declarations>
+      <Parameters>
+        <Input name="MainPKey" type="String" />
+        <Input name="SloganText" type="String" />
+        <Input name="DateFrom" type="String" />
+        <Input name="DateThru" type="String" />
+        <Input name="GroupText" type="String" />
+        <Input name="AnnotationText" type="String" />
+        <Input name="SalesFolderSlFoganText" type="String" />
+        <Input name="AllItems" type="LoSalesFolderPromotion" />
+        <Input name="CustomerPKey" type="String" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+      <Action name="LoadSalesFolderPromotionDetail" actionType="LOAD" type="BoPromotionDetail">
+        <Return name="ProcessContext::SalesFolderPromotionDetail" />
+        <Parameters>
+          <Input name="pKey" value="ProcessContext::MainPKey" />
+        </Parameters>
+      </Action>
+      <Action name="InitCurrentTab" actionType="LOGIC" call="Utils.identity">
+        <Return name="ProcessContext::CurrentTabName" />
+        <Parameters>
+          <Input name="tabName" value="'Main'" />
+        </Parameters>
+      </Action>
+      <Action name="SetHeaderText" actionType="LOGIC"
+        call="ProcessContext::SalesFolderPromotionDetail.setPageTitle">
+        <Return name="ProcessContext::PageTitle" />
+        <Parameters>
+          <Input name="PageTitle" value="ProcessContext::SloganText" />
+        </Parameters>
+      </Action>
+      <Action name="HasNextLogic" actionType="LOGIC" call="ProcessContext::AllItems.myhasNextItem">
+        <Return name="ProcessContext::HasNext" />
+        <Parameters>
+          <Input name="pKey" value="ProcessContext::MainPKey" />
+        </Parameters>
+      </Action>
+      <Action name="HasPreviousLogic" actionType="LOGIC"
+        call="ProcessContext::AllItems.myhasPreviousItem">
+        <Return name="ProcessContext::HasPrevious" />
+        <Parameters>
+          <Input name="pKey" value="ProcessContext::MainPKey" />
+        </Parameters>
+      </Action>
+    </EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action name="ShowSalesFolderPromotionDetailView_Decision_From_Type" actionType="DECISION"
+        parameter="ProcessContext::SalesFolderPromotionDetail.myType">
+        <Case value="Dynamic" action="GetHeaderKeys" />
+        <CaseElse action="ShowSalesFolderPromotionDetail" />
+      </Action>
+      <Action name="ShowSalesFolderPromotionDetail" actionType="VIEW">
+        <UIDescription>SalesFolder::PromotionDetailUI</UIDescription>
+        <Events>
+          <Event name="tabSelected" action="SetCurrentTab" />
+          <Event name="previousPromotion" action="PreviousPromotionDetail" />
+          <Event name="nextPromotion" action="NextPromotionDetail" />
+        </Events>
+      </Action>
+      <Action name="GetHeaderKeys" actionType="LOGIC"
+        call="ProcessContext::SalesFolderPromotionDetail.myGetHeaderKeys">
+        <Return name="ProcessContext::HedearKeys" />
+        <TransitionTo action="LoadHeaderActions" />
+      </Action>
+      <Action name="LoadHeaderActions" actionType="LOAD"
+        type="LoMyPromotionActionItem">
+        <Return name="ProcessContext::PromotionActionItems" />
+        <Parameters>
+          <Input name="referenceKeys" value="ProcessContext::HedearKeys" />
+        </Parameters>
+        <TransitionTo action="ShowSalesFolderPromotionDetailV2" />
+      </Action>
+      <Action name="ShowSalesFolderPromotionDetailV2" actionType="VIEW">
+        <UIDescription>SalesFolder::MyPromotionDetailV2UI</UIDescription>
+        <Events>
+          <Event name="tabSelected" action="SetCurrentTab" />
+          <Event name="previousPromotion" action="PreviousPromotionDetail" />
+          <Event name="nextPromotion" action="NextPromotionDetail" />
+          <Event name="openLink" action="OpenExternalLink" />
+          <Event name="openDocument" action="OpenDocumentByExternalId" />
+          <Event name="openOrder" action="OpenOrderLookupByCustomer" />
+        </Events>
+      </Action>
+      <Action name="SetCurrentTab" actionType="LOGIC" call="Utils.identity">
+        <Return name="ProcessContext::CurrentTabName" />
+        <Parameters>
+          <Input name="tabName" value="Event.tabName" />
+        </Parameters>
+      </Action>
+      <Action name="NextPromotionDetail" actionType="LOGIC"
+        call="ProcessContext::AllItems.mygetNextItem">
+        <Return name="ProcessContext::MainPKey" />
+        <Parameters>
+          <Input name="pKey" value="ProcessContext::MainPKey" />
+        </Parameters>
+        <TransitionTo action="GetDestinationSloganText" />
+      </Action>
+      <Action name="PreviousPromotionDetail" actionType="LOGIC"
+        call="ProcessContext::AllItems.mygetPreviousItem">
+        <Return name="ProcessContext::MainPKey" />
+        <Parameters>
+          <Input name="pKey" value="ProcessContext::MainPKey" />
+        </Parameters>
+        <TransitionTo action="GetDestinationSloganText" />
+      </Action>
+      <Action name="GetDestinationSloganText" actionType="LOGIC"
+        call="ProcessContext::AllItems.mygetSloganTextByPKey">
+        <Return name="ProcessContext::SloganText" />
+        <Parameters>
+          <Input name="pKey" value="ProcessContext::MainPKey" />
+        </Parameters>
+        <TransitionTo action="ReRunLoadSalesFolderPromotionDetail" />
+      </Action>
+      <Action name="ReRunLoadSalesFolderPromotionDetail" actionType="LOAD" type="BoPromotionDetail">
+        <Return name="ProcessContext::SalesFolderPromotionDetail" />
+        <Parameters>
+          <Input name="pKey" value="ProcessContext::MainPKey" />
+        </Parameters>
+        <TransitionTo action="ReRunSetHeaderText" />
+      </Action>
+      <Action name="ReRunSetHeaderText" actionType="LOGIC"
+        call="ProcessContext::SalesFolderPromotionDetail.setPageTitle">
+        <Return name="ProcessContext::PageTitle" />
+        <Parameters>
+          <Input name="PageTitle" value="ProcessContext::SloganText" />
+        </Parameters>
+        <TransitionTo action="ReRunHasNextLogic" />
+      </Action>
+      <Action name="ReRunHasNextLogic" actionType="LOGIC"
+        call="ProcessContext::AllItems.myhasNextItem">
+        <Return name="ProcessContext::HasNext" />
+        <Parameters>
+          <Input name="pKey" value="ProcessContext::MainPKey" />
+        </Parameters>
+        <TransitionTo action="ReRunHasPreviousLogic" />
+      </Action>
+      <Action name="ReRunHasPreviousLogic" actionType="LOGIC"
+        call="ProcessContext::AllItems.myhasPreviousItem">
+        <Return name="ProcessContext::HasPrevious" />
+        <Parameters>
+          <Input name="pKey" value="ProcessContext::MainPKey" />
+        </Parameters>
+        <TransitionTo action="ShowSalesFolderPromotionDetailView_Decision_From_Type" />
+      </Action>
+      <Action actionType="LOGIC" name="OpenExternalLink" call="ProcessContext::SalesFolderPromotionDetail.myOpenLink">
+        <Parameters>
+          <Input name="url" value="Event.url" />
+        </Parameters>
+      </Action>
+      <Action name="OpenDocumentByExternalId" actionType="PROCESS" process="Sales Folder::MyDocumentDetailProcess">
+        <Parameters>
+          <Input name="ExternalId" value="Event.documentExternalId" />
+        </Parameters>
+      </Action>
+      <Action name="OpenOrderLookupByCustomer" actionType="PROCESS" process="Sales Folder::MyOrderLookupProcess">
+        <Parameters>
+          <Input name="CustomerPKey" value="ProcessContext::CustomerPKey" />
+          <Input name="ProductAssortment" value="Event.productAssortment" />
+        </Parameters>
+      </Action>
+    </Actions>
+  </Body>
+</Process>

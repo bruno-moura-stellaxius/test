@@ -1,0 +1,45 @@
+<Process name="Call::MyCustomerCasesProcess" defaultAction="ShowCasesList" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="CasesList" type="LoMyCustomerCases" />
+        <Declaration name="CaseDetail" type="BoMyCaseDetail" />
+      </Declarations>
+      <Parameters>
+        <Input name="CustomerPKey" type="String" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+      <Action name="GetCasesList" actionType="LOAD" type="LoMyCustomerCases">
+        <Parameters>
+          <Input name="customerPKey" value="ProcessContext::CustomerPKey" />
+        </Parameters>
+        <Return name="ProcessContext::CasesList" />
+      </Action>
+    </EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action name="ShowCasesList" actionType="VIEW">
+        <UIDescription>Call::MyCustomerCasesUI</UIDescription>
+        <Events>
+          <Event name="itemSelected" action="LoadCaseDetails" />
+          <!-- Menu item events -->
+          
+        </Events>
+      </Action>
+      <!-- Set filter to show only unread notifications -->
+      
+      <!-- BEGIN: Notification Overview -->
+      <Action name="LoadCaseDetails" actionType="MASTER_DETAIL_HANDLER">
+        <MasterList name="ProcessContext::CasesList">
+          <!--RELOAD|UPDATE|NONE-->
+          <ItemUnselected type="RELOAD" />
+        </MasterList>
+        <DetailObject name="ProcessContext::CaseDetail" objectClass="BoMyCaseDetail">
+          <Save type="DIRTY" confirmation="FALSE" validate="FALSE" />
+        </DetailObject>
+      </Action>
+    </Actions>
+  </Body>
+</Process>

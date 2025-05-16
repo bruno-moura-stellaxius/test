@@ -1,0 +1,42 @@
+<BusinessObject name="BoWizardCreateNewTodo" schemaVersion="1.1" generateLoadMethod="false" generateCreateMethod="true">
+  <DataSource name="DsBoWizardCreateNewTodo"/>
+  <SimpleProperties>
+    <SimpleProperty name="pKey" type="DomPKey"/>
+    <SimpleProperty name="userPKey" type="DomPKey"/>
+    <SimpleProperty name="svcRequestMetaPKey" type="DomPKey"/>
+    <SimpleProperty name="text" type="DomText"/>
+    <SimpleProperty name="dueDate" type="DomDate"/>
+    <SimpleProperty name="myClassification" type="DomTaskType"/>
+    <SimpleProperty name="myPriority" type="DomMyTaskPriority"/>
+    <SimpleProperty name="myIssuePhase" type="DomSvcIssuePhase"/>
+    <SimpleProperty name="myDescription" type="DomText"/>
+  </SimpleProperties>
+  <NestedObjects/>
+  <ObjectLookups>
+    <ObjectLookup name="luUser" objectClass="LuUser" dataSourceProperty="userPKey" lookupProperty="pKey" loadMode="LoadImmediate"/>
+    <ObjectLookup name="luSvcRequestMeta" objectClass="LuSvcRequestMeta" dataSourceProperty="svcRequestMetaPKey" lookupProperty="pKey" loadMode="LoadImmediate"/>
+    <ObjectLookup name="luMyRelatedTo" objectClass="LuMyRelatedTo" />
+    <ObjectLookup name="luMyRelatedToType" objectClass="LuMyRelatedToType"  />
+  </ObjectLookups>
+  <ListObjects/>
+  <Methods>
+    <Method name="beforeSaveAsync"/>
+    <Method name="afterSaveAsync"/>
+    <Method name="beforeLoadAsync"/>
+    <Method name="afterLoadAsync"/>
+    <Method name="beforeInitialize"/>
+    <Method name="afterInitialize"/>
+    <Method name="beforeDoValidateAsync"/>
+    <Method name="afterDoValidateAsync"/>
+    <Method name="beforeCreateAsync"/>
+    <Method name="afterCreateAsync"/>
+    <Method name="setEARights"/>
+    <Method name="initializeUserAccountableForProcess"/>
+    <Method name="myUpdateRelatedToType"/>
+  </Methods>
+  <Validations>
+    <Validation name="validateNotEmpty"/>
+    <Validation name="validateDueDate"/>
+    <Validation name="myValidateRelatedTo"/>
+  </Validations>
+</BusinessObject>

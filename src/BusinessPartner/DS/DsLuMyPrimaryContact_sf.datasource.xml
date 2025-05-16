@@ -1,0 +1,23 @@
+<DataSource name="DsLuMyPrimaryContact" backendSystem="sf" businessObjectClass="LuMyPrimaryContact" external="false" editableEntity="" schemaVersion="2.0">
+  <!-- For more information about the supported properties and nodes see corresponding DataSource.md file under ~Workspace/contractSnippets/YourModuel Section/DS/DS_DataSource -->
+  <Attributes>
+    <Attribute name="email" table="Contact" column="Email" />
+    <Attribute name="phone" table="Contact" column="Phone" />
+    <Attribute name="fax" table="Contact" column="Fax" />
+    <Attribute name="pKey" table="Contact" column="Id" />
+    <Attribute name="title" table="Contact" column="Title" />
+    <Attribute name="name" table="Contact" column="Name" />
+    <Attribute name="mobilePhone" table="Contact" column="MobilePhone" />
+    <Attribute name="mainFunction" table="Contact" column="Main_Function__c" />
+  </Attributes>
+  <Entities>
+    <Entity name="Contact" idAttribute="Id" />
+  </Entities>
+  <QueryCondition><![CDATA[
+    Contact.Id = #pKey#
+   ]]></QueryCondition>
+    <OrderCriteria></OrderCriteria>
+    <Parameters>
+      <Parameter name="pKey" type="TEXT" />
+    </Parameters>
+</DataSource>

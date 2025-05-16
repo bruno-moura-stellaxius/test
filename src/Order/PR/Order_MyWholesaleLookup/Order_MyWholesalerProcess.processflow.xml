@@ -1,0 +1,44 @@
+<Process name="Order::MyWholesalerLookupProcess" defaultAction="GetMyWholesalerList" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="MyWholesalerList" type="LoMyWholesaler" />
+      </Declarations>
+      <Parameters>
+        <Input name="customerPKey" type="DomPKey" />
+        <Input name="myWholesalerPKey" type="DomPKey" />
+        <Input name="myWholesalerName" type="DomText" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions></EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action name="GetMyWholesalerList" actionType="LOAD" type="LoMyWholesaler">
+        <Parameters>
+          <Input name="customerPKey" value="ProcessContext::customerPKey" />
+        </Parameters>
+        <Return name="ProcessContext::MyWholesalerList" />
+        <TransitionTo action="ShowView" />
+      </Action>
+      <Action actionType="View" name="ShowView">
+        <UIDescription>Order::MyWholesalerLookup</UIDescription>
+        <Events>
+          <Event name="itemSelected" action="EndWithNewValue" />
+        </Events>
+      </Action>
+      <Action actionType="END" name="EndWithNewValue">
+        <ReturnValues>
+          <Return name="myWholesalerPKey" value="Event.pKey" />
+          <Return name="myWholesalerName" value="Event.name" />
+        </ReturnValues>
+      </Action>
+      <Action actionType="END" name="End">
+        <ReturnValues>
+          <Return name="myWholesalerPKey" value="ProcessContext::myWholesalerPKey" />
+          <Return name="myWholesalerName" value="ProcessContext::myWholesalerName" />
+        </ReturnValues>
+      </Action>
+    </Actions>
+  </Body>
+</Process>

@@ -1,0 +1,29 @@
+<Process name="Sales Folder::MyDocumentDetailProcess" defaultAction="ShowMyDocumentDetailUI"
+  schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="LoMyDocumentAttachment" type="LoMyDocumentAttachment" />
+      </Declarations>
+      <Parameters>
+        <Input name="ExternalId" type="String" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+      <Action actionType="LOAD" name="LoadDocumentAttachment" type="LoMyDocumentAttachment">
+        <Parameters>
+          <Input name="externalId" value="ProcessContext::ExternalId" />
+        </Parameters>
+        <Return name="ProcessContext::LoMyDocumentAttachment" />
+      </Action>
+    </EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action actionType="View" name="ShowMyDocumentDetailUI">
+        <UIDescription>Sales Folder::MyDocumentDetailUI</UIDescription>
+        <Events />
+      </Action>
+    </Actions>
+  </Body>
+</Process>

@@ -1,0 +1,19 @@
+<LookupObject name="LuMyPrimaryContact" generateLoadMethod="true" schemaVersion="1.1">
+  <!--In case lookup does not require datasource, let name of datasource property empty-->
+  <DataSource name="DsLuMyPrimaryContact" />
+  <SimpleProperties>
+    <SimpleProperty id="true" name="pKey" type="DomPKey" dataSourceProperty="pKey" />
+    <SimpleProperty name="fax" type="DomText" dataSourceProperty="fax" />
+    <SimpleProperty name="email" type="DomText" dataSourceProperty="email" />
+    <SimpleProperty name="phone" type="DomText" dataSourceProperty="phone" />
+    <SimpleProperty name="title" type="DomText" dataSourceProperty="title" />
+    <SimpleProperty name="name" type="DomText" dataSourceProperty="name" />
+    <SimpleProperty name="mobilePhone" type="DomText" dataSourceProperty="mobilePhone" />
+    <SimpleProperty name="mainFunction" type="DomBpaFunction" storable="true" dataSourceProperty="mainFunction" />
+  </SimpleProperties>
+  <Methods>
+    <Method name="afterLoadAsync" />
+    <Method name="beforeLoadAsync" />
+    <Method name="loadAsync" />
+  </Methods>
+</LookupObject>

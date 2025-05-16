@@ -1,0 +1,24 @@
+<DataSource name="DsLoMyPromotionActionItem" backendSystem="sf" businessObjectClass="LoMyPromotionActionItem" external="false" editableEntity="SellSheetActionItem__c" schemaVersion="2.0" readOnly="true">
+  <Attributes>
+    <Attribute name="pKey" table="SellSheetActionItem__c" column="Id" />
+    <Attribute name="prmHeaderPKey" table="SellSheetActionItem__c" column="Header__c" />
+    <Attribute name="label" table="SellSheetActionItem__c" column="Label__c" />
+    <Attribute name="link" table="SellSheetActionItem__c" column="Link__c" />
+    <Attribute name="redirectionType" table="SellSheetActionItem__c" column="RedirectionType__c" />
+    <Attribute name="documentExternalId" table="SellSheetActionItem__c" column="DocumentExternalId__c" />
+    <Attribute name="productAssortment" table="SellSheetActionItem__c" column="ProductAssortment__c" />
+  </Attributes>
+  <Entities>
+    <Entity name="SellSheetActionItem__c" alias="" idAttribute="Id" >
+    </Entity>
+  </Entities>
+  <QueryCondition>
+    <![CDATA[
+      SellSheetActionItem__c.Header__c IN (#referenceKeys#)
+    ]]>
+  </QueryCondition>
+  <OrderCriteria />
+  <Parameters>
+    <Parameter name="referenceKeys" type="LIST" />
+  </Parameters>
+</DataSource>

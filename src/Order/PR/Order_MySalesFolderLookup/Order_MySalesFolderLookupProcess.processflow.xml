@@ -1,0 +1,52 @@
+<Process name="Order::MySalesFolderLookupProcess" defaultAction="ShowMySalesFolderLookupUI"
+  schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="SalesFolderList" type="LoSalesFolder" />
+        <Declaration name="CurrentUserPKey" type="DomPKey" />
+        <Declaration name="CurrentDate" type="String" />
+      </Declarations>
+      <Parameters>
+        <Input name="Category" type="String" />
+        <Input name="IsInternal" type="DomBool" />
+        <Input name="CustomerPKey" type="DomPKey" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+      <Action name="AssignResponsible" actionType="LOGIC" call="ApplicationContext::User.getPKey">
+        <Return name="ProcessContext::CurrentUserPKey" />
+      </Action>
+      <Action actionType="LOGIC" name="SetCurrentDate" call="Utils.createAnsiDateToday">
+        <Return name="ProcessContext::CurrentDate" />
+      </Action>
+      <Action name="GetSalesFolderList" actionType="LOAD" type="LoSalesFolder">
+        <Parameters>
+          <Input name="UserPKey" value="ProcessContext::CurrentUserPKey" />
+          <Input name="customerPKey" value="ProcessContext::CustomerPKey" />
+          <Input name="category" value="ProcessContext::Category"  />
+          <Input name="isInternal" value="ProcessContext::IsInternal" />
+          <Input name="currentDate" value="ProcessContext::CurrentDate" />
+        </Parameters>
+        <Return name="ProcessContext::SalesFolderList" />
+      </Action>
+    </EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action actionType="View" name="ShowMySalesFolderLookupUI">
+        <UIDescription>Order::MySalesFolderLookupUI</UIDescription>
+        <Events>
+          <Event name="mySalesFolderSelected" action="MyLoadPromotions" />
+        </Events>
+      </Action>
+      <Action name="MyLoadPromotions" actionType="PROCESS" process="SalesFolder::SalesFolderPromotionProcess">
+        <Parameters>
+          <Input name="MainPKey" value="Event.pKey" />
+          <Input name="SloganText" value="Event.sloganText" />
+          <Input name="CustomerPKey" value="ProcessContext::CustomerPKey" />
+        </Parameters>
+      </Action>
+    </Actions>
+  </Body>
+</Process>

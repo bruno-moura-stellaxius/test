@@ -1,0 +1,205 @@
+<UIDescription name="Call::SurveyTabUI" schemaVersion="0.0.0.5">
+  <Page pagePattern="MasterDetailSectionPage" masterSectionFlex="40" detailSectionFlex="60">
+    <PageHeader>
+      <Bindings>
+        <Binding target="title" binding="ProcessContext::MainBO.luCustomer.name" />
+        <!-- CW-REQUIRED: remove title binding -->
+      </Bindings>
+    </PageHeader>
+    <HeaderLine>
+    </HeaderLine>
+    <Section sectionName="masterSection" sectionPattern="FilteredViewAreaSection">
+      <Area areaName="filterArea" areaPattern="FilterElementArea">
+        <ImageSelector name="POSSelector" type="FilterElement" dataSource="ProcessContext::MainBO.boJobManager.loPOS.ItemObjects[]" filter="true">
+          <Events>
+            <ItemSelectedEvent event="posSelected">
+              <Params>
+                <Param name="posId" value=".posId" />
+              </Params>
+            </ItemSelectedEvent>
+          </Events>
+          <Items>
+            <Bindings>
+              <Binding target="Image" type="Image" binding=".imageId" bindingMode="ONE_WAY" />
+              <Binding target="Text" type="Text" binding=".name" bindingMode="ONE_WAY" />
+            </Bindings>
+          </Items>
+        </ImageSelector>
+      </Area>
+      <Area areaName="viewArea" areaPattern="SingleElementArea">
+        <GroupedList master="true" name="SurveyProductsList" searchBarPlacement="HeaderLine" sortBy="text1" searchable="true" dataSource="ProcessContext::MainBO.boJobManager.loCurrentSurveyProducts.Items[]">
+          <SearchAttributes>
+            <SearchAttribute name="text1" />
+            <SearchAttribute name="eAN" />
+            <SearchAttribute name="prdId" />
+          </SearchAttributes>
+          <Items name="Items" itemPattern="SurveyPattern">
+            <Bindings>
+              <Binding target="Product" type="Text" binding=".text1" bindingMode="ONE_WAY" />
+              <Binding target="surveyCol1" type="Text" binding=".svyFacings" bindingMode="TWO_WAY" />
+              <Binding target="surveyCol2" type="Decimal" formatV2="10.2" binding=".svyPrice" bindingMode="TWO_WAY" />
+              <Binding target="surveyCol3" type="Combo" binding=".svyDistributed" toggleId="PrdDistributed" bindingMode="TWO_WAY" />
+              <Binding target="surveyCol4" type="Text" binding=".svyPosFacings" bindingMode="TWO_WAY" />
+              <Binding target="surveyCol5" type="Decimal" formatV2="10.2" binding=".svyPosPrice" bindingMode="TWO_WAY" />
+              <Binding target="surveyCol6" type="Combo" binding=".svyPosDistributed" toggleId="PrdDistributed" bindingMode="TWO_WAY" />
+              <Binding target="MediaPath" type="Blob" binding=".mediaPath" fileTypeBinding=".fileType" roundedEdge="true" />
+              <!-- Header Labels -->
+              <Resource target="prdIcon" type="Label" id="ClbSurveyHeaderColumnIcon" defaultLabel="Icon" />
+              <Resource target="prdNameHeader" type="Label" id="ClbSurveyHeaderColumnProduct" defaultLabel="Brand" />
+              <Resource target="surveyCol1Header" type="Label" id="ClbSurveyHeaderColumn1" defaultLabel="F" />
+              <Resource target="surveyCol2Header" type="Label" id="ClbSurveyHeaderColumn2" defaultLabel="Price" />
+              <Resource target="surveyCol3Header" type="Label" id="ClbSurveyHeaderColumn3" defaultLabel="Distrib." />
+              <Resource target="surveyCol4Header" type="Label" id="ClbSurveyHeaderColumn4" defaultLabel="F" />
+              <Resource target="surveyCol5Header" type="Label" id="ClbSurveyHeaderColumn5" defaultLabel="Price" />
+              <Resource target="surveyCol6Header" type="Label" id="ClbSurveyHeaderColumn6" defaultLabel="Distrib." />
+              <Resource target="surveyCol1PhoneHeader" type="Label" id="surveyCol1PhoneHeader" defaultLabel="F" />
+              <Resource target="surveyCol2PhoneHeader" type="Label" id="surveyCol2PhoneHeader" defaultLabel="Price" />
+              <Resource target="surveyCol4PhoneHeader" type="Label" id="surveyCol4PhoneHeader" defaultLabel="F" />
+              <Resource target="surveyCol5PhoneHeader" type="Label" id="surveyCol5PhoneHeader" defaultLabel="Price" />
+            </Bindings>
+            <ItemListLayout>
+              <Default>
+                <Header>
+                  <Col bindingId="prdNameHeader" align="left" />
+                </Header>
+                <Col layoutType="itemName" bindingId="Product" />
+              </Default>
+              <Tablet>
+                <Default>
+                  <Header>
+                    <Col bindingId="prdNameHeader" align="left" />
+                  </Header>
+                  <Col layoutType="itemName" bindingId="Product" />
+                </Default>
+                <Apple>
+                  <Header>
+                    <Col bindingId="prdNameHeader" align="left" />
+                  </Header>
+                  <Col layoutType="itemName" bindingId="Product" />
+                </Apple>
+              </Tablet>
+              <Phone>
+                <Default>
+                  <Header>
+                    <Col bindingId="prdNameHeader" align="left" />
+                  </Header>
+                  <Col flex="1" layoutType="itemName" bindingId="Product" />
+                </Default>
+                <Apple>
+                  <Header>
+                    <Col bindingId="prdNameHeader" align="left" />
+                  </Header>
+                  <Col layoutType="itemName" bindingId="Product" />
+                </Apple>
+              </Phone>
+            </ItemListLayout>
+          </Items>
+          <Events>
+            <ItemSelectedEvent event="itemSelected">
+              <Params>
+                <Param name="posId" value=".posId" />
+                <Param name="prdMainPKey" value=".prdMainPKey" />
+                <Param name="jobProductPKey" value=".pKey" />
+              </Params>
+            </ItemSelectedEvent>
+            <ContextOpeningEvent event="contextMenuOpening">
+              <Params>
+                <Param name="pKey" value=".pKey" />
+                <Param name="prdMainPKey" value=".prdMainPKey" />
+                <Param name="posId" value=".posId" />
+                <Param name="historical" value=".historical" />
+              </Params>
+            </ContextOpeningEvent>
+            <ContextSelectedEvent event="contextMenuItemSelected">
+              <Params>
+                <Param name="pKey" value=".pKey" />
+                <Param name="prdMainPKey" value=".prdMainPKey" />
+                <Param name="posId" value=".posId" />
+                <Param name="historical" value=".historical" />
+              </Params>
+            </ContextSelectedEvent>
+          </Events>
+        </GroupedList>
+      </Area>
+    </Section>
+    <Section sectionName="detailSection" sectionPattern="SingleAreaSection">
+      <Area areaName="mainArea" areaPattern="SingleElementArea">
+        <GroupElement>
+          <Bindings>
+            <Binding target="Title" binding="ProcessContext::MainBO.boJobManager.loCurrentSurveyProducts.Current.shortText" bindingMode="ONE_WAY" />
+          </Bindings>
+          <!-- Id -->
+          <InputArea name="Id" disabled="true">
+            <Bindings>
+              <Resource target="Label" type="Label" defaultLabel="Product Number" id="IdId" />
+              <Binding target="Value" binding="ProcessContext::MainBO.boJobManager.loCurrentSurveyProducts.Current.prdId" bindingMode="ONE_WAY" />
+            </Bindings>
+          </InputArea>
+          <InputArea name="GTIN" disabled="true">
+            <Bindings>
+              <Resource target="Label" type="Label" id="GTINId" defaultLabel="GTIN" />
+              <Binding target="Value" binding="ProcessContext::MainBO.boJobManager.loCurrentSurveyProducts.Current.eAN" bindingMode="ONE_WAY" />
+            </Bindings>
+          </InputArea>  
+        </GroupElement>
+        <ImageButton name="OpenPlanogramButton" backendSystem="both">
+          <Bindings>
+            <Resource target="Image" type="Image" id="MainMenuScribbleShelf72" />
+            <!-- <Resource target="Image" type="Image" id="PictureDetailwithPictures" /> -->
+            <!-- <Resource target="Image" type="Image" id="ShelfBlueGrey24" /> -->
+            <Resource target="Text" type="Label" id="openPlanogramId" defaultLabel="Open Planogram" />
+            <Binding type="Visible" target="Visible" call="ProcessContext::LuMySalesOrgAttachment.myCheckSalesOrgIconVisibility" />
+          </Bindings>
+          <Events>
+            <ButtonPressedEvent event="myOpenPlanogram" />
+          </Events>
+        </ImageButton>
+
+        <GroupedList name="SurveyQuestionsList" searchable="false" groupBy="jobDefinitionListText" sortBy="groupSort" hasBorder="true" sortInsideGroupBy="sort" sortDirectionInGroup="ASC" dataSource="ProcessContext::MainBO.boJobManager.loCurrentSurveys.Items[]">
+          <Items name="Items" itemPattern="SurveyQuestionListItem">
+            <ItemListLayout>
+              <Col width="0.5em" height="1.4em" layoutType="Image" bindingId="mandatoryIcon" />
+              <Col width="5em" layoutType="itemName" bindingId="suveyText" />
+              <Col height="1em" width="1.5em" layoutType="itemSecondary" bindingId="myCameraIcon" />
+              <Col width="9em" layoutType="Dynamic" bindingId="surveyvalue" />
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="suveyText" type="Text" binding=".surveyText" bindingMode="ONE_WAY" />
+              <Binding target="surveyvalue" type="Dynamic" allowInitialValueEmpty="true" binding=".value" typeField="dataType" minBinding="minValue" maxBinding="maxValue" stepSizeBinding="stepSize" stepperEnabledBinding="useStepper" toggleId="toggleId" bindingMode="TWO_WAY" />
+              <Binding target="myCameraIcon" type="Button" binding=".myCameraIcon" bindingMode="TWO_WAY" imageType=".svg" longPressMenuId="longPressMenuOption" badgeText=".pictureCount"/>
+              <Binding target="mandatoryIcon" type="Image" binding=".mandatoryImageId" bindingMode="ONE_WAY" />
+            </Bindings>
+            <LongPressMenu name="longPressMenuOption" dataSource="ProcessContext::contextMenuList">
+              <Items name="LongPressMenuItems">
+                <Bindings>
+                  <Binding target="Icon" type="Image" binding=".actionImg" imageType=".svg" />
+                  <Binding target="Text" type="Label" binding=".actionId" />
+                  <Binding type="Editable" target="Editable" binding=".actionEnabled" />
+                  <Binding type="Visible" target="Visible" binding=".actionVisible" />
+                </Bindings>
+              </Items>
+            </LongPressMenu>
+          </Items>
+          <Events>
+            <ListButtonPressedEvent event="myButtonPressed">
+              <Params>
+                <Param name="pKey" value=".pKey" />
+              </Params>
+            </ListButtonPressedEvent>
+            <LongPressMenuOpeningEvent event="myOpeningEventHandler">
+              <Params>
+                <Param name="pKey" value=".pKey" />
+              </Params>
+            </LongPressMenuOpeningEvent>
+            <LongPressMenuSelectedEvent event="mySelectedEventHandler">
+              <Params>
+                <Param name="pKey" value=".pKey" />
+              </Params>
+            </LongPressMenuSelectedEvent>
+            
+          </Events>
+        </GroupedList>
+      </Area>
+    </Section>
+  </Page>
+</UIDescription>

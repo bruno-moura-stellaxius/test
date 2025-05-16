@@ -1,0 +1,69 @@
+<Process name="Call::MyPreviousSurveyProcess" defaultAction="LoadDistOrVisDecision" schemaVersion="1.1">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="MyPreviousSurveyAnswers" type="LoMyPreviousSurveyAnswer" />
+      </Declarations>
+      <Parameters>
+        <Input name="callPKey" type="String" />
+        <Input name="mySurveyType" type="String" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+    </EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action name="LoadDistOrVisDecision" actionType="DECISION" parameter="ProcessContext::mySurveyType">
+        <Case value="Distribution" action="LoadDistribSurvey" />
+        <Case value="Visibility" action="LoadVisibilitySurvey" />
+        <Case value="StoreCheck" action="LoadStoreCheckSurvey" />
+        <Case value="Training" action="LoadTrainingSurvey" />
+        <Case value="Satisfaction" action="LoadSatisfactionSurvey" />
+      </Action>
+      <Action actionType="LOAD" name="LoadStoreCheckSurvey" type="LoMyPreviousSurveyAnswer">
+        <Parameters>
+          <Input name="callPKey" value="ProcessContext::callPKey" />
+          <Input name="isStoreCheck" value="ProcessContext::mySurveyType" />
+        </Parameters>
+        <Return name="ProcessContext::MyPreviousSurveyAnswers" />
+        <TransitionTo action="ShowView" />
+      </Action>
+      <Action actionType="LOAD" name="LoadDistribSurvey" type="LoMyPreviousSurveyAnswer">
+        <Parameters>
+          <Input name="callPKey" value="ProcessContext::callPKey" />
+          <Input name="isDistribution" value="ProcessContext::mySurveyType" />
+        </Parameters>
+        <Return name="ProcessContext::MyPreviousSurveyAnswers" />
+        <TransitionTo action="ShowView" />
+      </Action>
+      <Action actionType="LOAD" name="LoadVisibilitySurvey" type="LoMyPreviousSurveyAnswer">
+        <Parameters>
+          <Input name="callPKey" value="ProcessContext::callPKey" />
+          <Input name="isVisibility" value="ProcessContext::mySurveyType" />
+        </Parameters>
+        <Return name="ProcessContext::MyPreviousSurveyAnswers" />
+        <TransitionTo action="ShowView" />
+      </Action>
+      <Action actionType="LOAD" name="LoadTrainingSurvey" type="LoMyPreviousSurveyAnswer">
+        <Parameters>
+          <Input name="callPKey" value="ProcessContext::callPKey" />
+          <Input name="isTraining" value="ProcessContext::mySurveyType" />
+        </Parameters>
+        <Return name="ProcessContext::MyPreviousSurveyAnswers" />
+        <TransitionTo action="ShowView" />
+      </Action>
+      <Action actionType="LOAD" name="LoadSatisfactionSurvey" type="LoMyPreviousSurveyAnswer">
+        <Parameters>
+          <Input name="callPKey" value="ProcessContext::callPKey" />
+          <Input name="isSatisfaction" value="ProcessContext::mySurveyType" />
+        </Parameters>
+        <Return name="ProcessContext::MyPreviousSurveyAnswers" />
+        <TransitionTo action="ShowView" />
+      </Action>
+      <Action actionType="View" name="ShowView">
+        <UIDescription>Call::MyPreviousSurvey</UIDescription>
+      </Action>
+    </Actions>
+  </Body>
+</Process>

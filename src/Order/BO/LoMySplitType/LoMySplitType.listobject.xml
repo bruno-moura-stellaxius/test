@@ -1,0 +1,7 @@
+<ListObject name="LoMySplitType" generateLoadMethod="true" schemaVersion="1.1">
+  <DataSource name="DsLoMySplitType" />
+  <Item objectClass="LiMySplitType" />
+  <Methods>
+    <Method name="loadAsync" />
+  </Methods>
+</ListObject>
