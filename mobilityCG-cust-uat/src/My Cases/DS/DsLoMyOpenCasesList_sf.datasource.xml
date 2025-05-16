@@ -1,0 +1,53 @@
+<DataSource name="DsLoMyOpenCasesList" backendSystem="sf" businessObjectClass="LoMyOpenCasesList" external="true" readOnly="true" distinct="true" schemaVersion="2.0">
+  <Database platform="SQLite">
+    <Load><![CDATA[
+
+      var addCondSearch = "";
+      var dateFromStart = "";
+      var usrMainPKey = "";
+
+      // Add date filter if dateFromStart is provided
+      if (Utils.isDefined(jsonQuery.dateFromStart)) {
+          dateFromStart = Utils.convertForDBParam(jsonQuery.dateFromStart, 'DomDate');
+          addCondSearch += "AND date(v.PlannedVisitStartTime, 'unixepoch') = date(#dateFromStart#, 'unixepoch') ";
+      }
+
+      var sqlParams = {
+          usrMainPKey,
+          dateFromStart
+      };
+
+      var sqlStmt = "SELECT v.AccountId AS accountId, ";
+      sqlStmt += "a.Name AS accountName, ";
+      sqlStmt += "COUNT(DISTINCT c.Id) AS caseCount ";
+
+      sqlStmt += "FROM Visit v ";
+      sqlStmt += "INNER JOIN Account a ON a.Id = v.AccountId ";
+      sqlStmt += "  AND v.Status <> 'Abandoned' ";
+      sqlStmt += "  AND v.IsDeleted = '0' ";
+      sqlStmt += "LEFT JOIN [Case] c ON c.AccountId = v.AccountId AND c.Status != 'Closed' ";
+
+      sqlStmt += "WHERE v.Responsible__c = '#userPKey#' ";
+      sqlStmt += addCondSearch;
+
+      sqlStmt += "GROUP BY v.AccountId, a.Name ";
+      sqlStmt += "ORDER BY v.PlannedVisitStartTime ASC ";
+      sqlStmt += "LIMIT 5 ";
+
+      return Utils.replaceMacrosParam(sqlStmt, sqlParams);
+
+]]></Load>
+    <Update><![CDATA[
+ // Read only datasource
+ return undefined;
+]]></Update>
+    <Insert><![CDATA[   
+ // Read only datasource
+ return undefined;
+]]></Insert>
+    <Delete><![CDATA[
+ // Read only datasource
+ return undefined;
+]]></Delete>
+  </Database>
+</DataSource>

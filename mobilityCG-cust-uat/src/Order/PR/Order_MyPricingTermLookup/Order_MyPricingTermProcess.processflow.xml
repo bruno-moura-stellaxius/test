@@ -1,0 +1,46 @@
+<Process name="Order::MyPricingTermLookupProcess" defaultAction="LoadList_Decision" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="MyPricingTermList" type="LoMyPricingTerm" />
+      </Declarations>
+      <Parameters>
+        <Input name="customerPKey" type="DomPKey" />
+        <Input name="myPricingTermPKey" type="DomPKey" />
+        <Input name="MyPricingTermList" type="LoMyPricingTerm" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions></EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action name="LoadList_Decision" actionType="DECISION" parameter="ProcessContext::MyPricingTermList">
+        <CaseEmpty action="GetMyTermList" />
+        <CaseElse action="ShowView" />
+      </Action>
+      <Action name="GetMyTermList" actionType="LOAD" type="LoMyPricingTerm">
+        <Parameters>
+          <Input name="customerPKey" value="ProcessContext::customerPKey" />
+        </Parameters>
+        <Return name="ProcessContext::MyPricingTermList" />
+        <TransitionTo action="ShowView" />
+      </Action>
+      <Action actionType="View" name="ShowView">
+        <UIDescription>Order::MyPricingTermLookup</UIDescription>
+        <Events>
+          <Event name="itemSelected" action="EndWithNewValue" />
+        </Events>
+      </Action>
+      <Action actionType="END" name="EndWithNewValue">
+        <ReturnValues>
+          <Return name="myPricingTermPKey" value="Event.pKey" />
+        </ReturnValues>
+      </Action>
+      <Action actionType="END" name="End">
+        <ReturnValues>
+          <Return name="myPricingTermPKey" value="ProcessContext::myPricingTermPKey" />
+        </ReturnValues>
+      </Action>
+    </Actions>
+  </Body>
+</Process>

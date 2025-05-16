@@ -1,0 +1,51 @@
+<UIDescription name="MyJointVisits::Overview" schemaVersion="0.0.0.5">
+  <Page pagePattern="SingleSectionPage">
+    <PageHeader>
+      <Bindings>
+        <Resource target="title" type="Label" id="OrderOverviewId" defaultLabel="My Performance Survey Overview" />
+      </Bindings>
+      
+    </PageHeader>
+    <!-- [.. MASTER SECTION ..] -->
+    <Section sectionName="masterSection" sectionPattern="SingleAreaSection">
+      <!-- [. AREA .] Main -->
+      <Area areaName="mainArea" areaPattern="SingleElementArea">
+        <GroupedList name="OrderList" searchable="true" onItemDisclosure="true" dataSource="ProcessContext::CardMyJointVisitsAM_List.Items[]">
+         
+          <Items name="Items" itemPattern="CardVisitsAMItems">
+            <ItemListLayout>
+              <Default>
+                <!--Labels-->
+                <Col>
+                  <Row layoutType="itemLabel" bindingId="VisitorLabel" />
+                  <Row layoutType="itemLabel" bindingId="VisitPlannedDateLabel" />
+                </Col>
+                <Col>
+                  <Row layoutType="itemSecondary" bindingId="ReviewedUserName" />
+                  <Row layoutType="itemSecondary" bindingId="VisitPlannedDate" />
+                </Col>
+                <Col layoutType="itemSecondary" bindingId="Status" />
+              </Default>
+            </ItemListLayout>
+            <Bindings>
+              <Resource target="VisitorLabel" type="Label" id="visitorLabelId" defaultLabel="Reportee Name" />
+              <Binding target="ReviewedUserName" type="Text" binding=".reviewedUserName" bindingMode="ONE_WAY" />
+              <Binding target="VisitPlannedDate" type="Date" binding=".visitPlannedDate" bindingMode="ONE_WAY" />
+              <Resource target="VisitPlannedDateLabel" type="Label" id="visitorPlannedLabelId" defaultLabel="Joint Visit Date" />
+              <Binding target="Status" type="Text" binding=".clbStatus" bindingMode="ONE_WAY" />
+            </Bindings>
+          </Items>
+
+          <Events>
+              <ItemSelectedEvent event="CardMyJointVisits_itemSelected">
+                <Params>
+                  <Param name="pKey" value=".pKey" />
+                  <Param name="customerOnDevice" value=".customerOnDevice" />
+                </Params>
+              </ItemSelectedEvent>
+            </Events>
+        </GroupedList>
+      </Area>
+    </Section>
+  </Page>
+</UIDescription>

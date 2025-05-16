@@ -1,0 +1,14 @@
+<DataSource name="DsBoMyApprovalDetail" backendSystem="sf" businessObjectClass="BoMyApprovalDetail" external="false" editableEntity="ProcessInstanceWorkitem" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="pKey" table="ProcessInstanceWorkitem" column="Id" /> 
+    <Attribute name="actorId" table="ProcessInstanceWorkitem" column="ActorId" />
+  </Attributes>
+  <Entities>
+    <Entity name="ProcessInstanceWorkitem" alias="Approval1" idAttribute="Id" />
+  </Entities>
+  <QueryCondition></QueryCondition>
+  <OrderCriteria />
+  <Parameters>
+    <Parameter name="pKey" type="TEXT" />
+  </Parameters>
+</DataSource>

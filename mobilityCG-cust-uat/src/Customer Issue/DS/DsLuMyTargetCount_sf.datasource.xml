@@ -1,0 +1,42 @@
+<DataSource name="DsLuMyTargetCount" backendSystem="sf" objectClass="LuMyTargetCount" businessObjectClass="LuMyTargetCount" readOnly="true" external="true" editableEntity="User_Target__c" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="myTargetCount" />
+  </Attributes>
+  <Entities>
+  <Entity name="User_Target__c" alias="" idAttribute="Id" />
+</Entities>
+  <Database platform="SQLite">
+    <Load><![CDATA[     
+
+			var currentDate = Utils.convertForDBParam(Utils.convertDate2Ansi(Utils.createDateToday()), 'DomDate');
+			var minDate = Utils.convertForDBParam(Utils.convertDate2Ansi(Utils.getMinDate()), 'DomDate');
+			if (Utils.isDefined(jsonQuery.myTargetMetric)){
+				myTargetMetric = Utils.convertForDBParam(jsonQuery.myTargetMetric, 'DomText');
+			}
+			var user = ApplicationContext.get('user');
+			var isAreaManager = user.hasRole("AreaManager");
+			var sqlParams = {currentDate,myTargetMetric};
+			var sqlStmt = "SELECT SUM(Target_Value__c) AS myTargetCount ";
+			sqlStmt += "FROM User_Target__c"
+			sqlStmt +=" WHERE User_Target__c.Target_Metric__c='#myTargetMetric#' ";
+			if(isAreaManager == true) {
+				sqlStmt +=" AND User_Target__c.OwnerId IN (SELECT User.Id FROM User WHERE Id = '#UserPKey#' OR ManagerId = '#UserPKey#')";
+			}else{
+				sqlStmt +=" AND User_Target__c.OwnerId='#UserPKey#' ";
+			}
+			return Utils.replaceMacrosParam(sqlStmt, sqlParams);
+		]]></Load>
+    <Update><![CDATA[ 
+			// Intended to be empty     
+			return undefined;     
+		]]></Update>
+    <Insert><![CDATA[     
+			// Intended to be empty     
+			return undefined;     
+		]]></Insert>
+    <Delete><![CDATA[      
+			// Intended to be empty     
+			return undefined;     
+		]]></Delete>
+  </Database>
+</DataSource>

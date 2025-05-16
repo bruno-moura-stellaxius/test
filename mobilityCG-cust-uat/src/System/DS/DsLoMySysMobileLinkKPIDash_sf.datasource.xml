@@ -1,0 +1,19 @@
+<Datasource name="DsLoMySysMobileLinkKPIDash" backendSystem="sf" businessObjectClass="LoMySysMobileLinkKPIDash" external="false" readOnly="true" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="pKey" table="Mobile_Link__c" column="Id" />
+    <Attribute name="active" table="Mobile_Link__c" column="Active__c" />
+    <Attribute name="sort" table="Mobile_Link__c" column="Sort__c" />
+    <Attribute name="description" table="Mobile_Link__c" column="Description_#Language#__c" />
+    <Attribute name="schemeName" table="Mobile_Link__c" column="Scheme_Name__c" />
+    <Attribute name="url" table="Mobile_Link__c" column="URL__c" />
+  </Attributes>
+  <Entities>
+    <Entity name="Mobile_Link__c" alias="" idAttribute="Id" />
+  </Entities>
+  <QueryCondition><![CDATA[
+  Mobile_Link__c.DisplayTile__c = 'Account KPI'
+  ]]></QueryCondition>
+  <OrderCriteria>
+    <OrderCriterion entity="Mobile_Link__c" attribute="Sort__c" direction="ASC" />
+  </OrderCriteria>
+</Datasource>

@@ -1,0 +1,6 @@
+<ListItem name="LiMyCycleTopBrands">
+  <SimpleProperties>
+    <SimpleProperty name="brand" type="DomPKey" storable="false" dataSourceProperty="brand" />
+    <SimpleProperty name="topBrandOrder" type="DomDecimal" storable="false" dataSourceProperty="topBrandOrder" />
+  </SimpleProperties>
+</ListItem>

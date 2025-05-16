@@ -1,0 +1,19 @@
+<ListItem name="LiMyAccountPromotion">
+  <SimpleProperties>
+    <SimpleProperty name="pKey" type="DomPKey" dataSourceProperty="pKey" />
+    <SimpleProperty name="startDate" type="DomDate" dataSourceProperty="startDate" />
+    <SimpleProperty name="endDate" type="DomDate" dataSourceProperty="endDate" />
+    <SimpleProperty name="paymentdate" type="DomDate" dataSourceProperty="paymentdate" />
+    <!--<SimpleProperty name="status" type="DomText" dataSourceProperty="status" />-->
+    <SimpleProperty name="volume" type="DomText" dataSourceProperty="volume" />
+    <SimpleProperty name="amountperunit" type="DomText" dataSourceProperty="amountperunit" />
+    <SimpleProperty name="amounttopay" type="DomText" dataSourceProperty="amounttopay" />
+    <SimpleProperty name="promotionname" type="DomText" dataSourceProperty="promotionname" />
+    <SimpleProperty name="brand" type="DomText" dataSourceProperty="brand" />
+     <SimpleProperty name="productId" type="DomPKey" dataSourceProperty="productId" />
+    <!--<SimpleProperty name="voucher" type="DomText" dataSourceProperty="voucher" />-->
+    <SimpleProperty name="promotionId" type="DomText" dataSourceProperty="promotionId" />
+    <SimpleProperty name="currencyIsoCode" type="DomCurrency" dataSourceProperty="currencyIsoCode" />
+    <SimpleProperty name="lastSalesRepAudit" type="DomDate" storable="true" dataSourceProperty="lastSalesRepAudit" />      
+  </SimpleProperties>
+</ListItem>

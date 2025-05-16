@@ -1,0 +1,4 @@
+<ListObject name="LoMyOrderItemMetas" generateLoadMethod="true" >
+  <DataSource name="DsLoMyOrderItemMetas" />
+  <Item objectClass="LiMyOrderItemMeta" />
+</ListObject>

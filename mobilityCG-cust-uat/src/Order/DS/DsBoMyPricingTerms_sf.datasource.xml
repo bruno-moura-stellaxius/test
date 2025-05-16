@@ -1,0 +1,22 @@
+<DataSource name="DsBoMyPricingTerms" backendSystem="sf" businessObjectClass="BoMyPricingTerms" 
+  external="false" editableEntity="PricingTerm__c" schemaVersion="2.0">
+  <!-- For more information about the supported properties and nodes see corresponding DataSource.md file under ~Workspace/contractSnippets/YourModuel Section/DS/DS_DataSource -->
+  <Attributes>
+    <Attribute name="pKey" table="PricingTerm__c" column="id" />
+    <Attribute name="name" table="PricingTerm__c" column="ShortName__c" />
+    <Attribute name="startDate" table="PricingTerm__c" column="DateFrom__c" />
+    <Attribute name="endDate" table="PricingTerm__c" column="DateThru__c" />
+    <Attribute name="immediateDeliveryEligible" table="PricingTerm__c" column="ImmediateDeliveryEligible__c" />
+    <Attribute name="orderType" table="PricingTerm__c" column="OrderType__c" />
+  </Attributes>
+  <Entities>
+    <Entity name="PricingTerm__c" alias="" idAttribute="id" />
+  </Entities>
+  <QueryCondition><![CDATA[
+    PricingTerm__c.Id = #pKey#
+    ]]></QueryCondition>
+    <OrderCriteria/>
+    <Parameters>
+      <Parameter name="pKey" type="TEXT" />
+    </Parameters>
+</DataSource>

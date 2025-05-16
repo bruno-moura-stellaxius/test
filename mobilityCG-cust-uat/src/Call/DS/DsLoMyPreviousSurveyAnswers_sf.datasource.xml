@@ -1,0 +1,98 @@
+<Datasource name="DsLoMyPreviousSurveyAnswers" objectClass="LoMyPreviousSurveyAnswer" backendSystem="sf" external="false" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="id" table="Visit_Job__c" column="Id" />
+    <Attribute name="surveyName" table="Job_Definition_Template__c" column="Description_#Language#__c" />
+    <Attribute name="surveyAnswer" table="Visit_Job__c" column="Value__c" />
+    <Attribute name="dataType" table="Data_Type__c" column="Data_Type__c" />
+    <DerivedAttribute name="brandName" value="CASE WHEN (Product2.Description_1_#Language#__c IS NULL) THEN 'Questions' ELSE Product2.Description_1_#Language#__c END" />
+    <DerivedAttribute name="toggleId" value="CASE WHEN (Data_Type__c.Name like 'Dom%') THEN substr(Data_Type__c.Name, 4) ELSE ' ' END" />
+    <DerivedAttribute name="useStepper" value="'0'" />
+    <DerivedAttribute name="stepSize" value="'1'" />
+    <DerivedAttribute name="minValue" value="'0'" />
+    <DerivedAttribute name="maxValue" value="'0'" />
+  </Attributes>
+   <Entities>
+    <Entity name="Visit_Job__c" alias="" idAttribute="Id" />
+    <Entity name="Job_DL_Job_Definition_Template__c">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Job_DL_Job_Definition_Template__c.Id" comparator="eq" rightSideType="Attribute" rightSideValue="Visit_Job__c.Job_Definition__c" />
+          <Condition leftSideValue="Visit_Job__c.Done__c" comparator="eq" rightSideType="Literal" rightSideValue="'1'" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Job_Definition_List__c">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Job_DL_Job_Definition_Template__c.Job_Definition_List__c" comparator="eq" rightSideType="Attribute" rightSideValue="Job_Definition_List__c.Id" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Job_Definition_List_Template__c">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Job_Definition_List__c.Job_Definition_List_Template__c" comparator="eq" rightSideType="Attribute" rightSideValue="Job_Definition_List_Template__c.Id" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Job_Definition_Template__c">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Job_Definition_Template__c.Id" comparator="eq" rightSideType="Attribute" rightSideValue="Visit_Job__c.Job_Definition_Template__c" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Data_Type__c">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Data_Type__c.Id" comparator="eq" rightSideType="Attribute" rightSideValue="Job_Definition_Template__c.Data_Type__c" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Product2">
+      <Join Type="left">
+        <SimpleJoin>
+          <Condition leftSideValue="Product2.Id" comparator="eq" rightSideType="Attribute" rightSideValue="Visit_Job__c.Product__c" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+  </Entities>
+  <QueryCondition><![CDATA[
+    Visit_Job__c.Visit__c = #callPKey#
+   ]]></QueryCondition>
+    <Parameters>
+      <Parameter name="callPKey" type="TEXT" />
+      <Parameter name="isStoreCheck" type="TEXT" />
+      <Parameter name="isDistribution" type="TEXT" />
+      <Parameter name="isVisibility" type="TEXT" />
+      <Parameter name="isTraining" type="TEXT" />
+      <Parameter name="isSatisfaction" type="TEXT" />
+    </Parameters>
+    <ConditionalParameters>
+    <ConditionalParameter name="isStoreCheck">
+      <SimpleConditions>
+        <Condition leftSideValue="Job_Definition_List_Template__c.SurveyType__c" comparator="=" rightSideType="Literal" rightSideValue="'Store Check'" />
+      </SimpleConditions>
+    </ConditionalParameter>
+    <ConditionalParameter name="isDistribution">
+      <SimpleConditions>
+        <Condition leftSideValue="Job_Definition_List_Template__c.SurveyType__c" comparator="=" rightSideType="Literal" rightSideValue="'Distribution'" />
+      </SimpleConditions>
+    </ConditionalParameter>
+    <ConditionalParameter name="isVisibility">
+      <SimpleConditions>
+        <Condition leftSideValue="Job_Definition_List_Template__c.SurveyType__c" comparator="=" rightSideType="Literal" rightSideValue="'Visibility'" />
+      </SimpleConditions>
+    </ConditionalParameter>
+    <ConditionalParameter name="isTraining">
+      <SimpleConditions>
+        <Condition leftSideValue="Job_Definition_List_Template__c.SurveyType__c" comparator="=" rightSideType="Literal" rightSideValue="'Training'" />
+      </SimpleConditions>
+    </ConditionalParameter>
+    <ConditionalParameter name="isSatisfaction">
+      <SimpleConditions>
+        <Condition leftSideValue="Job_Definition_List_Template__c.SurveyType__c" comparator="=" rightSideType="Literal" rightSideValue="'CSAT'" />
+      </SimpleConditions>
+    </ConditionalParameter>
+    </ConditionalParameters>
+</Datasource>

@@ -1,0 +1,100 @@
+<DataSource name="DsLoMyOrders" backendSystem="sf" businessObjectClass="LoMyOrders" 
+  external="true" schemaVersion="2.0">
+   <Database platform="SQLite">
+    <Load><![CDATA[
+    var orderMetaType = "";
+    var phase = "";
+    var orderLimit = "";
+    var myFutureOrPastDelivery = "";
+    var customerPKey = "";
+    var currentDate = Utils.convertForDBParam(Utils.convertDate2Ansi(Utils.createDateToday()), 'DomDate');
+    var isForLastOrder = false;
+    if(Utils.isDefined(jsonQuery)){
+      var newParams = jsonQuery;
+      if (Utils.isOldParamsFormat(newParams)){
+        newParams = Utils.convertDsParamsOldToNew(newParams);
+      }
+    }
+    /**  orderMetaType  */
+    if (Utils.isDefined(newParams.orderMetaType)){
+      orderMetaType = Utils.convertForDBParam(newParams.orderMetaType, "DomString");
+    }
+    /**  orderLimit  */
+    if (Utils.isDefined(newParams.orderLimit)){
+      orderLimit = Utils.convertForDBParam(newParams.orderLimit, "DomInteger");
+    }
+    /**  myFutureOrPastDelivery  */
+    if (Utils.isDefined(newParams.myFutureOrPastDelivery)){
+      myFutureOrPastDelivery = Utils.convertForDBParam(newParams.myFutureOrPastDelivery, "DomText");
+    }
+    /**  customerPKey  */
+    if (Utils.isDefined(newParams.customerPKey)){
+      customerPKey = Utils.convertForDBParam(newParams.customerPKey, "DomPKey");
+    }
+    /** If last order -> change default order by */
+    if (Utils.isDefined(newParams.myLastOrder)){
+      isForLastOrder = true;
+    }
+    var sqlParams = { orderMetaType,  customerPKey,currentDate, myFutureOrPastDelivery,orderLimit};
+ 
+    var sqlStmt = "SELECT Order__c.Id AS pKey, ";
+    //sqlStmt += "Order__c.Order_Id__c AS id, ";
+    sqlStmt += " COALESCE(NULLIF(Order__c.MainOrder__c, ' '), Order__c.Id) AS id, ";
+    sqlStmt += " Responsible.Name AS responsibleName, ",
+    sqlStmt += "Order__c.Name AS myOrderName, ";
+    sqlStmt += "Order__c.Phase__c AS phase, ";
+    sqlStmt += "Order__c.Order_Date__c AS commitDate, ";
+    sqlStmt += "STRFTIME('%d/%m/%Y', DATETIME(Order__c.Order_Date__c, 'unixepoch')) AS commitDateFormatted, ";
+    sqlStmt += "Order_Template__c.Description_#Language#__c AS orderType, ";
+    sqlStmt += "Order_Template__c.Sample_Approval_required__c AS sampleApprovalRequired, ";
+    sqlStmt += "CASE WHEN RecordType.Name != 'Main' THEN Order__c.Delivery_Date__c ELSE '1700-01-01' END AS deliveryDate, ";
+    sqlStmt += "CASE WHEN RecordType.Name != 'Main' THEN STRFTIME('%d/%m/%Y', DATETIME(Order__c.Delivery_Date__c, 'unixepoch')) ELSE '' END AS deliveryDateFormatted, ";
+    sqlStmt += "Order__c.Responsible__c AS responsiblePKey, "; 
+    sqlStmt += "Order__c.SplitType__c AS message, ";
+    sqlStmt += "CASE WHEN Order__c.Approvalcategory__c <> ' ' THEN '1' ELSE '0' END AS myForApproval, ";
+    sqlStmt += "Order__c.CreatedDate AS myCreatedDate, ";
+    sqlStmt += "Account.Id AS customerPKey,  ";
+    sqlStmt += "Account.Name AS customerName, ";
+    sqlStmt += "Order__c.Value__c AS totalValue, ";
+    sqlStmt += "Order__c.SalesDocument__c AS mySapOrderId, ";
+    sqlStmt += "CASE WHEN RecordType.Name = 'Split' THEN parentOrder.Name ELSE Order__c.Name END AS myMainOrderName, ";
+    sqlStmt += "RecordType.Name AS myOrderType, ";
+    sqlStmt += "Order__c.Gross_Total_Value__c AS grossTotalValue, ";
+    sqlStmt += "Order__c.TotalFreeGoodsValue__c AS myTotalFreeGoodsValue ";
+    sqlStmt += "FROM Order__c, ";
+    sqlStmt += "User AS Initiator, ";
+    sqlStmt += "Account, ";
+    sqlStmt += "Order_Template__c ";
+    sqlStmt += " JOIN RecordType ON Order__c.RecordTypeId = RecordType.Id "; 
+    sqlStmt += " LEFT JOIN Account_Extension__c ON Account_Extension__c.Account__c = Order__c.Order_Account__c ";
+    sqlStmt += " LEFT JOIN User as Responsible ON Responsible.Id = Order__c.Responsible__c ";
+    sqlStmt += " LEFT JOIN Order__c AS parentOrder ON parentOrder.Id = Order__c.MainOrder__c ";
+    sqlStmt += "WHERE ";
+    sqlStmt += " Order__c.CreatedById = Initiator.Id ";
+    sqlStmt += " AND Order__c.IsDeleted = '0' ";
+    sqlStmt += " AND Order__c.Order_Account__c = Account.Id ";
+    sqlStmt += " AND (( RecordType.Name = 'Main' AND( Order__c.Phase__c != 'Activated' OR Order_Template__c.Description_#Language#__c = 'Exchange' )) OR( RecordType.Name = 'Split' AND parentOrder.Phase__c = 'Activated' )) ";
+    sqlStmt += " AND Order__c.Order_Template__c = Order_Template__c.Id ";
+    sqlStmt += " AND Order__c.Order_Account__c = '#customerPKey#' ";
+    if (isForLastOrder) {
+      sqlStmt += "ORDER BY Order__c.CreatedDate DESC limit 1 ";
+    } else {
+      sqlStmt += "ORDER BY Order__c.Delivery_Date__c DESC, Order_Template__c.Name DESC ";
+    }
+    return Utils.replaceMacrosParam(sqlStmt, sqlParams);
+ 
+    ]]></Load>
+     <Update><![CDATA[
+       // Intended to be empty - Overview list => read only!
+       return undefined;
+    ]]></Update>
+     <Insert><![CDATA[
+       // Intended to be empty - Overview list => read only!
+       return undefined;     
+    ]]></Insert>
+     <Delete><![CDATA[
+       // Intended to be empty - Overview list => read only!
+       return undefined;
+    ]]></Delete>
+   </Database>
+ </DataSource>

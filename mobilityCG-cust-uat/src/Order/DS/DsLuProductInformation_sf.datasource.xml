@@ -1,0 +1,108 @@
+<DataSource name="DsLuProductInformation" backendSystem="sf" businessObjectClass="LuProductInformation" external="false" readOnly="true" editableEntity="Product2" schemaVersion="2.0">
+  <Attributes>
+    <Attribute name="pKey" table="Product2" column="Id" />
+    <Attribute name="taxClassification" table="Product2" column="Tax_Classification__c" />
+    <Attribute name="myDeliveryUnit" table="Product2" column="DeliveryUnit__c" />
+    <Attribute name="basePrice" table="Product_Condition__c" column="Value__c" />
+    <Attribute name="eAN" table="Product2" column="GTIN__c" />
+    <Attribute name="mySAPCode" table="Product2" column="SAPProductCode__c" />
+    <Attribute name="piecesPerSmallestUnitForBasePrice" table="PriceUnit" column="Pieces_per_Smallest_Unit__c" />
+    <Attribute name="orderQuantityLogisticUnit" table="OrderUnit" column="Unit_Type__c" />
+    <Attribute name="orderPiecesPerSmallestUnit" table="OrderUnit" column="Pieces_per_Smallest_Unit__c" />
+    <Attribute name="consumerQuantityLogisticUnit" table="ConsumerUnit" column="Unit_Type__c" />
+    <Attribute name="consumerPiecesPerSmallestUnit" table="ConsumerUnit" column="Pieces_per_Smallest_Unit__c" />
+    <Attribute name="priceQuantityLogisticUnit" table="PriceUnit" column="Unit_Type__c" />
+    <Attribute name="pricePiecesPerSmallestUnit" table="PriceUnit" column="Pieces_per_Smallest_Unit__c" />
+    <Attribute name="groupText" table="ProductGroup" column="Description_1_#Language#__c" />
+    <Attribute name="groupId" table="ProductGroup" column="Consumer_Goods_Product_Code__c" />
+    <Attribute name="myDeliveryValidFrom" table="Product2" column="Delivery_Valid_From__c" />
+    <Attribute name="myDeliveryValidThru" table="Product2" column="Delivery_Valid_Thru__c" />
+    <DerivedAttribute name="salesRepQuota" value="MIN(CASE WHEN Quota.Scope__c = 'Sales Rep' THEN Quota.RemainingQuota__c ELSE 'NA' END)" />
+    <DerivedAttribute name="channelQuota" value="MIN(CASE WHEN Quota.Scope__c = 'Channel' THEN Quota.RemainingQuota__c ELSE 'NA' END)" />
+    <DerivedAttribute name="customerQuota" value="MIN(CASE WHEN Quota.Scope__c = 'Customer' THEN Quota.RemainingQuota__c ELSE 'NA' END)" />
+    <DerivedAttribute name="salesRepQuotaCategory" value="CASE WHEN Quota.Scope__c = 'Sales Rep' THEN Quota.Category__c ELSE ' ' END" />
+    <DerivedAttribute name="channelQuotaCategory" value="CASE WHEN Quota.Scope__c = 'Channel' THEN Quota.Category__c ELSE ' ' END" />
+    <DerivedAttribute name="customerQuotaCategory" value="CASE WHEN Quota.Scope__c = 'Customer' THEN Quota.Category__c ELSE ' ' END" />
+    <DerivedAttribute name="salesRepQuotaValidFrom" value="CASE WHEN Quota.Scope__c = 'Sales Rep' THEN Quota.ValidFrom__c ELSE ' ' END" />
+    <DerivedAttribute name="channelQuotaValidFrom" value="CASE WHEN Quota.Scope__c = 'Channel' THEN Quota.ValidFrom__c ELSE ' ' END" />
+    <DerivedAttribute name="customerQuotaValidFrom" value="CASE WHEN Quota.Scope__c = 'Customer' THEN Quota.ValidFrom__c ELSE ' ' END" />
+    <DerivedAttribute name="salesRepQuotaValidTo" value="CASE WHEN Quota.Scope__c = 'Sales Rep' THEN Quota.ValidTo__c ELSE ' ' END" />
+    <DerivedAttribute name="channelQuotaValidTo" value="CASE WHEN Quota.Scope__c = 'Channel' THEN Quota.ValidTo__c ELSE ' ' END" />
+    <DerivedAttribute name="customerQuotaValidTo" value="CASE WHEN Quota.Scope__c = 'Customer' THEN Quota.ValidTo__c ELSE ' ' END" />
+  </Attributes>
+  <Entities>
+    <Entity name="Product2" alias="" idAttribute="Id" />
+    <Entity name="Quota__c" alias="Quota">
+      <Join Type="left">
+        <SimpleJoin>
+          <Condition leftSideValue="Product2.Id" comparator="eq" rightSideType="Attribute" rightSideValue="Quota.Product__c" />
+          <Condition leftSideValue="Quota.Status__c" comparator="eq" rightSideType="Literal" rightSideValue="'Active'" />
+          <Condition leftSideValue="Quota.Reference__c" comparator="eq" rightSideType="Literal" rightSideValue="'Quantity'" />
+        </SimpleJoin>
+        <ComplexJoin><![CDATA[
+          Quota.Category__c IN ('Sample', 'Free Good - Sample', 'POS Material', 'Loyalty Card', 'Personal Usage')
+          AND ((Quota.Scope__c = 'Sales Rep'
+          AND Quota.OwnerId = '#UserPKey#')
+          OR (Quota.Scope__c = 'Channel' AND Quota.Channel__c = '#ordererIndustryCode#')
+          OR (Quota.Scope__c = 'Customer' AND Quota.Account__c = '#ordererPKey#'))
+          ]]></ComplexJoin>
+      </Join>
+    </Entity>
+    <Entity name="Unit_of_Measure__c" alias="PriceUnit">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Product2.Id" comparator="eq" rightSideType="Attribute" rightSideValue="PriceUnit.Product__c" />
+          <Condition leftSideValue="PriceUnit.Is_Price_Unit__c" comparator="eq" rightSideType="Literal" rightSideValue="'1'" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Unit_of_Measure__c" alias="OrderUnit">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Product2.Id" comparator="eq" rightSideType="Attribute" rightSideValue="OrderUnit.Product__c" />
+          <Condition leftSideValue="OrderUnit.Is_Order_Unit__c" comparator="eq" rightSideType="Literal" rightSideValue="1" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Unit_of_Measure__c" alias="ConsumerUnit">
+      <Join Type="inner">
+        <SimpleJoin>
+          <Condition leftSideValue="Product2.Id" comparator="eq" rightSideType="Attribute" rightSideValue="ConsumerUnit.Product__c" />
+          <Condition leftSideValue="ConsumerUnit.Is_Consumer_Unit__c" comparator="eq" rightSideType="Literal" rightSideValue="1" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+    <Entity name="Product2" alias="ProductGroup">
+      <Join Type="inner">
+        <ComplexJoin><![CDATA[
+            Product2.#criterionAttribute# = ProductGroup.Consumer_Goods_Product_Code__c AND ProductGroup.Sales_Org__c = '#SalesOrg#'
+            ]]></ComplexJoin>
+      </Join>
+    </Entity>
+    <Entity name="Product_Condition__c" alias="">
+      <Join Type="left outer">
+        <ComplexJoin><![CDATA[
+		  	Product2.Id = Product_Condition__c.Product__c
+          	AND #compareAsDate('Product_Condition__c.Valid_From__c', 'Date','<=' ,#commitDate#, 'Date')#
+            AND #compareAsDate('Product_Condition__c.Valid_Thru__c', 'Date','>=' ,#commitDate#, 'Date')#
+        ]]></ComplexJoin>
+      </Join>
+    </Entity>
+  </Entities>
+  <QueryCondition><![CDATA[
+        Product2.Id = #prdMainPKey#
+        AND Product2.State__c = '4'
+        AND Product2.Sales_Org__c = '#SalesOrg#'
+        GROUP BY Product2.Id
+      ]]></QueryCondition>
+  <OrderCriteria>
+    <OrderCriterion entity="Product2" attribute="Id" direction="ASC" />
+  </OrderCriteria>
+  <Parameters>
+    <Parameter name="criterionAttribute" treatAs="sqlSnippet" />
+    <Parameter name="commitDate" type="INTEGER" />
+    <Parameter name="prdMainPKey" type="TEXT" />
+    <Parameter name="ordererPKey" type="TEXT" />
+    <Parameter name="ordererIndustryCode" type="TEXT" />
+  </Parameters>
+</DataSource>

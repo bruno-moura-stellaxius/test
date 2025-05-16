@@ -1,0 +1,28 @@
+<Process name="MyJointVisits::MyJointVisitsProcess" defaultAction="ShowView" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+      </Declarations>
+      <Parameters>
+        <Input name="loMyVisitsForReview" type="LoMyJointVisits" />
+        <Input name="status" type="String" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+      <Action name="SetEARights" actionType="LOGIC" call="ProcessContext::loMyVisitsForReview.setEARights">
+      <Parameters>
+      <Input name="status" value="ProcessContext::status" /> 
+      </Parameters>
+      </Action>
+    </EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action actionType="View" name="ShowView">
+        <UIDescription>MyJointVisits::MyJointVisitsUI</UIDescription>
+        <Events>
+        </Events>
+      </Action>
+    </Actions>
+  </Body>
+</Process>

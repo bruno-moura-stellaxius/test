@@ -1,0 +1,37 @@
+<Process name="MyLibrary::MyLibraryProcess" defaultAction="ShowView" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="MySalesFolder_List" type="LoSalesFolder" />
+      </Declarations>
+      <Parameters>
+        <Input name="CurrentDate" type="String" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+      <Action actionType="LOAD" name="MySalesFolder_DataLoad" type="LoSalesFolder">
+        <Parameters>
+          <Input name="asoName" value="AsoSalesFolderOverview" type="Literal" />
+          <Input name="currentDate" value="ProcessContext::CurrentDate" />
+        </Parameters>
+        <Return name="ProcessContext::MySalesFolder_List" />
+      </Action>
+    </EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action actionType="View" name="ShowView">
+        <UIDescription>MyLibrary::LibraryUI</UIDescription>
+        <Events>
+          <Event name="mySalesFolderSelected" action="MyLoadPromotions" />
+        </Events>
+      </Action>
+      <Action name="MyLoadPromotions" actionType="PROCESS" process="SalesFolder::SalesFolderPromotionProcess">
+        <Parameters>
+          <Input name="MainPKey" value="Event.pKey" />
+          <Input name="SloganText" value="Event.sloganText" />
+        </Parameters>
+      </Action>
+    </Actions>
+  </Body>
+</Process>
