@@ -1,0 +1,42 @@
+<BusinessObject name="BoMyDiscountEngineManager" schemaVersion="1.1">
+  <DataSource name="DsBoMyDiscountEngineManager" />
+  <SimpleProperties>
+  <SimpleProperty id="true" name="pKey" type="DomPKey" storable="false" dataSourceProperty="pKey" />
+  <SimpleProperty name="ordererPKey" type="DomPKey" storable="false" />
+  <SimpleProperty name="orderPkey" type="DomPKey" storable="false" />
+  <SimpleProperty name="sdoMetaPKey" type="DomPKey" storable="false" />
+  <SimpleProperty name="salesAgreementDict" type="Object" />
+  <SimpleProperty name="preSalesAgreementDict" type="Object" />
+  <SimpleProperty name="commercialPolicyValidRulesDict" type="Object" />
+  <SimpleProperty name="flattenedSkuDict" type="Object" />
+  <SimpleProperty name="flattenedSubBrandDict" type="Object" />
+  <SimpleProperty name="flattenedBrandDict" type="Object" />
+  <SimpleProperty name="commercialPolicyAppliedRulesDict" type="Object" />
+  <SimpleProperty name="freeItemsToAdd" type="Object" />
+  <SimpleProperty name="layerGRulesDict" type="Object" />
+  </SimpleProperties>
+  <NestedObjects></NestedObjects>
+  <ObjectLookups></ObjectLookups>
+  <ListObjects>
+  <ListObject name="loMyAgreements" objectClass="LoMyAgreements" dataSourceProperty="empty" listProperty="empty" loadMode="LoadImmediate" />
+  <ListObject name="loMyAgreementProducts" objectClass="LoMyAgreementProducts" dataSourceProperty="empty" listProperty="empty" loadMode="LoadImmediate" />
+  <ListObject name="loMyPricingTermProductsInfo" objectClass="LoMyPricingTermProductsInfo" dataSourceProperty="empty" listProperty="empty" loadMode="LoadImmediate" />
+  <ListObject name="loMyFlattenedDiscountEngineList" objectClass="LoMyFlattenedDiscountEngineList" dataSourceProperty="empty" listProperty="empty" loadMode="LoadImmediate" />
+  <ListObject name="loMyFreeItemProductsInfo" objectClass="LoMyFreeItemProductsInfo" dataSourceProperty="empty" listProperty="empty" loadMode="LoadImmediate" />
+  </ListObjects>
+  <Methods>
+    <Method name="beforeSaveAsync" />
+    <Method name="afterSaveAsync" />
+    <Method name="beforeLoadAsync" />
+    <Method name="afterLoadAsync" />
+    <Method name="beforeInitialize" />
+    <Method name="afterInitialize" />
+    <Method name="beforeDoValidateAsync" />
+    <Method name="afterDoValidateAsync" />
+    <Method name="beforeCreateAsync" />
+    <Method name="afterCreateAsync" />
+    <Method name="loadAsync" />
+    <Method name="saveAsync" />
+    <Method name="createAsync" />
+  </Methods>
+</BusinessObject>

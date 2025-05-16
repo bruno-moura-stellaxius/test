@@ -1,0 +1,40 @@
+<LookupObject name="LuOrderer">
+  <DataSource name="DsLuOrderer" />
+  <SimpleProperties>
+    <SimpleProperty id="true" name="pKey" type="DomPKey" dataSourceProperty="pKey" />
+    <SimpleProperty name="name" type="DomBpaName" dataSourceProperty="name" />
+    <SimpleProperty name="hitClosedListing" type="DomBool" dataSourceProperty="hitClosedListing" />
+    <SimpleProperty name="collectClosedListing" type="DomBool" dataSourceProperty="collectClosedListing" />
+    <SimpleProperty name="considerModule" type="DomBool" dataSourceProperty="considerModule" />
+    <SimpleProperty name="payerDocTaType" type="DomBpaPaymentPolicy" dataSourceProperty="payerDocTaType" />
+    <SimpleProperty name="orderDocTaType" type="DomBpaPaymentPolicy" dataSourceProperty="orderDocTaType" />
+    <SimpleProperty name="invoiceDocTaType" type="DomBpaPaymentPolicy" dataSourceProperty="invoiceDocTaType" />
+    <SimpleProperty name="payerValidFrom" type="DomDate" dataSourceProperty="payerValidFrom" />
+    <SimpleProperty name="payerValidThru" type="DomDate" dataSourceProperty="payerValidThru" />
+    <SimpleProperty name="paymentMode" type="DomPaymentMethod" dataSourceProperty="paymentMode" />
+    <SimpleProperty name="myOrderBlock" type="DomBpaOrderBlock" dataSourceProperty="myOrderBlock" />
+    <SimpleProperty name="myStatus" type="DomString" dataSourceProperty="myStatus" />
+    <SimpleProperty name="myIsPharmaceutical" type="DomBool" dataSourceProperty="myIsPharmaceutical" />
+    <SimpleProperty name="myIsMedicalDev" type="DomBool" dataSourceProperty="myIsMedicalDev" />
+    <SimpleProperty name="myIsFood" type="DomBool" dataSourceProperty="myIsFood" />
+    <SimpleProperty name="myIsCosmetics" type="DomBool" dataSourceProperty="myIsCosmetics" />
+    <SimpleProperty name="myIsBiocides" type="DomBool" dataSourceProperty="myIsBiocides" />
+    <SimpleProperty name="myIsVeterinary" type="DomBool" dataSourceProperty="myIsVeterinary" />
+    <SimpleProperty name="myPaymentTerms" type="DomMyPaymentTerms" dataSourceProperty="myPaymentTerms" />
+    <SimpleProperty name="myIndustryCode" type="DomText" dataSourceProperty="myIndustryCode" />
+    <SimpleProperty name="mySalesOrg" type="DomText" dataSourceProperty="mySalesOrg" />
+    <SimpleProperty name="myStreet" type="DomString" dataSourceProperty="myStreet" />
+    <SimpleProperty name="myPostalCode" type="DomString" dataSourceProperty="myPostalCode" />
+    <SimpleProperty name="myCity" type="DomString" dataSourceProperty="myCity" />
+    <SimpleProperty name="myCountry" type="DomString" dataSourceProperty="myCountry" />
+    <SimpleProperty name="myLanguage" type="DomLanguage" dataSourceProperty="myLanguage" />
+    <SimpleProperty name="mySapGlobalCustomerID" type="DomString" dataSourceProperty="mySapGlobalCustomerID" />
+    <SimpleProperty name="myStringCustomerName" type="DomString" dataSourceProperty="myStringCustomerName" />
+    <SimpleProperty name="myState" type="DomString" dataSourceProperty="myState" />
+    <SimpleProperty name="myCustStat" type="DomString" dataSourceProperty="myCustStat" />
+    <SimpleProperty name="myTenderIdentificationCode" type="DomString" dataSourceProperty="myTenderIdentificationCode" />
+    <SimpleProperty name="myMonitoredCustomer" type="DomString" dataSourceProperty="myMonitoredCustomer" />
+    <SimpleProperty name="myApplyDeliveryUnit" type="DomBool" dataSourceProperty="myApplyDeliveryUnit" />
+  </SimpleProperties>
+  <Methods></Methods>
+</LookupObject>

@@ -1,0 +1,41 @@
+<DataSource name="DsLoMyPromotionBase64" backendSystem="sf"
+  businessObjectClass="LoMyPromotionBase64" external="false" editableEntity="BlobAttachment__c"
+  schemaVersion="2.0" linkedEntityAttributeName="prmPromotionPKey" readOnly="true">
+  <Attributes>
+    <Attribute name="pKey" table="BlobAttachment__c" column="Id" />
+    <Attribute name="prmPromotionPKey" table="BlobAttachmentSellSheet__c" column="SellSheet__c" />
+    <Attribute name="blob1" table="BlobAttachment__c" column="Blob1__c" />
+    <Attribute name="blob2" table="BlobAttachment__c" column="Blob2__c" />
+    <Attribute name="blob3" table="BlobAttachment__c" column="Blob3__c" />
+    <Attribute name="blob4" table="BlobAttachment__c" column="Blob4__c" />
+    <Attribute name="blob5" table="BlobAttachment__c" column="Blob5__c" />
+    <Attribute name="blob6" table="BlobAttachment__c" column="Blob6__c" />
+    <Attribute name="blob7" table="BlobAttachment__c" column="Blob7__c" />
+    <Attribute name="blob8" table="BlobAttachment__c" column="Blob8__c" />
+    <Attribute name="blob9" table="BlobAttachment__c" column="Blob9__c" />
+    <Attribute name="blob10" table="BlobAttachment__c" column="Blob10__c" />
+    <Attribute name="blob11" table="BlobAttachment__c" column="Blob11__c" />
+    <Attribute name="blob12" table="BlobAttachment__c" column="Blob12__c" />
+    <Attribute name="blob13" table="BlobAttachment__c" column="Blob13__c" />
+    <Attribute name="contentDocumentId" table="BlobAttachment__c" column="ContentDocumentId__c" />
+    <DerivedAttribute name="finalBlob"
+      value="rtrim(BlobAttachment__c.Blob1__c || BlobAttachment__c.Blob2__c || BlobAttachment__c.Blob3__c || BlobAttachment__c.Blob4__c || BlobAttachment__c.Blob5__c || BlobAttachment__c.Blob6__c || BlobAttachment__c.Blob7__c || BlobAttachment__c.Blob8__c || BlobAttachment__c.Blob9__c || BlobAttachment__c.Blob10__c || BlobAttachment__c.Blob11__c || BlobAttachment__c.Blob12__c || BlobAttachment__c.Blob13__c)" />
+  </Attributes>
+  <Entities>
+    <Entity name="BlobAttachment__c" alias="" idAttribute="Id" />
+    <Entity name="BlobAttachmentSellSheet__c" alias="">
+      <Join Type="left">
+        <SimpleJoin>
+          <Condition leftSideValue="BlobAttachment__c.Id" comparator="eq" rightSideType="Attribute" rightSideValue="BlobAttachmentSellSheet__c.BlobAttachment__c" />
+        </SimpleJoin>
+      </Join>
+    </Entity>
+  </Entities>
+  <QueryCondition><![CDATA[
+    BlobAttachmentSellSheet__c.SellSheet__c = #prmPromotionPKey#
+]]></QueryCondition>
+  <OrderCriteria></OrderCriteria>
+  <Parameters>
+    <Parameter name="prmPromotionPKey" type="TEXT" />
+  </Parameters>
+</DataSource>

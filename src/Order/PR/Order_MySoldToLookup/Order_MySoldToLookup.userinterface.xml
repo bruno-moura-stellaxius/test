@@ -1,0 +1,31 @@
+<UIDescription name="Order::MySoldToLookup" schemaVersion="0.0.0.5">
+  <Page pagePattern="SingleSectionDialogPage" onBackDiscard="true">
+    <PageHeader>
+      <Bindings>
+        <Resource target="title" type="Label" id="MySoldToLookupId" defaultLabel="SoldTo" />
+      </Bindings>
+    </PageHeader>
+    <Section sectionName="masterSection" sectionPattern="SingleAreaSection">
+      <Area areaName="mainArea" areaPattern="SingleElementArea">
+        <GroupedList name="MySoldToList" dataSource="ProcessContext::MySoldToList.Items[]">
+          <Items name="Items" itemPattern="SoldToLookupItem">
+            <ItemListLayout>
+              <Col layoutType="itemTitle" bindingId="Text" />
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="Text" type="Text" binding=".name" bindingMode="ONE_TIME" />
+            </Bindings>
+          </Items>
+          <Events>
+            <ItemSelectedEvent event="itemSelected">
+              <Params>
+                <Param name="pKey" value=".relatedAccountPKey" />
+                <Param name="name" value=".name" />
+              </Params>
+            </ItemSelectedEvent>
+          </Events>
+        </GroupedList>
+      </Area>
+    </Section>
+  </Page>
+</UIDescription>

@@ -1,0 +1,522 @@
+<UIDescription name="Order::MySoldToSummaryTab" schemaVersion="0.0.0.5">
+  <Page pagePattern="SingleSectionPage" >
+    <PageHeader>
+      <Bindings>
+        <Binding target="title" binding="ProcessContext::MainBO.myOrderTitle" />
+      </Bindings>
+      <MenuItems>
+        <!-- MenuItems -->
+      </MenuItems>
+    </PageHeader>
+    <HeaderLine>
+    </HeaderLine>
+    <!-- [.. MASTER SECTION ..] -->
+    <Section sectionName="masterSection" sectionPattern="SingleAreaSection">
+      <Area areaName="masterArea" areaPattern="SingleElementArea">
+        <GroupElement name="OrderTotalValues">
+          <Merger name="HeaderTotalNetValue" pattern="twoInputControls" labelHandling="Own" leftRatio="1" rightRatio="0.8">
+            <Bindings>
+              <Resource target="Label" type="Label" id="totalNetValue" defaultLabel="Total Net Value : " />
+            </Bindings>
+            <InputArea name="TotalNet" editable="false">
+              <Bindings>
+                <Binding target="Value" type="Decimal" formatV2="10.2" binding="ProcessContext::MainBO.totalValue" bindingMode="ONE_WAY" />
+              </Bindings>
+            </InputArea>
+            <InputArea name="Currency" disabled="true">
+                <Bindings>
+                  <Resource target="Label" type="Label" id="CurrencyId" defaultLabel="Currency" />
+                  <Binding target="Value" binding="ProcessContext::MainBO.currency" bindingMode="ONE_WAY" />
+                </Bindings>
+            </InputArea>
+          </Merger>
+          <Merger name="HeaderTotalDiscountValue" pattern="twoInputControls" labelHandling="Own" leftRatio="1" rightRatio="0.8">
+            <Bindings>
+              <Resource target="Label" type="Label" id="totalDiscountValue" defaultLabel="Total Discount Value : " />
+            </Bindings>
+            <InputArea name="TotalDiscountValue" editable="false">
+              <Bindings>
+                <Binding target="Value" type="Decimal" formatV2="10.2" binding="ProcessContext::MainBO.myTotalDiscountValue" bindingMode="ONE_WAY" />
+              </Bindings>
+            </InputArea>
+            <InputArea name="Currency" disabled="true">
+                <Bindings>
+                  <Resource target="Label" type="Label" id="CurrencyId" defaultLabel="Currency" />
+                  <Binding target="Value" binding="ProcessContext::MainBO.currency" bindingMode="ONE_WAY" />
+                </Bindings>
+            </InputArea>
+          </Merger>
+          <InputArea name="TotalQuantity" editable="false">
+            <Bindings>
+              <Resource target="Label" type="Label" id="totalQuantity" defaultLabel="Total Quantity : " />
+              <Binding target="Value" binding="ProcessContext::MainBO.totalQuantity" bindingMode="ONE_WAY" />
+            </Bindings>
+          </InputArea>
+        </GroupElement>
+      </Area>
+      <!-- [. AREA .] Main -->
+      <Area areaName="mainArea1" areaPattern="SingleElementArea">
+        <GroupElement name="SoldToName">
+          <InputArea name="SoldTo" editable="false">
+            <Bindings>
+              <Resource target="Label" type="Label" id="soldtoName" defaultLabel="SoldTo : " />
+              <Binding target="Value" binding="ProcessContext::MainBO.LoMySoldTo1Summary.Current.soldToName" bindingMode="ONE_WAY" />
+              <Binding type="Visible" target="Visible" binding="ProcessContext::mySoldTo1SummaryVisibility" />
+            </Bindings>
+          </InputArea>
+        </GroupElement>
+        <EmbeddedList name="SoldTo1SummaryList" dataSource="ProcessContext::MainBO.LoMySoldTo1Summary.Items[]">
+          <Items name="Items" itemPattern="SoldTo1Summary">
+            <ItemListLayout>
+                <Default>
+                  <Header>
+                    <Col bindingId="MyDeliveryDateLabel" align="left" />
+                    <Col bindingId="MySplitOrderNameLabel" align="right" />
+                    <Col bindingId="MyTotalQuantityLabel" align="right" />
+                    <Col bindingId="MyDiscountValueLabel" align="right" />
+                    <Col bindingId="MyNetPriceLabel" align="right" />
+                    <Col bindingId="MyTypeLabel" align="right" />
+                    <Col bindingId="MyShipToName" align="right" />
+                    <Col bindingId="MyWholesalerLabel" align="right" />
+                    <Col bindingId="MyPONumberLabel" align="right" />
+                  </Header>
+                  <Col width="5em">
+                    <Row layoutType="itemSecondary" bindingId="MyDeliveryDate" />
+                  </Col>
+                  <Col layoutType="itemSecondary itemRight" bindingId="MySplitOrderName" width="3em"/>
+                  <Col layoutType="itemSecondary itemRight" bindingId="MyTotalQuantity" width="3em"/>
+                  <Col width="3em">
+                    <Row>
+                      <Col layoutType="itemSecondary itemRight" bindingId="MyDiscountValue" flex="1"/>
+                      <Col layoutType="itemSecondary itemRight" bindingId="MyCurrencySymbol" />
+                    </Row>
+                  </Col>
+                  <Col width="3em">
+                    <Row>
+                      <Col layoutType="itemSecondary itemRight" bindingId="MyNetPrice" flex="1"/>
+                      <Col layoutType="itemSecondary itemRight" bindingId="MyCurrencySymbol" />
+                    </Row>
+                  </Col>
+                  <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyType" />
+                  <Col width="3em" layoutType="itemSecondary itemRight" bindingId="ShipToName" />
+                  <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyWholesaler" />
+                  <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyPONumber" />
+                </Default>
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="SoldTo" type="Text" binding=".soldTo" bindingMode="ONE_WAY" />
+              <Binding target="MySplitOrderName" type="Text" binding=".mySplitOrderName" bindingMode="ONE_WAY" />
+              <Binding target="MyDeliveryDate" type="Text" binding=".deliveryDate" bindingMode="ONE_WAY" />
+              <Binding target="MyTotalQuantity" type="Integer" binding=".totalQuantity" bindingMode="ONE_WAY" />
+              <Binding target="MyDiscountValue" type="Decimal" formatV2="10.2" binding=".myDiscountValue" bindingMode="ONE_WAY" />
+              <Binding target="MyNetPrice" type="Decimal" formatV2="10.2" binding=".totalPrice" bindingMode="ONE_WAY" />
+              <Binding target="MyType" type="Text" binding=".type" bindingMode="ONE_WAY" />
+              <Binding target="ShipToName" type="Text" binding=".shipToName" bindingMode="ONE_WAY" />
+              <Binding target="MyWholesaler" type="Text" binding=".wholesaler" bindingMode="ONE_WAY" />
+              <Binding target="MyPONumber" type="Text" binding=".poNumber" bindingMode="ONE_WAY" />
+              <Binding target="MyCurrencySymbol" type="Text" binding=".myCurrencySymbol" bindingMode="ONE_WAY" />
+              <Resource target="MySplitOrderNameLabel" type="Label" defaultLabel="Split Order Nº" id="MySplitOrderNameLabelId" />
+              <Resource target="MyDeliveryDateLabel" type="Label" defaultLabel="Delivery Date" id="MyDeliveryDateLabelId" />
+              <Resource target="MyTotalQuantityLabel" type="Label" defaultLabel="Tot. Qty" id="MyTotalQuantityLabelId" />
+              <Resource target="MyDiscountLabel" type="Label" defaultLabel="Tot. Disc." id="MyDiscountLabelId" />
+              <Resource target="MyDiscountValueLabel" type="Label" defaultLabel="Tot. Disc. Value" id="MyDiscountValueLabelId" />
+              <Resource target="MyNetPriceLabel" type="Label" defaultLabel="Tot. Net Price" id="MyNetPriceLabelId" />
+              <Resource target="MyTypeLabel" type="Label" defaultLabel="Type" id="MyTypeLabelId" />
+              <Resource target="MyShipToName" type="Label" defaultLabel="Type" id="MyShipToNameId" />
+              <Resource target="MyWholesalerLabel" type="Label" defaultLabel="Wholesaler" id="MyWholesalerLabelId" />
+              <Resource target="MyPONumberLabel" type="Label" defaultLabel="PO Number" id="MyPONumberLabelId" />
+              <Resource target="MySoldTo" type="Label" defaultLabel="Sold To " id="MySoldToLabelId" />
+            </Bindings>
+          </Items>
+          <Events>
+          </Events>
+        </EmbeddedList>
+      </Area>
+      <Area areaName="mainArea2" areaPattern="SingleElementArea">
+        <GroupElement name="SoldToName">
+          <InputArea name="SoldTo" editable="false">
+            <Bindings>
+              <Resource target="Label" type="Label" id="soldtoName" defaultLabel="SoldTo : " />
+              <Binding target="Value" binding="ProcessContext::MainBO.LoMySoldTo2Summary.Current.soldToName" bindingMode="ONE_WAY" />
+              <Binding type="Visible" target="Visible" binding="ProcessContext::mySoldTo2SummaryVisibility" />
+            </Bindings>
+          </InputArea>
+        </GroupElement>
+        <EmbeddedList name="SoldTo2SummaryList" dataSource="ProcessContext::MainBO.LoMySoldTo2Summary.Items[]">
+          <Items name="Items" itemPattern="SoldTo2Summary">
+            <ItemListLayout>
+              <Default>
+                <Header>
+                  <Col bindingId="MyDeliveryDateLabel" align="left" />
+                  <Col bindingId="MySplitOrderNameLabel" align="right" />
+                  <Col bindingId="MyTotalQuantityLabel" align="right" />
+                  <Col bindingId="MyDiscountValueLabel" align="right" />
+                  <Col bindingId="MyNetPriceLabel" align="right" />
+                  <Col bindingId="MyTypeLabel" align="right" />
+                  <Col bindingId="MyShipToName" align="right" />
+                  <Col bindingId="MyWholesalerLabel" align="right" />
+                  <Col bindingId="MyPONumberLabel" align="right" />
+                </Header>
+                <Col width="5em">
+                  <Row layoutType="itemSecondary" bindingId="MyDeliveryDate" />
+                </Col>
+                <Col layoutType="itemSecondary itemRight" bindingId="MySplitOrderName" width="3em"/>
+                <Col layoutType="itemSecondary itemRight" bindingId="MyTotalQuantity" width="3em"/>
+                <Col width="3em">
+                  <Row>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyDiscountValue" flex="1"/>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyCurrencySymbol" />
+                  </Row>
+                </Col>
+                <Col width="3em">
+                  <Row>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyNetPrice" flex="1"/>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyCurrencySymbol" />
+                  </Row>
+                </Col>
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyType" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="ShipToName" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyWholesaler" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyPONumber" />
+              </Default>
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="SoldTo" type="Text" binding=".soldTo" bindingMode="ONE_WAY" />
+              <Binding target="MySplitOrderName" type="Text" binding=".mySplitOrderName" bindingMode="ONE_WAY" />
+              <Binding target="MyDeliveryDate" type="Text" binding=".deliveryDate" bindingMode="ONE_WAY" />
+              <Binding target="MyTotalQuantity" type="Integer" binding=".totalQuantity" bindingMode="ONE_WAY" />
+              <Binding target="MyDiscountValue" type="Decimal" formatV2="10.2" binding=".myDiscountValue" bindingMode="ONE_WAY" />
+              <Binding target="MyNetPrice" type="Decimal" formatV2="10.2" binding=".totalPrice" bindingMode="ONE_WAY" />
+              <Binding target="MyType" type="Text" binding=".type" bindingMode="ONE_WAY" />
+              <Binding target="ShipToName" type="Text" binding=".shipToName" bindingMode="ONE_WAY" />
+              <Binding target="MyWholesaler" type="Text" binding=".wholesaler" bindingMode="ONE_WAY" />
+              <Binding target="MyPONumber" type="Text" binding=".poNumber" bindingMode="ONE_WAY" />
+              <Binding target="MyCurrencySymbol" type="Text" binding=".myCurrencySymbol" bindingMode="ONE_WAY" />
+              <Resource target="MySplitOrderNameLabel" type="Label" defaultLabel="Split Order Nº" id="MySplitOrderNameLabelId" />
+              <Resource target="MyDeliveryDateLabel" type="Label" defaultLabel="Delivery Date" id="MyDeliveryDateLabelId" />
+              <Resource target="MyTotalQuantityLabel" type="Label" defaultLabel="Tot. Qty" id="MyTotalQuantityLabelId" />
+              <Resource target="MyDiscountLabel" type="Label" defaultLabel="Tot. Disc." id="MyDiscountLabelId" />
+              <Resource target="MyDiscountValueLabel" type="Label" defaultLabel="Tot. Disc. Value" id="MyDiscountValueLabelId" />
+              <Resource target="MyNetPriceLabel" type="Label" defaultLabel="Tot. Net Price" id="MyNetPriceLabelId" />
+              <Resource target="MyTypeLabel" type="Label" defaultLabel="Type" id="MyTypeLabelId" />
+              <Resource target="MyShipToName" type="Label" defaultLabel="Type" id="MyShipToNameId" />
+              <Resource target="MyWholesalerLabel" type="Label" defaultLabel="Wholesaler" id="MyWholesalerLabelId" />
+              <Resource target="MyPONumberLabel" type="Label" defaultLabel="PO Number" id="MyPONumberLabelId" />
+              <Resource target="MySoldTo" type="Label" defaultLabel="Sold To " id="MySoldToLabelId" />
+            </Bindings>
+          </Items>
+          <Events>
+          </Events>
+        </EmbeddedList>
+      </Area>
+      <Area areaName="mainArea3" areaPattern="SingleElementArea">
+        <GroupElement name="SoldToName">
+          <InputArea name="SoldTo" editable="false">
+            <Bindings>
+              <Resource target="Label" type="Label" id="soldtoName" defaultLabel="SoldTo : " />
+              <Binding target="Value" binding="ProcessContext::MainBO.LoMySoldTo3Summary.Current.soldToName" bindingMode="ONE_WAY" />
+              <Binding type="Visible" target="Visible" binding="ProcessContext::mySoldTo3SummaryVisibility" />
+            </Bindings>
+          </InputArea>
+        </GroupElement>
+        <EmbeddedList name="SoldTo3SummaryList" dataSource="ProcessContext::MainBO.LoMySoldTo3Summary.Items[]">
+          <Items name="Items" itemPattern="SoldTo3Summary">
+            <ItemListLayout>
+              <Default>
+                <Header>
+                  <Col bindingId="MyDeliveryDateLabel" align="left" />
+                  <Col bindingId="MySplitOrderNameLabel" align="right" />
+                  <Col bindingId="MyTotalQuantityLabel" align="right" />
+                  <Col bindingId="MyDiscountValueLabel" align="right" />
+                  <Col bindingId="MyNetPriceLabel" align="right" />
+                  <Col bindingId="MyTypeLabel" align="right" />
+                  <Col bindingId="MyShipToName" align="right" />
+                  <Col bindingId="MyWholesalerLabel" align="right" />
+                  <Col bindingId="MyPONumberLabel" align="right" />
+                </Header>
+                <Col width="5em">
+                  <Row layoutType="itemSecondary" bindingId="MyDeliveryDate" />
+                </Col>
+                <Col layoutType="itemSecondary itemRight" bindingId="MySplitOrderName" width="3em"/>
+                <Col layoutType="itemSecondary itemRight" bindingId="MyTotalQuantity" width="3em"/>
+                <Col width="3em">
+                  <Row>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyDiscountValue" flex="1"/>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyCurrencySymbol" />
+                  </Row>
+                </Col>
+                <Col width="3em">
+                  <Row>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyNetPrice" flex="1"/>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyCurrencySymbol" />
+                  </Row>
+                </Col>
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyType" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="ShipToName" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyWholesaler" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyPONumber" />
+              </Default>
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="SoldTo" type="Text" binding=".soldTo" bindingMode="ONE_WAY" />
+              <Binding target="MySplitOrderName" type="Text" binding=".mySplitOrderName" bindingMode="ONE_WAY" />
+              <Binding target="MyDeliveryDate" type="Text" binding=".deliveryDate" bindingMode="ONE_WAY" />
+              <Binding target="MyTotalQuantity" type="Integer" binding=".totalQuantity" bindingMode="ONE_WAY" />
+              <Binding target="MyDiscountValue" type="Decimal" formatV2="10.2" binding=".myDiscountValue" bindingMode="ONE_WAY" />
+              <Binding target="MyNetPrice" type="Decimal" formatV2="10.2" binding=".totalPrice" bindingMode="ONE_WAY" />
+              <Binding target="MyType" type="Text" binding=".type" bindingMode="ONE_WAY" />
+              <Binding target="ShipToName" type="Text" binding=".shipToName" bindingMode="ONE_WAY" />
+              <Binding target="MyWholesaler" type="Text" binding=".wholesaler" bindingMode="ONE_WAY" />
+              <Binding target="MyPONumber" type="Text" binding=".poNumber" bindingMode="ONE_WAY" />
+              <Binding target="MyCurrencySymbol" type="Text" binding=".myCurrencySymbol" bindingMode="ONE_WAY" />
+              <Resource target="MySplitOrderNameLabel" type="Label" defaultLabel="Split Order Nº" id="MySplitOrderNameLabelId" />
+              <Resource target="MyDeliveryDateLabel" type="Label" defaultLabel="Delivery Date" id="MyDeliveryDateLabelId" />
+              <Resource target="MyTotalQuantityLabel" type="Label" defaultLabel="Tot. Qty" id="MyTotalQuantityLabelId" />
+              <Resource target="MyDiscountLabel" type="Label" defaultLabel="Tot. Disc." id="MyDiscountLabelId" />
+              <Resource target="MyDiscountValueLabel" type="Label" defaultLabel="Tot. Disc. Value" id="MyDiscountValueLabelId" />
+              <Resource target="MyNetPriceLabel" type="Label" defaultLabel="Tot. Net Price" id="MyNetPriceLabelId" />
+              <Resource target="MyTypeLabel" type="Label" defaultLabel="Type" id="MyTypeLabelId" />
+              <Resource target="MyShipToName" type="Label" defaultLabel="Type" id="MyShipToNameId" />
+              <Resource target="MyWholesalerLabel" type="Label" defaultLabel="Wholesaler" id="MyWholesalerLabelId" />
+              <Resource target="MyPONumberLabel" type="Label" defaultLabel="PO Number" id="MyPONumberLabelId" />
+              <Resource target="MySoldTo" type="Label" defaultLabel="Sold To " id="MySoldToLabelId" />
+            </Bindings>
+          </Items>
+          <Events>
+          </Events>
+        </EmbeddedList>
+      </Area>
+      <Area areaName="mainArea4" areaPattern="SingleElementArea">
+        <GroupElement name="SoldToName">
+          <InputArea name="SoldTo" editable="false">
+            <Bindings>
+              <Resource target="Label" type="Label" id="soldtoName" defaultLabel="SoldTo : " />
+              <Binding target="Value" binding="ProcessContext::MainBO.LoMySoldTo4Summary.Current.soldToName" bindingMode="ONE_WAY" />
+              <Binding type="Visible" target="Visible" binding="ProcessContext::mySoldTo4SummaryVisibility" />
+            </Bindings>
+          </InputArea>
+        </GroupElement>
+        <EmbeddedList name="SoldTo4SummaryList"  dataSource="ProcessContext::MainBO.LoMySoldTo4Summary.Items[]">
+          <Items name="Items" itemPattern="SoldTo4Summary">
+            <ItemListLayout>
+              <Default>
+                <Header>
+                  <Col bindingId="MyDeliveryDateLabel" align="left" />
+                  <Col bindingId="MySplitOrderNameLabel" align="right" />
+                  <Col bindingId="MyTotalQuantityLabel" align="right" />
+                  <Col bindingId="MyDiscountValueLabel" align="right" />
+                  <Col bindingId="MyNetPriceLabel" align="right" />
+                  <Col bindingId="MyTypeLabel" align="right" />
+                  <Col bindingId="MyShipToName" align="right" />
+                  <Col bindingId="MyWholesalerLabel" align="right" />
+                  <Col bindingId="MyPONumberLabel" align="right" />
+                </Header>
+                <Col width="5em">
+                  <Row layoutType="itemSecondary" bindingId="MyDeliveryDate" />
+                </Col>
+                <Col layoutType="itemSecondary itemRight" bindingId="MySplitOrderName" width="3em"/>
+                <Col layoutType="itemSecondary itemRight" bindingId="MyTotalQuantity" width="3em"/>
+                <Col width="3em">
+                  <Row>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyDiscountValue" flex="1"/>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyCurrencySymbol" />
+                  </Row>
+                </Col>
+                <Col width="3em">
+                  <Row>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyNetPrice" flex="1"/>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyCurrencySymbol" />
+                  </Row>
+                </Col>
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyType" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="ShipToName" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyWholesaler" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyPONumber" />
+              </Default>
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="SoldTo" type="Text" binding=".soldTo" bindingMode="ONE_WAY" />
+              <Binding target="MySplitOrderName" type="Text" binding=".mySplitOrderName" bindingMode="ONE_WAY" />
+              <Binding target="MyDeliveryDate" type="Text" binding=".deliveryDate" bindingMode="ONE_WAY" />
+              <Binding target="MyTotalQuantity" type="Integer" binding=".totalQuantity" bindingMode="ONE_WAY" />
+              <Binding target="MyDiscountValue" type="Decimal" formatV2="10.2" binding=".myDiscountValue" bindingMode="ONE_WAY" />
+              <Binding target="MyNetPrice" type="Decimal" formatV2="10.2" binding=".totalPrice" bindingMode="ONE_WAY" />
+              <Binding target="MyType" type="Text" binding=".type" bindingMode="ONE_WAY" />
+              <Binding target="ShipToName" type="Text" binding=".shipToName" bindingMode="ONE_WAY" />
+              <Binding target="MyWholesaler" type="Text" binding=".wholesaler" bindingMode="ONE_WAY" />
+              <Binding target="MyPONumber" type="Text" binding=".poNumber" bindingMode="ONE_WAY" />
+              <Binding target="MyCurrencySymbol" type="Text" binding=".myCurrencySymbol" bindingMode="ONE_WAY" />
+              <Resource target="MySplitOrderNameLabel" type="Label" defaultLabel="Split Order Nº" id="MySplitOrderNameLabelId" />
+              <Resource target="MyDeliveryDateLabel" type="Label" defaultLabel="Delivery Date" id="MyDeliveryDateLabelId" />
+              <Resource target="MyTotalQuantityLabel" type="Label" defaultLabel="Tot. Qty" id="MyTotalQuantityLabelId" />
+              <Resource target="MyDiscountLabel" type="Label" defaultLabel="Tot. Disc." id="MyDiscountLabelId" />
+              <Resource target="MyDiscountValueLabel" type="Label" defaultLabel="Tot. Disc. Value" id="MyDiscountValueLabelId" />
+              <Resource target="MyNetPriceLabel" type="Label" defaultLabel="Tot. Net Price" id="MyNetPriceLabelId" />
+              <Resource target="MyTypeLabel" type="Label" defaultLabel="Type" id="MyTypeLabelId" />
+              <Resource target="MyShipToName" type="Label" defaultLabel="Type" id="MyShipToNameId" />
+              <Resource target="MyWholesalerLabel" type="Label" defaultLabel="Wholesaler" id="MyWholesalerLabelId" />
+              <Resource target="MyPONumberLabel" type="Label" defaultLabel="PO Number" id="MyPONumberLabelId" />
+              <Resource target="MySoldTo" type="Label" defaultLabel="Sold To " id="MySoldToLabelId" />
+            </Bindings>
+          </Items>
+          <Events>
+          </Events>
+        </EmbeddedList>
+      </Area>
+      <Area areaName="mainArea5" areaPattern="SingleElementArea">
+        <GroupElement name="SoldToName">
+          <InputArea name="SoldTo" editable="false">
+            <Bindings>
+              <Resource target="Label" type="Label" id="soldtoName" defaultLabel="SoldTo : " />
+              <Binding target="Value" binding="ProcessContext::MainBO.LoMySoldTo5Summary.Current.soldToName" bindingMode="ONE_WAY" />
+              <Binding type="Visible" target="Visible" binding="ProcessContext::mySoldTo5SummaryVisibility" />
+            </Bindings>
+          </InputArea>
+        </GroupElement>
+        <EmbeddedList name="SoldTo5SummaryList"  dataSource="ProcessContext::MainBO.LoMySoldTo5Summary.Items[]">
+          <Items name="Items" itemPattern="SoldTo5Summary">
+            <ItemListLayout>
+              <Default>
+                <Header>
+                  <Col bindingId="MyDeliveryDateLabel" align="left" />
+                  <Col bindingId="MySplitOrderNameLabel" align="right" />
+                  <Col bindingId="MyTotalQuantityLabel" align="right" />
+                  <Col bindingId="MyDiscountValueLabel" align="right" />
+                  <Col bindingId="MyNetPriceLabel" align="right" />
+                  <Col bindingId="MyTypeLabel" align="right" />
+                  <Col bindingId="MyShipToName" align="right" />
+                  <Col bindingId="MyWholesalerLabel" align="right" />
+                  <Col bindingId="MyPONumberLabel" align="right" />
+                </Header>
+                <Col width="5em">
+                  <Row layoutType="itemSecondary" bindingId="MyDeliveryDate" />
+                </Col>
+                <Col layoutType="itemSecondary itemRight" bindingId="MySplitOrderName" width="3em"/>
+                <Col layoutType="itemSecondary itemRight" bindingId="MyTotalQuantity" width="3em"/>
+                <Col width="3em">
+                  <Row>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyDiscountValue" flex="1"/>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyCurrencySymbol" />
+                  </Row>
+                </Col>
+                <Col width="3em">
+                  <Row>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyNetPrice" flex="1"/>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyCurrencySymbol" />
+                  </Row>
+                </Col>
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyType" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="ShipToName" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyWholesaler" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyPONumber" />
+              </Default>
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="SoldTo" type="Text" binding=".soldTo" bindingMode="ONE_WAY" />
+              <Binding target="MySplitOrderName" type="Text" binding=".mySplitOrderName" bindingMode="ONE_WAY" />
+              <Binding target="MyDeliveryDate" type="Text" binding=".deliveryDate" bindingMode="ONE_WAY" />
+              <Binding target="MyTotalQuantity" type="Integer" binding=".totalQuantity" bindingMode="ONE_WAY" />
+              <Binding target="MyDiscountValue" type="Decimal" formatV2="10.2" binding=".myDiscountValue" bindingMode="ONE_WAY" />
+              <Binding target="MyNetPrice" type="Decimal" formatV2="10.2" binding=".totalPrice" bindingMode="ONE_WAY" />
+              <Binding target="MyType" type="Text" binding=".type" bindingMode="ONE_WAY" />
+              <Binding target="ShipToName" type="Text" binding=".shipToName" bindingMode="ONE_WAY" />
+              <Binding target="MyWholesaler" type="Text" binding=".wholesaler" bindingMode="ONE_WAY" />
+              <Binding target="MyPONumber" type="Text" binding=".poNumber" bindingMode="ONE_WAY" />
+              <Binding target="MyCurrencySymbol" type="Text" binding=".myCurrencySymbol" bindingMode="ONE_WAY" />
+              <Resource target="MySplitOrderNameLabel" type="Label" defaultLabel="Split Order Nº" id="MySplitOrderNameLabelId" />
+              <Resource target="MyDeliveryDateLabel" type="Label" defaultLabel="Delivery Date" id="MyDeliveryDateLabelId" />
+              <Resource target="MyTotalQuantityLabel" type="Label" defaultLabel="Tot. Qty" id="MyTotalQuantityLabelId" />
+              <Resource target="MyDiscountLabel" type="Label" defaultLabel="Tot. Disc." id="MyDiscountLabelId" />
+              <Resource target="MyDiscountValueLabel" type="Label" defaultLabel="Tot. Disc. Value" id="MyDiscountValueLabelId" />
+              <Resource target="MyNetPriceLabel" type="Label" defaultLabel="Tot. Net Price" id="MyNetPriceLabelId" />
+              <Resource target="MyTypeLabel" type="Label" defaultLabel="Type" id="MyTypeLabelId" />
+              <Resource target="MyShipToName" type="Label" defaultLabel="Type" id="MyShipToNameId" />
+              <Resource target="MyWholesalerLabel" type="Label" defaultLabel="Wholesaler" id="MyWholesalerLabelId" />
+              <Resource target="MyPONumberLabel" type="Label" defaultLabel="PO Number" id="MyPONumberLabelId" />
+              <Resource target="MySoldTo" type="Label" defaultLabel="Sold To " id="MySoldToLabelId" />
+            </Bindings>
+          </Items>
+          <Events>
+          </Events>
+        </EmbeddedList>
+      </Area>
+      <Area areaName="mainArea6" areaPattern="SingleElementArea">
+        <GroupElement name="SoldToName">
+          <InputArea name="SoldTo" editable="false">
+            <Bindings>
+              <Resource target="Label" type="Label" id="soldtoName" defaultLabel="SoldTo : " />
+              <Binding target="Value" binding="ProcessContext::MainBO.LoMySoldTo6Summary.Current.soldToName" bindingMode="ONE_WAY" />
+              <Binding type="Visible" target="Visible" binding="ProcessContext::mySoldTo6SummaryVisibility" />
+            </Bindings>
+          </InputArea>
+        </GroupElement>
+        <EmbeddedList name="SoldTo6SummaryList"  dataSource="ProcessContext::MainBO.LoMySoldTo6Summary.Items[]">
+          <Items name="Items" itemPattern="SoldTo6Summary">
+            <ItemListLayout>
+              <Default>
+                <Header>
+                  <Col bindingId="MyDeliveryDateLabel" align="left" />
+                  <Col bindingId="MySplitOrderNameLabel" align="right" />
+                  <Col bindingId="MyTotalQuantityLabel" align="right" />
+                  <Col bindingId="MyDiscountValueLabel" align="right" />
+                  <Col bindingId="MyNetPriceLabel" align="right" />
+                  <Col bindingId="MyTypeLabel" align="right" />
+                  <Col bindingId="MyShipToName" align="right" />
+                  <Col bindingId="MyWholesalerLabel" align="right" />
+                  <Col bindingId="MyPONumberLabel" align="right" />
+                </Header>
+                <Col width="5em">
+                  <Row layoutType="itemSecondary" bindingId="MyDeliveryDate" />
+                </Col>
+                <Col layoutType="itemSecondary itemRight" bindingId="MySplitOrderName" width="3em"/>
+                <Col layoutType="itemSecondary itemRight" bindingId="MyTotalQuantity" width="3em"/>
+                <Col width="3em">
+                  <Row>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyDiscountValue" flex="1"/>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyCurrencySymbol" />
+                  </Row>
+                </Col>
+                <Col width="3em">
+                  <Row>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyNetPrice" flex="1"/>
+                    <Col layoutType="itemSecondary itemRight" bindingId="MyCurrencySymbol" />
+                  </Row>
+                </Col>
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyType" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="ShipToName" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyWholesaler" />
+                <Col width="3em" layoutType="itemSecondary itemRight" bindingId="MyPONumber" />
+              </Default>
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="SoldTo" type="Text" binding=".soldTo" bindingMode="ONE_WAY" />
+              <Binding target="MySplitOrderName" type="Text" binding=".mySplitOrderName" bindingMode="ONE_WAY" />
+              <Binding target="MyDeliveryDate" type="Text" binding=".deliveryDate" bindingMode="ONE_WAY" />
+              <Binding target="MyTotalQuantity" type="Integer" binding=".totalQuantity" bindingMode="ONE_WAY" />
+              <Binding target="MyDiscountValue" type="Decimal" formatV2="10.2" binding=".myDiscountValue" bindingMode="ONE_WAY" />
+              <Binding target="MyNetPrice" type="Decimal" formatV2="10.2" binding=".totalPrice" bindingMode="ONE_WAY" />
+              <Binding target="MyType" type="Text" binding=".type" bindingMode="ONE_WAY" />
+              <Binding target="ShipToName" type="Text" binding=".shipToName" bindingMode="ONE_WAY" />
+              <Binding target="MyWholesaler" type="Text" binding=".wholesaler" bindingMode="ONE_WAY" />
+              <Binding target="MyPONumber" type="Text" binding=".poNumber" bindingMode="ONE_WAY" />
+              <Binding target="MyCurrencySymbol" type="Text" binding=".myCurrencySymbol" bindingMode="ONE_WAY" />
+              <Resource target="MySplitOrderNameLabel" type="Label" defaultLabel="Split Order Nº" id="MySplitOrderNameLabelId" />
+              <Resource target="MyDeliveryDateLabel" type="Label" defaultLabel="Delivery Date" id="MyDeliveryDateLabelId" />
+              <Resource target="MyTotalQuantityLabel" type="Label" defaultLabel="Tot. Qty" id="MyTotalQuantityLabelId" />
+              <Resource target="MyDiscountLabel" type="Label" defaultLabel="Tot. Disc." id="MyDiscountLabelId" />
+              <Resource target="MyDiscountValueLabel" type="Label" defaultLabel="Tot. Disc. Value" id="MyDiscountValueLabelId" />
+              <Resource target="MyNetPriceLabel" type="Label" defaultLabel="Tot. Net Price" id="MyNetPriceLabelId" />
+              <Resource target="MyTypeLabel" type="Label" defaultLabel="Type" id="MyTypeLabelId" />
+              <Resource target="MyShipToName" type="Label" defaultLabel="Type" id="MyShipToNameId" />
+              <Resource target="MyWholesalerLabel" type="Label" defaultLabel="Wholesaler" id="MyWholesalerLabelId" />
+              <Resource target="MyPONumberLabel" type="Label" defaultLabel="PO Number" id="MyPONumberLabelId" />
+              <Resource target="MySoldTo" type="Label" defaultLabel="Sold To " id="MySoldToLabelId" />
+            </Bindings>
+          </Items>
+          <Events>
+          </Events>
+        </EmbeddedList>
+      </Area>
+    </Section>
+  </Page>
+</UIDescription>

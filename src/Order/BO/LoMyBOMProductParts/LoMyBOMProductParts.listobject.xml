@@ -1,0 +1,8 @@
+<ListObject name="LoMyBOMProductParts" generateLoadMethod="true" >
+  <DataSource name="DsLoMyBOMProductParts" />
+  <Item objectClass="LiMyBOMProductParts" />
+  <Methods>
+    <Method name="setVisible" />
+    <Method name="afterLoadAsync" />
+  </Methods>
+</ListObject>

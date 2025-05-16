@@ -1,0 +1,8 @@
+<ListItem name="LiMyVisibilityExecution">
+  <SimpleProperties>
+    <SimpleProperty id="true" name="pKey" type="DomPKey" storable="false" dataSourceProperty="pKey" />
+    <SimpleProperty name="brand" type="DomText" storable="false" dataSourceProperty="brand" />
+    <SimpleProperty name="position" type="DomText" storable="false" dataSourceProperty="position" />
+    <SimpleProperty name="status" type="DomText" storable="false" dataSourceProperty="status" />
+  </SimpleProperties>
+</ListItem>

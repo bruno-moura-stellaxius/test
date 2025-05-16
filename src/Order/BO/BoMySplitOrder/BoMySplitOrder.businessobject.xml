@@ -1,0 +1,24 @@
+<BusinessObject name="BoMySplitOrder"  generateLoadMethod="true" schemaVersion="2.0">
+  <DataSource name="DsBoMySplitOrder" />
+  <SimpleProperties>
+    <SimpleProperty id="true" name="pKey" type="DomPKey" dataSourceProperty="pKey" />
+    <SimpleProperty name="deliveryDate" type="DomDate" storable="true" dataSourceProperty="deliveryDate" /> 
+    <SimpleProperty name="myWholesaler" type="DomPKey" storable="true" dataSourceProperty="myWholesaler" /> 
+    <SimpleProperty name="myPONumber" type="DomString" storable="true" dataSourceProperty="myPONumber" /> 
+    <SimpleProperty name="mySplitType" type="DomString" storable="true" dataSourceProperty="mySplitType" /> 
+    <SimpleProperty name="myOrdererPKey" type="DomPKey" storable="true" dataSourceProperty ="myOrdererPKey" />
+    <SimpleProperty name="mySplitOrderName" type="DomString" storable="true" dataSourceProperty ="mySplitOrderName" />
+    <SimpleProperty name="myIsSoldToSplit" type="DomString" storable="true" dataSourceProperty="myIsSoldToSplit" /> 
+    <SimpleProperty name="myImDeliverySplit" type="DomBool" dataSourceProperty="myImDeliverySplit" />
+    <SimpleProperty name="myPreSalesDelivery" type="DomString" dataSourceProperty="myPreSalesDelivery" />
+    <SimpleProperty name="myBillToPKey" type="DomPKey" dataSourceProperty="myBillToPKey" />
+    <SimpleProperty name="myDeliverToPKey" type="DomPKey" dataSourceProperty="myDeliverToPKey" />
+    <SimpleProperty name="myShipToPKey" type="DomPKey" dataSourceProperty="myShipToPKey" />
+    <SimpleProperty name="myMainOrder" type="DomPKey" dataSourceProperty="myMainOrder" />
+  </SimpleProperties>
+  <ListObjects>
+    <ListObject name="loMySplitItems" objectClass="LoMySplitItems" dataSourceProperty="pKey" listProperty="orderPKey" loadMode="immediate" />
+  </ListObjects>
+  <Methods>
+  </Methods>
+</BusinessObject>

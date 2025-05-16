@@ -1,0 +1,71 @@
+<Datasource name="DsLoMyPreviousStoreCheckSurvey" objectClass="LoMyPreviousStoreCheckSurvey" backendSystem="sf" external="true" schemaVersion="2.0">
+  <Attributes>
+	  <Attribute name="pKey" />
+    <Attribute name="name" />
+    <Attribute name="completedDate" />
+    <Attribute name="visitId" />
+  </Attributes>
+  <Entities>
+    <Entity name="Visit" alias="" idAttribute="Id" />
+  </Entities>
+  <Database platform="SQLite">
+    <Load><![CDATA[
+            var currentCustomerPKey = "";
+            var currentCallPKey = "";
+            var currentDate = Utils.convertForDBParam(Utils.convertDate2Ansi(Utils.createDateToday()), 'DomDate');
+            var minDate = Utils.convertForDBParam(Utils.convertDate2Ansi(Utils.getMinDate()), 'DomDate');
+            if(Utils.isDefined(jsonQuery)){
+              var newParams = jsonQuery;
+              if (Utils.isOldParamsFormat(newParams)){
+              newParams = Utils.convertDsParamsOldToNew(newParams);
+              }
+            }
+            /**  currentCustomerPKey  **/
+            if (Utils.isDefined(newParams.currentCustomerPKey)){
+              currentCustomerPKey = Utils.convertForDBParam(newParams.currentCustomerPKey, "DomText");
+            }
+
+            /**  currentCallPKey  **/
+            if (Utils.isDefined(newParams.currentCallPKey)){
+              currentCallPKey = Utils.convertForDBParam(newParams.currentCallPKey, "DomText");
+            }
+            var sqlParams = {currentCustomerPKey,currentDate,minDate, currentCallPKey};
+
+            var sqlStmt = "SELECT DISTINCT";  
+            sqlStmt +=" Visit_Job__c.Visit__c As visitId ";
+            sqlStmt +=" ,Visit.Completed_Date__c AS completedDate ";
+            sqlStmt +=" ,Job_Definition_List__c.Description_Language_1__c As name ";
+            sqlStmt +=" FROM ";
+            sqlStmt +="    Visit_Job__c ";
+            sqlStmt +=" INNER JOIN ";
+            sqlStmt +="    Visit ON Visit_Job__c.Visit__c = Visit.Id AND Visit_Job__c.Done__c = '1' ";
+            sqlStmt +=" INNER JOIN ";
+            sqlStmt +="    Job_DL_Job_Definition_Template__c ON Visit_Job__c.Job_Definition__c = Job_DL_Job_Definition_Template__c.Id ";
+            sqlStmt +=" INNER JOIN ";
+            sqlStmt +="    Job_Definition_List__c ON Job_DL_Job_Definition_Template__c.Job_Definition_List__c = Job_Definition_List__c.Id ";
+            sqlStmt +=" INNER JOIN ";
+            sqlStmt +="    Job_Definition_List_Template__c ON Job_Definition_List__c.Job_Definition_List_Template__c = Job_Definition_List_Template__c.Id AND Job_Definition_List_Template__c.SurveyType__c = 'Store Check' ";
+            //sqlStmt +=" INNER JOIN ";
+            //sqlStmt +="    Product2 ON Visit_Job__c.Product__c = Product2.Id ";
+            sqlStmt +=" WHERE ";
+            sqlStmt +="    Visit.Status = 'Completed' ";
+            sqlStmt +="    AND Visit.Completed_Date__c <= '#currentDate#' AND Visit.Completed_Date__c <> '#minDate#' AND Visit.Id <> '#currentCallPKey#' ";
+            sqlStmt += "   AND Visit.AccountId = '#currentCustomerPKey#' ";
+            sqlStmt += " ORDER BY Visit.Completed_Date__c DESC, Visit.PlannedVisitEndTime DESC  LIMIT 2";
+            return Utils.replaceMacrosParam(sqlStmt, sqlParams);
+
+		]]></Load>
+    <Update><![CDATA[
+			// Intended to be empty
+			return undefined;
+		]]></Update>
+    <Insert><![CDATA[   
+			// Intended to be empty     
+			return undefined;           
+		]]></Insert>
+    <Delete><![CDATA[
+			// Intended to be empty
+			return undefined;  
+		]]></Delete>
+  </Database>
+</Datasource>

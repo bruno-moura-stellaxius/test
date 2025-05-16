@@ -1,0 +1,25 @@
+<Process name="Order::MyBrandSummaryTabProcess" defaultAction="MyCalculateBrandSummary" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+      </Declarations>
+      <Parameters>
+        <Input name="MainBO" type="BoOrder" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+    </EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action name="ShowBrandSummary" actionType="VIEW">
+        <UIDescription>Order::MyBrandSummaryTab</UIDescription>
+        <Events>
+        </Events>
+    </Action>
+      <Action name="MyCalculateBrandSummary" actionType="LOGIC" call="ProcessContext::MainBO.myCalculateBrandSummary">
+        <TransitionTo action="ShowBrandSummary" />
+      </Action>
+    </Actions>
+  </Body>
+</Process>

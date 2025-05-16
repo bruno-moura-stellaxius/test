@@ -1,0 +1,51 @@
+<UIDescription name="Todo::MyRelatedToVisitLookupUI" schemaVersion="0.0.0.5"  layoutType="blank">
+  <Page pagePattern="SingleSectionDialogPage" onBackDiscard="true">
+    <PageHeader>
+      <Bindings>
+        <Resource target="title" type="Label" id="MyRelatedToLookupId" defaultLabel="Related To Type" />
+      </Bindings>
+    </PageHeader>
+    <Section sectionName="masterSection" sectionPattern="SingleAreaSection">
+      <Area areaName="mainArea" areaPattern="SingleElementArea">
+        <GroupedList name="myRelatedToTypeList" dataSource="ProcessContext::MyRelatedToVisitList.Items[]">
+          <Items name="Items" itemPattern="MyRelatedToVisit">
+            <ItemListLayout>
+              <Default>
+                <Header>
+                  <Col bindingId="VisitNameLabel"  />
+                  <Col bindingId="CustNameLabel"  />
+                  <Col bindingId="VisitTypeLabel"  />
+                  <Col bindingId="TimeFromLabel"  />
+                </Header>
+                <Col layoutType="itemSecondary" bindingId="VisitName" />
+                <Col layoutType="itemSecondary" bindingId="CustName" />
+                <Col layoutType="itemSecondary" bindingId="VisitType" />
+                <Col layoutType="itemSecondary" bindingId="TimeFrom" />
+              </Default>
+
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="CustName" type="Text" binding=".name" bindingMode="ONE_TIME" />
+              <Binding target="VisitName" type="Text" binding=".myVisitName" bindingMode="ONE_TIME" />
+              <Binding target="VisitType" type="Text" binding=".myTemplateDescription" bindingMode="ONE_TIME" />
+              <Binding target="TimeFrom" type="Text" binding=".timeFrom" bindingMode="ONE_TIME" />
+              <!-- Labels -->
+              <Resource target="VisitNameLabel" type="Label" id="VisitNameLabel" defaultLabel="Visit No." />
+              <Resource target="CustNameLabel" type="Label" id="CustNameLabel" defaultLabel="Customer" />
+              <Resource target="VisitTypeLabel" type="Label" id="VisitTypeLabel" defaultLabel="Visit Type" />
+              <Resource target="TimeFromLabel" type="Label" id="TimeFromLabel" defaultLabel="Time" />
+            </Bindings>
+          </Items>
+          <Events>
+            <ItemSelectedEvent event="visitItemSelected">
+              <Params>
+                <Param name="pKey" value=".pKey" />
+                <Param name="name" value=".myVisitTitle" />
+              </Params>
+            </ItemSelectedEvent>
+          </Events>
+        </GroupedList>
+      </Area>
+    </Section>
+  </Page>
+</UIDescription>

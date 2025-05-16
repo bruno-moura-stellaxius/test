@@ -1,0 +1,9 @@
+<ListObject name="LoMySplitForExchange" generateLoadMethod="true" >
+  <DataSource name="DsLoMySplitForExchange" />
+  <Item objectClass="LiMySplitForExchange" />
+  <Methods>
+    <Method name="getFirstEntry" />
+    <Method name="contains" />
+    <Method name="beforeLoadAsync" />
+  </Methods>
+</ListObject>

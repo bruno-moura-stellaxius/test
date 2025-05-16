@@ -1,0 +1,95 @@
+<Process name="Todo::MyRelatedToLookupProcess" defaultAction="LoadDataDecision" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="MyRelatedToOrderList" type="LoOrderOverview" />
+        <Declaration name="MyRelatedToVisitList" type="LoAgendaOverview" />
+        <Declaration name="MyCurrentDate" type="DomDate" />
+
+      </Declarations>
+      <Parameters>
+        <Input name="MyRelatedToPKey" type="String" />
+        <Input name="MyRelatedToName" type="String" />
+        <Input name="MyRelatedToTypePKey" type="String" />
+        <Input name="MyCustomerPKey" type="String" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+      <Action actionType="LOAD" name="GetMyRelatedToTypeList" type="LoMyRelatedToType">
+        <Return name="ProcessContext::MyRelatedToTypeList" />
+      </Action>
+      <Action actionType="LOGIC" name="GetCurrentDate" call="Utils.createAnsiToday">
+        <Return name="ProcessContext::MyCurrentDate" />
+      </Action>
+    </EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action name="LoadDataDecision" actionType="DECISION" parameter="ProcessContext::MyRelatedToTypePKey">
+        <Case value="order" action="LoadOrderOverviewList" />
+        <CaseElse action="LoadVisitList" />
+      </Action>
+
+      <!-- Orders -->
+      <Action name="LoadOrderOverviewList" actionType="LOAD" type="LoOrderOverview">
+        <Parameters>
+          <Input name="CallCustomerPKey" value="ProcessContext::MyCustomerPKey" />
+        </Parameters>
+        <Return name="ProcessContext::MyRelatedToOrderList" />
+        <TransitionTo action="ShowOrderView" />
+      </Action>
+      <Action actionType="View" name="ShowOrderView">
+        <UIDescription>Todo::MyRelatedToOrderLookupUI</UIDescription>
+        <Events>
+          <Event name="orderItemSelected" action="EndWithReturnValuesOrder" />
+        </Events>
+      </Action>
+
+      <!-- Calls -->
+      <Action name="LoadVisitList" actionType="CREATE" type="LoAgendaOverview">
+        <Return name="ProcessContext::MyRelatedToVisitList" />
+        <TransitionTo action="GetCallsForToday" />
+      </Action>
+      <Action name="GetCallsForToday" actionType="LOGIC" call="ProcessContext::MyRelatedToVisitList.getCallsByDate">
+        <Parameters>
+          <Input name="setDateFunction" value="none" type="Literal" />
+          <Input name="filterCalls" value="All" type="Literal" />
+          <Input name="currentDateStart" value="ProcessContext::MyCurrentDate" />
+          <Input name="currentDateEnd" value="ProcessContext::MyCurrentDate" />
+          <Input name="currentResponsible" value="ApplicationContext::User.pKey" />
+          <Input name="numberOfListItems" value="100" type="Literal" />
+          <Input name="currentResponsible" value="ApplicationContext::User.pKey" />
+          <Input name="cardMode" value="" type="Literal"  />
+          <Input name="myCallCustomer" value="ProcessContext::MyCustomerPKey"  />
+        </Parameters>
+        <TransitionTo action="ShowVisitView" />
+      </Action>
+      <Action actionType="View" name="ShowVisitView">
+        <UIDescription>Todo::MyRelatedToVisitLookupUI</UIDescription>
+        <Events>
+          <Event name="visitItemSelected" action="EndWithReturnValuesVisit" />
+        </Events>
+      </Action>
+
+      <!-- Common -->
+      <Action actionType="END" name="EndWithReturnValuesOrder">
+        <ReturnValues>
+          <Return name="MyRelatedToPKey" value="Event.pKey" />
+          <Return name="MyRelatedToName" value="Event.name" />
+        </ReturnValues>
+      </Action>
+      <Action actionType="END" name="EndWithReturnValuesVisit">
+        <ReturnValues>
+          <Return name="MyRelatedToPKey" value="Event.pKey" />
+          <Return name="MyRelatedToName" value="Event.name" />
+        </ReturnValues>
+      </Action>
+      <Action actionType="END" name="End">
+        <ReturnValues>
+          <Return name="MyRelatedToPKey" value="ProcessContext::MyRelatedToPKey" />
+          <Return name="MyRelatedToName" value="ProcessContext::MyRelatedToName" />
+        </ReturnValues>
+      </Action>
+    </Actions>
+  </Body>
+</Process>

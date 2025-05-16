@@ -1,0 +1,42 @@
+<ListItem name="LiMyPricingTermProductsInfo">  
+  <SimpleProperties>
+      <SimpleProperty name="pKey" type="DomPKey" />
+    <SimpleProperty name="pricingTermPKey" type="DomPKey" storable="false" dataSourceProperty="pricingTermPKey" />
+    <SimpleProperty name="pricingTermEndDate" type="DomDate" storable="false" dataSourceProperty="pricingTermEndDate" />
+    <SimpleProperty name="pricingTermStartDate" type="DomDate" storable="false" dataSourceProperty="pricingTermStartDate" />
+    <SimpleProperty name="pricingConditionPKey" type="DomPKey" storable="false" dataSourceProperty="pricingConditionPKey" />
+    <SimpleProperty name="conditionProductPKey" type="DomPKey" storable="false" dataSourceProperty="conditionProductPKey" />
+    <SimpleProperty name="pricingTermName" type="DomText" storable="false" dataSourceProperty="pricingTermName" />
+    <SimpleProperty name="pricingConditionName" type="DomText" storable="false" dataSourceProperty="pricingConditionName" />
+    <SimpleProperty name="conditionProductName" type="DomText" storable="false" dataSourceProperty="conditionProductName" />
+    <SimpleProperty name="layer" type="DomText" storable="false" dataSourceProperty="layer" />
+    <SimpleProperty name="typeOfDiscount" type="DomText" storable="false" dataSourceProperty="typeOfDiscount" />
+    <SimpleProperty name="baseDiscount" type="DomPercentage" storable="false" dataSourceProperty="baseDiscount" />
+    <SimpleProperty name="layerAThresholdType" type="DomString" storable="false" dataSourceProperty="layerAThresholdType" />
+    <SimpleProperty name="maxQty" type="DomInteger" storable="false" dataSourceProperty="maxQty" />
+    <SimpleProperty name="minQty" type="DomInteger" storable="false" dataSourceProperty="minQty" />
+    <SimpleProperty name="maxValue" type="DomMoney" storable="false" dataSourceProperty="maxValue" />
+    <SimpleProperty name="minValue" type="DomMoney" storable="false" dataSourceProperty="minValue" />
+    <SimpleProperty name="maxBrands" type="DomInteger" storable="false" dataSourceProperty="maxBrands" />
+    <SimpleProperty name="minBrands" type="DomInteger" storable="false" dataSourceProperty="minBrands" />
+    <SimpleProperty name="maxRef" type="DomInteger" storable="false" dataSourceProperty="maxRef" />
+    <SimpleProperty name="minRef" type="DomInteger" storable="false" dataSourceProperty="minRef" />
+    <SimpleProperty name="minPercentBeforeMaxDeliveryDate" type="DomPercentage" storable="false" dataSourceProperty="minPercentBeforeMaxDeliveryDate" />
+    <SimpleProperty name="maxDeliveryDate" type="DomDate" storable="false" dataSourceProperty="maxDeliveryDate" />
+    <SimpleProperty name="discountPercent" type="DomPercentage" storable="false" dataSourceProperty="discountPercent" />
+    <SimpleProperty name="scope" type="DomPKey" storable="false" dataSourceProperty="scope" />
+    <SimpleProperty name="application" type="DomPKey" storable="false" dataSourceProperty="application" />
+    <SimpleProperty name="mandatory" type="DomPKey" storable="false" dataSourceProperty="mandatory" />
+    <SimpleProperty name="conditionProductMax" type="DomInteger" storable="false" dataSourceProperty="conditionProductMax"/>
+    <SimpleProperty name="conditionProductMin" type="DomInteger" storable="false" dataSourceProperty="conditionProductMin"/>
+    <SimpleProperty name="freeGoodProduct" type="DomInteger" storable="false" dataSourceProperty="freeGoodProduct"/>
+    <SimpleProperty name="freeGoodQty" type="DomInteger" storable="false" dataSourceProperty="freeGoodQty" />
+    <SimpleProperty name="typeOfDiscount" type="DomText" storable="false" dataSourceProperty="typeOfDiscount" />
+    <SimpleProperty name="qtyToBuy" type="DomInteger" storable="false" dataSourceProperty="qtyToBuy" />
+    <SimpleProperty name="qtyToGive" type="DomInteger" storable="false" dataSourceProperty="qtyToGive" />
+    <SimpleProperty name="maxDiscountPercent" type="DomPercentage" storable="false" dataSourceProperty="maxDiscountPercent" />
+    <SimpleProperty name="minDiscountPercent" type="DomPercentage" storable="false" dataSourceProperty="minDiscountPercent" />
+    <SimpleProperty name="behaviourIfHigherDiscount" type="DomString" dataSourceProperty="behaviourIfHigherDiscount" />
+    <SimpleProperty name="errorMsg" type="DomString" dataSourceProperty="errorMsg" />
+  </SimpleProperties>
+</ListItem>

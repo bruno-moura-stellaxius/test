@@ -1,0 +1,174 @@
+<UIDescription name="Order::MyExchangeItemListTab" schemaVersion="0.0.0.5">
+  <Page pagePattern="MasterDetailSectionPage" masterSectionFlex="90" detailSectionFlex="10" cachable="false">
+    <PageHeader>
+      <Bindings>
+        <Binding target="title" binding="ProcessContext::MainBO.luOrderer.name" />
+      </Bindings>
+      <MenuItems>
+        <MenuItem directlyVisible="true" itemId="mySubmitOrder">
+          <Bindings>
+            <Resource target="Text" type="Label" id="mySubmitOrder" defaultLabel="Submit" />
+            <Resource target="Icon" type="Image" id="Complete_PB" />
+            <Binding type="Visible" target="Visible" call="ProcessContext::MainBO.myOrderUIButtonVisibility" />
+          </Bindings>
+          <Events>
+            <ButtonPressedEvent event="mySubmitOrder" />
+          </Events>
+        </MenuItem>
+        <MenuItem directlyVisible="true" itemId="OrderSummary">
+          <Bindings>
+            <Resource target="Text" type="Label" id="MyOrderSummaryId" defaultLabel="Order Summary" />
+            <Resource target="Icon" type="Image" id="CalculatorDarkGrey24" />
+            <Binding type="Visible" target="Visible" call="ProcessContext::MainBO.myOrderUIButtonVisibility" />
+          </Bindings>
+          <Events>
+            <ButtonPressedEvent event="calculateOrderValue" />
+          </Events>
+        </MenuItem>
+      </MenuItems>
+    </PageHeader>
+    <HeaderLine>
+    </HeaderLine>
+    <!-- [.. MASTER SECTION ..] -->
+    <Section sectionName="masterSection" sectionPattern="FilteredViewAreaSection">
+      <Area areaName="filterArea" areaPattern="FilterElementArea">
+        <ImageSelector name="FilterSelector" type="FilterElement" dataSource="ProcessContext::MainBO.loItemFilter.Items[]" filter="true">
+          <Events>
+            <ItemSelectedEvent event="filterSelected">
+              <Params>
+                <Param name="filterCode" value=".filterCode" />
+                <Param name="pKey" value=".pKey" />
+              </Params>
+            </ItemSelectedEvent>
+          </Events>
+          <Items>
+            <Bindings>
+              <Binding target="Image" type="Image" binding=".imageId" bindingMode="ONE_WAY" />
+              <Binding target="Text" type="Text" binding=".name" bindingMode="ONE_WAY" />
+              <Binding target="Info" type="Text" binding=".count" bindingMode="ONE_WAY" />
+            </Bindings>
+          </Items>
+        </ImageSelector>
+      </Area>
+      <Area areaName="viewArea" areaPattern="SingleElementArea">
+        <MultiSelectionBreadCrumbControl name="OrderItems" showPreviousNextEnter="true" searchBarPlacement="HeaderLine" searchable="true" direction="ASC" sortDirectionInGroup="ASC" numberpadDefaultField="quantity" dataSource="ProcessContext::MainBO.LoItems.Items[]" master="true" >
+          <Hierarchy name="OrderItemCategoryList" labelAttribute="label">
+            <Bindings>
+              <Binding target="RootLabel" type="Text" binding="ProcessContext::MainBO.boItemTabManager.rootLabel" bindingMode="ONE_TIME" />
+              <Binding target="Categories" type="Text" binding="ProcessContext::MainBO.boItemTabManager.numberOfLevels" bindingMode="ONE_TIME" />
+              <Binding target="ShowCategory" type="Text" binding="ProcessContext::MainBO.boItemTabManager.isShowCategories" bindingMode="ONE_WAY" />
+              <Binding target="AddItem" type="Text" binding="ProcessContext::MainBO.boItemTabManager.addProduct_HierarchyInformation" bindingMode="ONE_WAY" />
+            </Bindings>
+            <DataSources>
+              <DataSource name="ProcessContext::MainBO.boItemTabManager.loBreadCrumbLevel1" keyAttribute="PKey" refKeyAttribute="ParentPKey" />
+              <DataSource name="ProcessContext::MainBO.boItemTabManager.loBreadCrumbLevel2" keyAttribute="PKey" refKeyAttribute="ParentPKey" />
+            </DataSources>
+            <Events>
+              <ItemSelectedEvent event="itemSelectedHierarchy">
+                <Params>
+                  <Param name="id" value=".id" />
+                </Params>
+              </ItemSelectedEvent>
+              <HierarchyBackEvent event="hierarchyBack" />
+            </Events>
+          </Hierarchy>
+          <SearchAttributes>
+            <SearchAttribute name="text1" />
+            <SearchAttribute name="eAN" />
+            <SearchAttribute name="prdId" />
+            <SearchAttribute name="customerProductNumber" />
+          </SearchAttributes>
+          <Items name="Items" itemPattern="OrderItemItem">
+            <ItemListLayout>
+                <Default>
+                  <Col width="0.1em">
+                  </Col>
+                  <Col width="9em">
+                    <Row layoutType="itemSecondary" bindingId="ProductName" />
+                    <Row layoutType="itemSecondary" bindingId="MyProductOrderItemCode" />
+                  </Col>
+                  <Col width="0.5em">
+                  </Col>
+                  <Col width="2em" layoutType="itemSecondarySmall" bindingId="MyQuantityLabel" />
+                  <Col width="2em" layoutType="itemSecondary" bindingId="MyQuantity" />
+                  <Col width="1em">
+                  </Col>
+                  <Col width="4em">
+                    <Row colSpan="2">
+                      <Col layoutType="itemSecondary itemRight" flex="1" bindingId="MyListPriceLabel" />
+                    </Row>
+                    <Row>
+                      <Col layoutType="itemSecondary itemRight" flex="1" bindingId="MyPrice" />
+                      <Col layoutType="itemSecondary" bindingId="MyCurrencySymbol" />
+                    </Row>
+                  </Col>
+                  <Col width="4em">
+                    <Row colSpan="2">
+                      <Col layoutType="itemSecondary itemRight" flex="1" bindingId="MyTotalValueLabel" />
+                    </Row>
+                    <Row>
+                      <Col layoutType="itemSecondary itemRight" flex="1" bindingId="myTotalValue" />
+                      <Col layoutType="itemSecondary" bindingId="MyCurrencySymbol" />
+                    </Row>
+                  </Col>
+                </Default>
+            </ItemListLayout>
+            <Bindings>
+              <Binding target="ProductName" type="Text" binding=".text1" bindingMode="ONE_WAY" />
+              <Binding target="MyQuantity" type="Stepper" binding=".quantity" minValue="0" 
+                  maxValue="9999" minBinding="minStepperValue" stepperEnabledBinding="myUseStepper" 
+                  bindingMode="TWO_WAY" formatV2="4.0" />
+
+              <Binding target="MyDiscount" type="Text" binding=".myDiscount" bindingMode="ONE_WAY" />
+              <Binding target="MyNetPrice" type="Text" binding=".myNetPrice" bindingMode="ONE_WAY" formatV2="10.2"/>
+              <Binding target="MyProductOrderItemCode" type="Text" binding=".myProductOrderItemCode" bindingMode="ONE_WAY" />
+              <Binding target="MyPrice" type="Text" binding=".simplePricingBasePrice" bindingMode="ONE_WAY" />
+              <Binding target="Icon" type="Image" binding=".myBOMProductImage" bindingMode="ONE_WAY" />
+              <Binding target="MyPrdDepreciationPercentage" type="Text" binding=".myPrdDepreciationPercentage" bindingMode="ONE_WAY" />
+              <Binding target="myTotalValue" type="Text" binding=".value" bindingMode="ONE_WAY"  formatV2="10.2"/>
+              <Binding target="MyCurrencySymbol" type="Text" binding=".myCurrencySymbol" bindingMode="ONE_WAY" />
+              <Resource target="Spacer" type="Label" id="Spacer" defaultLabel=" " />
+              <Resource target="MyTotalQuantityLabel" type="Label" defaultLabel="Tot. Qty" id="MyTotalQuantity" />
+              <Resource target="MyDiscountLabel" type="Label" defaultLabel="Tot. Disc." id="MyDiscount" />
+              <Resource target="MyNetPriceLabel" type="Label" defaultLabel="Net Price" id="MyNetPrice" />
+              <Resource target="MyPriceLabel" type="Label" defaultLabel="Price-" id="MyPriceLabelId" />
+              <Resource target="MyListPriceLabel" type="Label" defaultLabel="Price" id="MyListPrice" />
+              <Resource target="MyQuantityLabel" type="Label" defaultLabel="Quantity" id="MyQuantity" />
+              <Resource target="MyDepreciationPercentageLabel" type="Label" defaultLabel="Depreciation %" id="MyDepreciationPercentage" />
+              <Resource target="MyTotalValueLabel" type="Label" defaultLabel="Total Value" id="MyTotalValue" />
+            </Bindings>
+          </Items>
+          <Bindings>
+            <Binding target="DynamicallyGroupBy" type="Text" binding="ProcessContext::GroupingAttribute" />
+            <Binding target="DynamicallySortBy" type="Text" binding="ProcessContext::SortingAttribute" />
+            <Binding target="DynamicallySortInsideGroupBy" type="Text" binding="ProcessContext::SortingInsideAttribute" />
+          </Bindings>
+          <Events>
+            <ItemSelectedEvent event="itemSelected">
+              <Params>
+                <Param name="pKey" value=".pKey" />
+                <Param name="pKeys" value=".__pKeys" />
+                <Param name="startIndex" value=".__startIndexInDatasource" />
+                <Param name="refPKey" value=".refPKey" />
+              </Params>
+            </ItemSelectedEvent>
+          </Events>
+          <GroupVisibleElementConfiguration>
+            <GroupElementsBy>
+              <ListItemAttribute name="prdMainPKey" />
+              <ListItemAttribute name="sdoItemMetaPKey" />
+              <ListItemAttribute name="promotionPKey" />
+              <ListItemAttribute name="sdoParentItemPKey" />
+              <ListItemAttribute name="rewardPKey" />
+            </GroupElementsBy>
+            <PrimaryElementIndicator attributeName="isOrderUnit" />
+          </GroupVisibleElementConfiguration>
+        </MultiSelectionBreadCrumbControl>
+      </Area>
+    </Section>
+    <!-- [.. DETAIL SECTION ..] -->
+    <Section sectionName="detailSection" sectionPattern="SingleAreaSection">
+      
+    </Section>
+  </Page>
+</UIDescription>

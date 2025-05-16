@@ -1,0 +1,9 @@
+<ListObject name="LoMyPricingTerm" generateLoadMethod="true" >
+  <DataSource name="DsLoMyPricingTerm" />
+  <Item objectClass="LiMyPricingTerm" />
+  <Methods>
+    <Method name="getFirstEntry" />
+    <Method name="contains" />
+    <Method name="beforeLoadAsync" />
+  </Methods>
+</ListObject>

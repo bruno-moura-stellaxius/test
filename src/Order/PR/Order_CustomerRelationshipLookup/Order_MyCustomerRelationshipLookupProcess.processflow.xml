@@ -1,0 +1,76 @@
+<Process name="Order::MyCustomerRelationshipLookupProcess" defaultAction="ShowView" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Declarations>
+        <Declaration name="SortBy" type="String" />
+      </Declarations>
+      <Parameters>
+        <Input name="CustomerRelationshipList" type="LoMyCustomerRelationship" />
+        <Input name="ordererPKey" type="DomPKey" />
+        <Input name="pKey" type="DomPKey" />
+        <Input name="name" type="DomText" />
+        <Input name="relationshipType" type="DomText" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions>
+      <Action actionType="LOGIC" name="LoadTeamOfUser" call="ApplicationContext::User.loadTeamOfUser">
+        <Parameters>
+          <Input name="includeCurrentUser" type="Literal" value="1" />
+        </Parameters>
+      </Action>
+      <Action actionType="LOAD" name="GetCustomerRelationshipList" type="LoMyCustomerRelationship">
+        <Parameters>
+          <Input name="ordererPKey" value="ProcessContext::ordererPKey" />
+          <Input name="relationshipType" value="ProcessContext::relationshipType"  />
+        </Parameters>
+        <Return name="ProcessContext::CustomerRelationshipList" />
+      </Action>
+    </EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action actionType="View" name="ShowView">
+        <UIDescription>Order::MyCustomerRelationshipLookup</UIDescription>
+        <Events>
+          <Event name="itemSelected" action="EndWithNewValue" />
+          <Event name="sortByAlphabet" action="SetSortByAlphabet" />
+          <Event name="clearSelection" action="ClearSelectionAction" />
+        </Events>
+      </Action>
+      <!-- Start -Sort Customer list  -->
+      <Action name="SetSortByAlphabet" actionType="LOGIC" call="Utils.identity">
+        <Return name="ProcessContext::SortBy" />
+        <TransitionTo action="LoadCustomerList" />
+        <Parameters>
+          <Input name="value" value="Alphabet" type="String" />
+        </Parameters>
+      </Action>
+      <Action actionType="LOAD" name="LoadCustomerList" type="LoMyCustomerRelationship">
+        <Parameters>
+          <Input name="ordererPKey" value="ProcessContext::ordererPKey" />
+          <Input name="relationshipType" value="ProcessContext::relationshipType"  />
+        </Parameters>
+        <Return name="ProcessContext::CustomerRelationshipList" />
+      </Action>
+      <!-- End -Sort Customer list  -->
+      <Action actionType="END" name="ClearSelectionAction">
+        <ReturnValues>
+          <Return name="pKey" value="" />
+          <Return name="name" value="" />
+        </ReturnValues>
+      </Action>
+      <Action actionType="END" name="EndWithNewValue">
+        <ReturnValues>
+          <Return name="pKey" value="Event.relatedAccountPKey" />
+          <Return name="name" value="Event.relatedAccountName" />
+        </ReturnValues>
+      </Action>
+      <Action actionType="END" name="End">
+        <ReturnValues>
+          <Return name="pKey" value="ProcessContext::pKey" />
+          <Return name="name" value="ProcessContext::name" />
+        </ReturnValues>
+      </Action>
+    </Actions>
+  </Body>
+</Process>

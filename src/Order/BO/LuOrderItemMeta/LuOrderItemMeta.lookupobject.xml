@@ -1,0 +1,38 @@
+<LookupObject name="LuOrderItemMeta">
+  <DataSource name="DsLuOrderItemMeta" />
+  <SimpleProperties>
+    <SimpleProperty id="true" name="pKey" type="DomPKey" dataSourceProperty="pKey" />
+    <SimpleProperty name="text" type="DomString" dataSourceProperty="text" />
+    <SimpleProperty name="shortText" type="DomString" dataSourceProperty="shortText" />
+    <SimpleProperty name="prdProposalItemMetaPosition" type="DomPrdPdaItemPosition" dataSourceProperty="prdProposalItemMetaPosition" />
+    <SimpleProperty name="useAssortmentSdoItem" type="DomBool" dataSourceProperty="useAssortmentSdoItem" />
+    <SimpleProperty name="useClosedListing" type="DomBool" dataSourceProperty="useClosedListing" />
+    <SimpleProperty name="priceEffect" type="DomSdoItemMetaPriceEffect" dataSourceProperty="priceEffect" />
+    <SimpleProperty name="saveZeroQuantity" type="DomBool" dataSourceProperty="saveZeroQuantity" />
+    <SimpleProperty name="calculationGroup" type="DomSdoCalculationGroup" dataSourceProperty="calculationGroup" />
+    <SimpleProperty name="modifyPresetQuantity" type="DomSdoModifyPresetQuantity" dataSourceProperty="modifyPresetQuantity" />
+    <SimpleProperty name="scanIncrementQuantity" type="DomInteger" dataSourceProperty="scanIncrementQuantity" />
+    <SimpleProperty name="uoMScanBehavior" type="DomSdoUoMScanBehavior" dataSourceProperty="uoMScanBehavior" />
+    <SimpleProperty name="uoMScanDefaultUnit" type="DomSdoDefaultUnit" dataSourceProperty="uoMScanDefaultUnit" />
+    <SimpleProperty name="active" type="DomBool" dataSourceProperty="active" />
+    <SimpleProperty name="id" type="DomId" dataSourceProperty="id" />
+    <SimpleProperty name="quantitySuggestionPolicy" type="DomString" dataSourceProperty="quantitySuggestionPolicy" />
+    <SimpleProperty name="quantityLogisticUnit" type="DomSdoPdaQuantityLogisticUnit" dataSourceProperty="quantityLogisticUnit" />
+    <SimpleProperty name="useSpecialPrice" type="DomBool" dataSourceProperty="useSpecialPrice" />
+    <SimpleProperty name="considerDeliveryState" type="DomBool" dataSourceProperty="considerDeliveryState" />
+    <SimpleProperty name="checkMaxQuantity" type="DomBool" dataSourceProperty="checkMaxQuantity" />
+    <SimpleProperty name="maxQuantity" type="DomDecimal" dataSourceProperty="maxQuantity" />
+    <SimpleProperty name="checkQuotaOver" type="DomSdoCheckType" dataSourceProperty="checkQuotaOver" />
+    <SimpleProperty name="checkUserInventoryOver" type="DomSdoCheckType" dataSourceProperty="checkUserInventoryOver" />
+    <SimpleProperty name="useQuota" type="DomBool" dataSourceProperty="useQuota" />
+    <SimpleProperty name="useUserInventory" type="DomBool" dataSourceProperty="useUserInventory" />
+    <SimpleProperty name="excludeQuantityRounding" type="DomBool" dataSourceProperty="excludeQuantityRounding" />
+    <SimpleProperty name="logisticCategory" type="DomSdoLogisticCategory" dataSourceProperty="logisticCategory" />
+    <SimpleProperty name="movementDirection" type="DomSdoItemMovementDirection" dataSourceProperty="movementDirection" />
+    <SimpleProperty name="myManualAdd" type="DomDecimal" dataSourceProperty="myManualAdd" />
+    <SimpleProperty name="oneHundredDiscount" type="DomDecimal" dataSourceProperty="oneHundredDiscount" />
+    <SimpleProperty name="myApplyDeliveryUnit" type="DomBool" storable="false" dataSourceProperty="myApplyDeliveryUnit" />
+    <SimpleProperty name="orderItemTemplate" type="DomString" storable="false" dataSourceProperty="orderItemTemplate" />
+  </SimpleProperties>
+  <Methods></Methods>
+</LookupObject>

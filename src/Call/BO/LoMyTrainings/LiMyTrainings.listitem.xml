@@ -1,0 +1,11 @@
+<ListItem name="LiMyTrainings">
+  <SimpleProperties>
+    <SimpleProperty name="pKey" type="DomPKey" dataSourceProperty="pKey" />
+    <SimpleProperty name="startDate" type="DomDate" dataSourceProperty="startDate" />
+    <SimpleProperty name="endDate" type="DomDate" dataSourceProperty="endDate" />
+    <SimpleProperty name="trainingName" type="DomText" dataSourceProperty="trainingName" />
+    <SimpleProperty name="trainingType" type="DomText" dataSourceProperty="trainingType" />
+    <SimpleProperty name="brand" type="DomText" dataSourceProperty="brand" />
+    <SimpleProperty name="productId" type="DomPKey" dataSourceProperty="productId" />
+  </SimpleProperties>
+</ListItem>

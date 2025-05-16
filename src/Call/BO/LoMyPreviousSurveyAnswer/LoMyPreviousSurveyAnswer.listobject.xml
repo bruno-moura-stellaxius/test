@@ -1,0 +1,9 @@
+<ListObject name="LoMyPreviousSurveyAnswer" generateLoadMethod="true" schemaVersion="1.1">
+  <DataSource name="DsLoMyPreviousSurveyAnswers"/>
+  <Item objectClass="LiMyPreviousSurveyAnswer"/>
+  <Methods>
+    <Method name="afterLoadAsync"/>
+    <Method name="beforeLoadAsync"/>
+    <Method name="loadAsync"/>
+  </Methods>
+</ListObject>

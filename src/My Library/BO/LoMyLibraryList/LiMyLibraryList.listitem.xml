@@ -1,0 +1,7 @@
+<ListItem name="LiMyLibraryList" xmlns="BoSchema.xsd">
+  <SimpleProperties>
+    <SimpleProperty id="true" name="id" type="DomPKey" storable="false" dataSourceProperty="pKey" />
+    <SimpleProperty name="name" type="DomText" storable="false" dataSourceProperty="name" />
+    
+  </SimpleProperties>
+</ListItem>

@@ -1,0 +1,86 @@
+<DataSource name="DsLoMyFifthKpiData" backendSystem="sf" businessObjectClass="LoMyFifthKpiData" external="true" editableEntity="Visit" schemaVersion="2.0">
+ <Entities>
+    <Entity name="Visit" alias="" idAttribute="Id" />
+ </Entities>
+ <Database platform="SQLite">
+    <Load><![CDATA[  
+
+      var salesOrg = "";
+    	var user = "";
+			var date = "";
+      var endDate = "";
+
+      if(Utils.isDefined(jsonQuery.salesOrg)){
+				salesOrg = Utils.convertForDBParam(jsonQuery.salesOrg, "DomString");
+			}
+      if(Utils.isDefined(jsonQuery.user)){
+				user = Utils.convertForDBParam(jsonQuery.user, "DomPKey");
+			}
+      if(Utils.isDefined(jsonQuery.date)){
+        date = Utils.convertForDBParam(jsonQuery.date, "DomDate");
+      } 
+      if(Utils.isDefined(jsonQuery.endDate)){
+        endDate = Utils.convertForDBParam(jsonQuery.endDate, "DomDate");
+      }
+      if(Utils.isDefined(jsonQuery.yesterday)){
+        yesterday = Utils.convertForDBParam(jsonQuery.yesterday, "DomDate");
+      }  
+
+			var sqlParams = {salesOrg, user, date, endDate, yesterday};
+
+			var sqlStmt = "";
+
+      if(salesOrg == "C172"){ // C172 - France - Average Basket per day (cycle)
+
+        sqlStmt += "  SELECT ";
+        sqlStmt += "      Brand.Name as brandName, ";
+        sqlStmt += "      SUM(ORI.Value__c) as itemValue, Cycle.StartDate as periodStartDate, 0 as target ";
+        sqlStmt += "  FROM ";
+        sqlStmt += "      Order_Item__c ORI ";
+        sqlStmt += "      inner join Order__c ODR ON ORI.Order__c = ODR.Id ";
+        sqlStmt += "      AND ODR.Phase__c IN ('Activated') ";
+        sqlStmt += "      inner join RecordType RT ON ODR.RecordTypeId = RT.Id ";
+        sqlStmt += "      and RT.Name = 'Split' ";
+        sqlStmt += "      inner join Product2 SKU ON ORI.Product__c = SKU.Id ";
+        sqlStmt += "      inner join Product2 Brand ON SKU.Criterion_3_Product__c = Brand.Id ";
+        sqlStmt += "      inner join ( ";
+        sqlStmt += "          SELECT distinct ";
+        sqlStmt += "              TB.Brand__c as BrandId, ";
+        sqlStmt += "              CC.StartDate__c as StartDate ";
+        sqlStmt += "          FROM ";
+        sqlStmt += "              Sales_Organization__c SO ";
+        sqlStmt += "              inner join Cycle__c CC on CC.SalesOrganization__c = SO.ID ";
+        sqlStmt += "              AND SO.Name = #salesOrg# ";
+        sqlStmt += "              AND #compareAsDate('CC.StartDate__c', 'Date','<=' ,#date#, 'Date')# ";
+        sqlStmt += "              AND #compareAsDate('CC.EndDate__c', 'Date','>=' ,#date#, 'Date')# ";
+        sqlStmt += "              inner join TopBrand__c TB on TB.CycleName__c = CC.ID ";
+        sqlStmt += "      ) Cycle ON Brand.Id = Cycle.BrandId ";
+        sqlStmt += "  WHERE ";
+        sqlStmt += "     #compareAsDate('Order_Date__c', 'Date','>=' ,'Cycle.StartDate', 'Date')# ";
+        sqlStmt += "     AND #compareAsDate('Order_Date__c', 'Date','<=' ,#yesterday#, 'Date')# ";
+        sqlStmt += "  GROUP BY ";
+        sqlStmt += "      Brand.Id ";
+
+      }
+
+      else { // Other Countries - Planned Visit per day (Next 5 days)
+      
+        sqlStmt += "  SELECT ";
+        sqlStmt += "     COUNT(Visit.id)  as value  ";
+        sqlStmt += "     ,0 as target ";
+        sqlStmt += "  FROM ";
+        sqlStmt += "     Visit ";
+        sqlStmt += "  WHERE ";        
+        sqlStmt += "     Status = 'Planned' ";
+        sqlStmt += "     AND #compareAsDate('PlannedVisitStartTime', 'Date','>=' ,#date#, 'Date')# ";
+        sqlStmt += "     AND #compareAsDate('PlannedVisitStartTime', 'Date','<=' ,#endDate#, 'Date')# ";
+
+      }
+			return Utils.replaceMacrosParam(sqlStmt, sqlParams);
+		]]></Load>
+    <Update><![CDATA[ 
+			// Intended to be empty     
+			return undefined;     
+		]]></Update>
+ </Database>
+</DataSource>

@@ -1,0 +1,6 @@
+<ListItem name="LiMyOrderSplits">
+  <SimpleProperties>
+    <SimpleProperty name="pKey" type="DomPKey" id="true" dataSourceProperty="pKey" />
+    <SimpleProperty name="mainOrderPKey" type="DomPKey" dataSourceProperty="mainOrderPKey" />
+  </SimpleProperties>
+</ListItem>

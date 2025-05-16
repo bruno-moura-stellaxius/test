@@ -1,0 +1,50 @@
+<Process name="Order::MyVisitLookupProcess" defaultAction="LoadCustomerName" schemaVersion="0.0.0.5">
+  <Entry>
+    <ProcessContext>
+      <Parameters>
+        <Input name="customerPKey" type="DomPKey" />
+        <Input name="myVisitPKey" type="DomPKey" />
+      </Parameters>
+    </ProcessContext>
+    <EntryActions></EntryActions>
+  </Entry>
+  <Body>
+    <Actions>
+      <Action name="LoadCustomerName" actionType="LOAD" type="LuCustomer">
+        <Parameters>
+          <Input name="pKey" value="ProcessContext::customerPKey" />
+        </Parameters>
+        <Return name="ProcessContext::LuCustomer" />
+        <TransitionTo action="LoadVisitList"/>
+      </Action>
+      <Action name="LoadVisitList" actionType="CREATE" type="LoAgendaOverview">
+        <Return name="ProcessContext::MyVisitList" />
+        <TransitionTo action="GetCallsForPastMonth" />
+      </Action>
+      <Action name="GetCallsForPastMonth" actionType="LOGIC" call="ProcessContext::MyVisitList.myGetPreviousCalls">
+        <Parameters>
+          <Input name="numberOfDaysBack" value="30" type="Literal" />
+          <Input name="currentResponsiblePKey" value="ApplicationContext::User.pKey" />
+          <Input name="customerPKey" value="ProcessContext::customerPKey"  />
+        </Parameters>
+        <TransitionTo action="ShowVisitView" />
+      </Action>
+      <Action actionType="View" name="ShowVisitView">
+        <UIDescription>Order::MyVisitLookupUI</UIDescription>
+        <Events>
+          <Event name="visitItemSelected" action="EndWithValue" />
+        </Events>
+      </Action>
+      <Action actionType="END" name="EndWithValue">
+        <ReturnValues>
+          <Return name="myVisitPKey" value="Event.pKey" />
+        </ReturnValues>
+      </Action>
+      <Action actionType="END" name="End">
+        <ReturnValues>
+          <Return name="myVisitPKey" value="ProcessContext::myVisitPKey" />
+        </ReturnValues>
+      </Action>
+    </Actions>
+  </Body>
+</Process>
